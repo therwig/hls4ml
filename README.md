@@ -21,6 +21,8 @@ Python 3
 ```
 ### Instructions to run
 
+Change directory to ```/keras-to-hls```
+
 ```python keras-to-hls.py -c keras-config.yml```
 
 ### Configuration
