@@ -1,0 +1,4 @@
+*.pyc
+__pycache__
+vivado_prj
+.vscode
