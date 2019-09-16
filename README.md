@@ -1,6 +1,4 @@
-# HLS4ML - Intel
-
-<img src="https://hls-fpga-machine-learning.github.io/hls4ml/img/logo.jpg" alt="hls4ml" width="400">
+<img src="https://hls-fpga-machine-learning.github.io/hls4ml/img/logo.jpg" alt="hls4ml" width="400" align="middle">
 
 A package for machine learning inference in FPGAs. We create firmware implementations of machine learning algorithms using high level synthesis language (HLS). We translate traditional open-source machine learning package models into HLS that can be configured for your use-case!
 
@@ -14,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 Quartus Prime license: the package only supports Intel devices, a license is required for the simulation and synthesis of HLS code.
 
-* Tested on version 19.1
+* *Tested on version 19.1*
 
 In addition the following dependencies are required:
 
@@ -26,11 +24,11 @@ Python 3
 
 Reads Keras model json for architecture and hdf5 for weights and biases.
 
-### Instructions to run
+# Instructions to run
 
 ```python keras-to-hls.py -c keras-config.yml```
 
-### Configuration
+# Configuration
 
 Configuration options for the HLS translation of Keras models.
 
@@ -43,16 +41,12 @@ Examples are in the directory: `example-keras-model-files`
 
 *Note: The package optimizes for minimum latency. The Reuse factor support is being finalized will allow a better latency / area tradeoff.*
 
-### Running HLS 
+# Running HLS 
 
 ```
 cd my-hls-test
 make myproject-fpga
 ```
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Authors
 
