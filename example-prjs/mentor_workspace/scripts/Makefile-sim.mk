@@ -60,7 +60,6 @@ CXX_SOURCES += $(subst ../$(MODEL_DIR)/firmware/,,$(wildcard ../$(MODEL_DIR)/fir
 
 # Vivado HLS
 vivado: CXX_FLAGS += -O3
-vivado: CXX_FLAGS += -DXLNX_VIVADO_HLS
 vivado: INCDIR += -I$(XILINX_VIVADO)/include
 vivado: $(MODEL)
 .PHONY: vivado
@@ -75,6 +74,8 @@ vivado: $(MODEL)
 # Catapult HLS
 catapult: INCDIR += -I../inc
 catapult: INCDIR += -I$(SYSTEMC)/include
+catapult: CXX_FLAGS += -Wno-unused-local-typedefs
+catapult: CXX_FLAGS += -DMNTR_CATAPULT_HLS
 catapult: CXX_FLAGS += -O3
 catapult: LD_LIBS += -L$(SYSTEMC)/lib
 catapult: LD_FLAGS += -lsystemc

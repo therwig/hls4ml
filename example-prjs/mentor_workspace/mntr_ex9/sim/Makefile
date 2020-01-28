@@ -1,6 +1,6 @@
 #V=1
 
-MODEL = keras1layer
-MODEL_DIR = keras_1layer
+MODEL = econV0
+MODEL_DIR = keras_econV0
 
 -include ../../scripts/Makefile-sim.mk

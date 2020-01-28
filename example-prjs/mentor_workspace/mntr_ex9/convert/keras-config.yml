@@ -1,7 +1,7 @@
 KerasJson: encoder_model.json
 KerasH5:   encoder_48_24_6_3.hdf5
-InputData: ../../../example-models/keras/KERAS_1layer_input_features.dat
-OutputPredictions: ../../../example-models/keras/KERAS_1layer_predictions.dat
+#InputData: ../../../example-models/keras/KERAS_1layer_input_features.dat
+#OutputPredictions: ../../../example-models/keras/KERAS_1layer_predictions.dat
 OutputDir: keras_econV0
 ProjectName: econV0
 XilinxPart: xcku115-flvb2104-2-i
