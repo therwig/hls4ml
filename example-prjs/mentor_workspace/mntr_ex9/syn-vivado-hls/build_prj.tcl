@@ -5,7 +5,7 @@ array set opt {
   csim       1
   synth      1
   cosim      1
-  validation 1
+  validation 0
   export     1
 }
 
@@ -47,11 +47,11 @@ file mkdir tb_data
 set CSIM_RESULTS "./tb_data/vivado_csim_results.log"
 set RTL_COSIM_RESULTS "./tb_data/vivado_rtl_cosim_results.log"
 
-open_project -reset keras1layer_prj
-set_top keras1layer
-add_files ../keras_1layer/firmware/keras1layer.cpp -cflags "-std=c++0x"
-add_files -tb ../keras_1layer/sc_main.cpp -cflags "-std=c++0x"
-add_files -tb ../keras_1layer/firmware/weights
+open_project -reset econV0_prj
+set_top econV0
+add_files ../keras_econV0/firmware/econV0.cpp -cflags "-std=c++0x"
+add_files -tb ../keras_econV0/sc_main.cpp -cflags "-std=c++0x"
+add_files -tb ../keras_econV0/firmware/weights
 add_files -tb tb_data
 open_solution -reset "solution1"
 catch {config_array_partition -maximum_size 4096}
@@ -75,7 +75,7 @@ if {$opt(synth)} {
   if {$opt(cosim)} {
     puts "***** C/RTL SIMULATION *****"
     # TODO: This is a workaround (Xilinx defines __RTL_SIMULATION__ only for SystemC testbenches).
-    add_files -tb ../keras_1layer/sc_main.cpp -cflags "-std=c++0x -DRTL_SIM"
+    add_files -tb ../keras_econV0/sc_main.cpp -cflags "-std=c++0x -DRTL_SIM"
     set time_start [clock clicks -milliseconds]
     cosim_design -trace_level all
     set time_end [clock clicks -milliseconds]

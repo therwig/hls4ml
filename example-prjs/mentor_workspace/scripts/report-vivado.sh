@@ -306,7 +306,7 @@ VIVADO_EXECUTION_TIME=$(get_vivado_execution_time $GLOBAL_VIVADO_HLS_LOG)
 RTL_SIMULATION_EXECUTION_TIME=$(get_rtl_simulation_execution_time $GLOBAL_VIVADO_HLS_LOG)
 
 VIVADO_HLS_EXIT_VAL=$(get_vivado_hls_exit_value $GLOBAL_VIVADO_HLS_REPORT_XML)
-VIVADO_EXIT_VAL=$(get_vivado_exit_value $VIVADO_REPORT_XML)
+VIVADO_EXIT_VAL=$(get_vivado_exit_value $GLOBAL_VIVADO_REPORT_XML)
 RTL_SIMULATION_EXIT_VAL=$(get_rtl_simulation_exit_value $GLOBAL_VIVADO_HLS_LOG)
 
 VIVADO_HLS_BRAM_PERC=`bc -l <<< "scale=2; 100 * $VIVADO_HLS_BRAM / $VIVADO_HLS_AVAILABLE_BRAM"`
