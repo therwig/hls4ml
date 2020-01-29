@@ -284,7 +284,7 @@ if {$opt(hsynth)} {
             puts "ERROR: Cadence Genus is not supported"
             exit 1
         } else {
-            flow run /Vivado/synthesize -shell vivado/concat_rtl.v.xv
+            flow run /Vivado/synthesize -shell vivado_concat_v/concat_rtl.v.xv
         }
 
     }
