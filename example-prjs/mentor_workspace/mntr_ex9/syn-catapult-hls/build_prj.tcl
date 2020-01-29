@@ -96,11 +96,11 @@ solution options set /Input/CompilerFlags {-DMNTR_CATAPULT_HLS -D__ASIC__}
 solution options set Flows/QuestaSIM/SCCOM_OPTS {-g -x c++ -Wall -Wno-unused-label -Wno-unknown-pragmas -DRTL_SIM -D__FPGA__}
 solution options set /Input/CompilerFlags {-DMNTR_CATAPULT_HLS -D__FPGA__}
 }
-solution options set /Input/SearchPath {../inc ../keras1layer/firmware/ ../keras1layer/firmware/weights ../keras1layer/firmware/nnet_utils}
+solution options set /Input/SearchPath {../inc ../econV0/firmware/ ../econV0/firmware/weights ../econV0/firmware/nnet_utils}
 
 # Add source files.
-solution file add ../keras_1layer/firmware/keras1layer.cpp -type C++
-solution file add ../keras_1layer/sc_main.cpp -type C++ -exclude true
+solution file add ../keras_econV0/firmware/econV0.cpp -type C++
+solution file add ../keras_econV0/sc_main.cpp -type C++ -exclude true
 
 go new
 
@@ -115,11 +115,11 @@ go analyze
 #
 
 # Set the top module and inline all of the other functions.
-#directive set -DESIGN_HIERARCHY keras1layer
+#directive set -DESIGN_HIERARCHY econV0
 
 # Set the top module and set FC, RELU, Sigmoid as submodules.
 directive set -DESIGN_HIERARCHY { \
-    keras1layer \
+    econV0 \
     {nnet::dense_large<ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, config2>} \
     {nnet::dense_large<ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, config4>} \
     {nnet::dense_large<ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, config6>} \
@@ -186,25 +186,25 @@ if {$opt(hsynth)} {
     } \
     }
 
-    directive set /keras1layer/nnet::dense_large<input_t,layer2_t,config2> -MAP_TO_MODULE {[CCORE]}
-    directive set /keras1layer/nnet::dense_large<layer3_t,layer4_t,config4> -MAP_TO_MODULE {[CCORE]}
-    directive set /keras1layer/nnet::dense_large<layer5_t,layer6_t,config6> -MAP_TO_MODULE {[CCORE]}
-    directive set /keras1layer/nnet::relu<layer2_t,layer3_t,relu_config3> -MAP_TO_MODULE {[CCORE]}
-    directive set /keras1layer/nnet::relu<layer4_t,layer5_t,relu_config5> -MAP_TO_MODULE {[CCORE]}
-    directive set /keras1layer/nnet::relu<layer6_t,result_t,relu_config7> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV0/nnet::dense_large<input_t,layer2_t,config2> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV0/nnet::dense_large<layer3_t,layer4_t,config4> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV0/nnet::dense_large<layer5_t,layer6_t,config6> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV0/nnet::relu<layer2_t,layer3_t,relu_config3> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV0/nnet::relu<layer4_t,layer5_t,relu_config5> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV0/nnet::relu<layer6_t,result_t,relu_config7> -MAP_TO_MODULE {[CCORE]}
 
     # Retains the solution for the CCOREs within the project.
-    directive set /keras1layer/nnet::dense_large<input_t,layer2_t,config2> -CCORE_DEBUG true
-    directive set /keras1layer/nnet::dense_large<layer3_t,layer4_t,config4> -CCORE_DEBUG true
-    directive set /keras1layer/nnet::dense_large<layer5_t,layer6_t,config6> -CCORE_DEBUG true
-    directive set /keras1layer/nnet::relu<layer2_t,layer3_t,relu_config3> -CCORE_DEBUG true
-    directive set /keras1layer/nnet::relu<layer4_t,layer5_t,relu_config5> -CCORE_DEBUG true
-    directive set /keras1layer/nnet::relu<layer6_t,result_t,relu_config7> -CCORE_DEBUG true
+    directive set /econV0/nnet::dense_large<input_t,layer2_t,config2> -CCORE_DEBUG true
+    directive set /econV0/nnet::dense_large<layer3_t,layer4_t,config4> -CCORE_DEBUG true
+    directive set /econV0/nnet::dense_large<layer5_t,layer6_t,config6> -CCORE_DEBUG true
+    directive set /econV0/nnet::relu<layer2_t,layer3_t,relu_config3> -CCORE_DEBUG true
+    directive set /econV0/nnet::relu<layer4_t,layer5_t,relu_config5> -CCORE_DEBUG true
+    directive set /econV0/nnet::relu<layer6_t,result_t,relu_config7> -CCORE_DEBUG true
 
 
     # BUGFIX: This prevents the creation of the empty module CGHpart. In the
     # next releases of Catapult HLS, this may be fixed.
-    directive set /keras1layer -GATE_EFFORT normal
+    directive set /econV0 -GATE_EFFORT normal
 
     go assembly
 
@@ -215,29 +215,29 @@ if {$opt(hsynth)} {
     # Top-Module I/O
 
     ## DEPRECATED
-    ##directive set /keras1layer/input_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
-    ##directive set /keras1layer/layer5_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
+    ##directive set /econV0/input_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
+    ##directive set /econV0/layer5_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
 
-    directive set /keras1layer/input_48:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
-    directive set /keras1layer/layer7_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_wait
-    directive set /keras1layer/const_size_in_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
-    directive set /keras1layer/const_size_out_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
+    directive set /econV0/input_48:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+    directive set /econV0/layer7_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_wait
+    directive set /econV0/const_size_in_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
+    directive set /econV0/const_size_out_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
 
     # Arrays
-    directive set /keras1layer/nnet::dense_large<input_t,layer2_t,config2>(input_48):rsc -MAP_TO_MODULE {[Register]}
-    directive set /keras1layer/nnet::dense_large<layer3_t,layer4_t,config4>(layer3_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /keras1layer/nnet::dense_large<layer5_t,layer6_t,config6>(layer5_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /keras1layer/nnet::relu<layer2_t,layer3_t,relu_config3>(layer2_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /keras1layer/nnet::relu<layer4_t,layer5_t,relu_config5>(layer4_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /keras1layer/nnet::relu<layer6_t,result_t,relu_config7>(layer6_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV0/nnet::dense_large<input_t,layer2_t,config2>(input_48):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV0/nnet::dense_large<layer3_t,layer4_t,config4>(layer3_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV0/nnet::dense_large<layer5_t,layer6_t,config6>(layer5_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV0/nnet::relu<layer2_t,layer3_t,relu_config3>(layer2_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV0/nnet::relu<layer4_t,layer5_t,relu_config5>(layer4_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV0/nnet::relu<layer6_t,result_t,relu_config7>(layer6_out):rsc -MAP_TO_MODULE {[Register]}
     
     # Loops
-    directive set /keras1layer/nnet::dense_large<input_t,layer2_t,config2>/core/main -UNROLL no
-    directive set /keras1layer/nnet::dense_large<layer3_t,layer4_t,config4>/core/main -UNROLL no
-    directive set /keras1layer/nnet::dense_large<layer5_t,layer6_t,config6>/core/main -UNROLL no
-    directive set /keras1layer/nnet::relu<layer2_t,layer3_t,relu_config3>/core/main -UNROLL no
-    directive set /keras1layer/nnet::relu<layer4_t,layer5_t,relu_config5>/core/main -UNROLL no
-    directive set /keras1layer/nnet::relu<layer6_t,result_t,relu_config7>/core/main -UNROLL no
+    directive set /econV0/nnet::dense_large<input_t,layer2_t,config2>/core/main -UNROLL no
+    directive set /econV0/nnet::dense_large<layer3_t,layer4_t,config4>/core/main -UNROLL no
+    directive set /econV0/nnet::dense_large<layer5_t,layer6_t,config6>/core/main -UNROLL no
+    directive set /econV0/nnet::relu<layer2_t,layer3_t,relu_config3>/core/main -UNROLL no
+    directive set /econV0/nnet::relu<layer4_t,layer5_t,relu_config5>/core/main -UNROLL no
+    directive set /econV0/nnet::relu<layer6_t,result_t,relu_config7>/core/main -UNROLL no
 
     go architect
 
