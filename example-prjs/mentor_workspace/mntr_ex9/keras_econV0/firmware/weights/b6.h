@@ -9,7 +9,9 @@
 #ifndef __SYNTHESIS__
 static model_default_t b6[3];
 #else
-static model_default_t b6[3] = {0.4349, -0.1096, -0.0635};
+static model_default_t b6[3] = {
+#include "b6.txt"
+};
 #endif
 
 #endif
