@@ -1,4 +1,4 @@
-TARGET = keras1layer
+TARGET = econV0
 
 EXE = $(TARGET).x
 
