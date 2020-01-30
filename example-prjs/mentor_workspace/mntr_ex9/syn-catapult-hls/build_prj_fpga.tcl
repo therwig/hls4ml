@@ -8,7 +8,7 @@ array set opt {
     csim       1
     hsynth     1
     rtlsim     1
-    validation 0
+    validation 1
     lsynth     1
 }
 

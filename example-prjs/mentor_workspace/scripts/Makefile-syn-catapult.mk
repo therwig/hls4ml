@@ -42,37 +42,77 @@ kill-all:
 #	@../../report-catapult.sh $(PROJECT) | tee report.log
 #.PHONY: report
 
-validate-c-asic:
+#
+# Error analysis
+# - ASIC C vs. TF/Keras simulation logs.
+# - FPGA C vs. TF/Keras simulation logs.
+# - ASIC RTL vs. TF/Keras simulation logs.
+# - FPGA RTL vs. TF/Keras simulation logs.
+#
+
+validate-c-asic-sim:
 	@set -o pipefail; python ../../scripts/validate.py \
 		-r ./tb_data/tb_output_predictions.dat \
 		-i ./tb_data/catapult_asic_csim_results.log \
 		-t catapult \
 		| tee validate-c.log
-.PHONY: validate-c-asic
+.PHONY: validate-c-asic-sim
 
-validate-c-fpga:
+validate-c-fpga-sim:
 	@set -o pipefail; python ../../scripts/validate.py \
 		-r ./tb_data/tb_output_predictions.dat \
 		-i ./tb_data/catapult_fpga_csim_results.log \
 		-t catapult \
 		| tee validate-c.log
-.PHONY: validate-c-fpga
+.PHONY: validate-c-fpga-sim
 
-validate-rtl-asic:
+validate-rtl-asic-sim:
 	@set -o pipefail; python ../../scripts/validate.py \
 		-r ./tb_data/tb_output_predictions.dat \
 		-i ./tb_data/catapult_asic_rtl_cosim_results.log \
 		-t catapult \
 		| tee validate-rtl.log
-.PHONY: validate-rtl-asic
+.PHONY: validate-rtl-asic-sim
 
-validate-rtl-fpga:
+validate-rtl-fpga-sim:
 	@set -o pipefail; python ../../scripts/validate.py \
 		-r ./tb_data/tb_output_predictions.dat \
 		-i ./tb_data/catapult_fpga_rtl_cosim_results.log \
 		-t catapult \
 		| tee validate-rtl.log
-.PHONY: validate-rtl-fpga
+.PHONY: validate-rtl-fpga-sim
+
+#
+# Compare simulation logs
+# - C vs. RTL (ASIC)
+# - C vs. RTL (FPGA)
+# - ASIC vs. FPGA (C)
+# - ASIC vs. FPGA (RTL)
+#
+
+compare-c-rtl-asic-sim:
+	@vimdiff \
+		./tb_data/catapult_asic_csim_results.log  \
+		./tb_data/catapult_asic_rtl_cosim_results.log 
+.PHONY: compare-c-rtl-asic-sim
+
+compare-c-rtl-fpga-sim:
+	@vimdiff \
+		./tb_data/catapult_fpga_csim_results.log  \
+		./tb_data/catapult_fpga_rtl_cosim_results.log 
+.PHONY: compare-c-rtl-fpga-sim
+
+compare-c-fpga-asic-sim:
+	@vimdiff \
+		./tb_data/catapult_fpga_csim_results.log  \
+		./tb_data/catapult_asic_csim_results.log 
+.PHONY: compare-c-fpga-asic-sim
+
+compare-rtl-fpga-asic-sim:
+	@vimdiff \
+		./tb_data/catapult_fpga_rtl_cosim_results.log  \
+		./tb_data/catapult_asic_rtl_cosim_results.log 
+.PHONY: compare-rtl-fpga-asic-sim
 
 clean:
 	@echo "INFO: make ultraclean"

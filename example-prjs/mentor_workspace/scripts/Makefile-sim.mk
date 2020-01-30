@@ -112,21 +112,27 @@ run-catapult: catapult
 	$(QUIET_RUN)set -o pipefail; ./$(MODEL) | tee run-catapult.log
 .PHONY: run-catapult
 
-validate-catapult:
+#
+# Error analysis
+# - ASIC C vs. TF/Keras simulation logs.
+# - FPGA C vs. TF/Keras simulation logs.
+#
+
+validate-c-asic-sim:
 	@set -o pipefail; python ../../scripts/validate.py \
 		-r ./tb_data/tb_output_predictions.dat \
 		-i ./tb_data/catapult_fpga_csim_results.log \
 		-t catapult \
 		| tee validate-catapult.log
-.PHONY: validate-catapult
+.PHONY: validate-c-asic-sim
 
-validate-vivado:
+validate-c-fpga-sim:
 	@set -o pipefail; python ../../scripts/validate.py \
 		-r ./tb_data/tb_output_predictions.dat \
 		-i ./tb_data/vivado_csim_results.log \
 		-t vivado \
 		| tee validate-vivado.log
-.PHONY: validate-vivado
+.PHONY: validate-c-fpga-sim
 
 #valgrind:
 #	$(QUIET_RUN)valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(MODEL)

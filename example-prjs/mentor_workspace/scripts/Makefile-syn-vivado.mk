@@ -14,6 +14,12 @@ report:
 	@../../scripts/report-vivado.sh $(PROJECT) | tee report.log
 .PHONY: report
 
+#
+# Error analysis
+# - FPGA C vs. TF/Keras simulation logs.
+# - FPGA RTL vs. TF/Keras simulation logs.
+#
+
 validate-c-sim:
 	@set -o pipefail; python ../../scripts/validate.py \
 		-r ./tb_data/tb_output_predictions.dat \
@@ -29,6 +35,11 @@ validate-rtl-sim:
 		-t vivado \
 		| tee validate-rtl.log
 .PHONY: validate-rtl-sim
+
+#
+# Compare simulation logs
+# - C vs. RTL (FPGA)
+#
 
 compare-c-rtl-sim:
 	@vimdiff \
