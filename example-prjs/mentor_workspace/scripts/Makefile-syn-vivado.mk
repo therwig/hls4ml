@@ -14,21 +14,27 @@ report:
 	@../../scripts/report-vivado.sh $(PROJECT) | tee report.log
 .PHONY: report
 
-validate-c:
+validate-c-sim:
 	@set -o pipefail; python ../../scripts/validate.py \
 		-r ./tb_data/tb_output_predictions.dat \
 		-i ./tb_data/vivado_csim_results.log \
 		-t vivado \
 		| tee validate-c.log
-.PHONY: validate-c
+.PHONY: validate-c-sim
 
-validate-rtl:
+validate-rtl-sim:
 	@set -o pipefail; python ../../scripts/validate.py \
 		-r ./tb_data/tb_output_predictions.dat \
 		-i ./tb_data/vivado_rtl_cosim_results.log \
 		-t vivado \
 		| tee validate-rtl.log
-.PHONY: validate-rtl
+.PHONY: validate-rtl-sim
+
+compare-c-rtl-sim:
+	@vimdiff \
+		./tb_data/vivado_csim_results.log \
+		./tb_data/vivado_rtl_cosim_results.log 
+PHONY: compare-c-rtl-sim
 
 clean:
 	@echo "INFO: make ultraclean"

@@ -27,7 +27,7 @@
 #include "firmware/parameters.h"
 #include "firmware/econV0.h"
 
-#define CHECKPOINT 5000
+#define CHECKPOINT 1
 
 #ifdef MNTR_CATAPULT_HLS
 // SCVerify verification MACROs
