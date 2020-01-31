@@ -1,8 +1,13 @@
 module econV0_tb;
 
+`define TB_INDEX 3
+
 // Signals
 reg clk;
 reg reset;
+
+reg [863:0] file_input_data[99:0];
+reg [53:0] file_output_data[99:0];
 
 reg [863:0] input_data;
 reg input_valid;
@@ -61,17 +66,20 @@ end
 initial
 begin
     $display ("@%04d INFO: ###################################################", $time);
+    $display ("@%04d INFO: Load input from file", $time);
+    $readmemb("../tb/tb_input_features.mem", file_input_data);
+    $display ("@%04d INFO: Load expected output from file", $time);
+    $readmemb("../tb/tb_output_predictions.mem", file_output_data);
+   
+    $display ("@%04d INFO: Use input: %3d", $time, `TB_INDEX);
 
-    input_data = 864'b0;
-    output_ready = 1'b0;
-
-    // Assert input data as valid.
+    input_data = file_input_data[`TB_INDEX];  
     input_valid = 1'b1;
 
-    // Assert output data as ready.
+    expected_output_data = file_output_data[`TB_INDEX];
+   
+    output_ready = 1'b0;
     output_ready = 1'b1;
-
-    expected_output_data = 54'b0;
 
     dut_error = 0;
 end
@@ -86,17 +94,6 @@ begin
     $display ("@%04d INFO: Reset low", $time);
 end
 
-// Stimuli.
-initial begin
-    // TODO: In the future the testbench will read from file the inputs and
-    // expected outputs.
-    
-    // 0
-    input_data = 863'b0; 
-    expected_output_data = 54'b000000000000000000000000010101111011000000111010001111;
-  
-end
-
 // Validation
 always @(posedge clk)
 begin
@@ -109,6 +106,11 @@ begin
             $display ("@%04d ERROR: Expected value %b, but got value %b", $time, expected_output_data, output_data);
             dut_error <= 1;
         end
+        
+//        if  (output_valid == 1'b1 && output_data == expected_output_data)
+//        begin
+//            $display ("@%04d INFO: Expected value %b and computed value %b", $time, expected_output_data, output_data);
+//        end
 end
 
 initial

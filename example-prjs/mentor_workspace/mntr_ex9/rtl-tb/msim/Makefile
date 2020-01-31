@@ -1,4 +1,4 @@
-TOP_MODULE = keras1layer_tb
+TOP_MODULE = econV0_tb
 
 WORK_LIB = work
 

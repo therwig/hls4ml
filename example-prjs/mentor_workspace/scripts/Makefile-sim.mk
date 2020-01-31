@@ -147,5 +147,5 @@ clean:
 .PHONY: clean
 
 ultraclean: clean
-	$(QUIET_CLEAN)rm -rf ./tb_data/*.log *.log *.png
+	$(QUIET_CLEAN)rm -rf ./tb_data/*.log *.log *.png ./tb_data/*.mem
 .PHONY: ultraclean

@@ -29,10 +29,17 @@
 
 #define CHECKPOINT 1
 
+template<class T> 
+void print_fxd_as_bin(std::ostream &out, T data) {
+    for (int j = data.length() - 1; j >= 0; j--) {
+        out << data[j];
+    }
+}
+
+// ---- Catapult HLS ----
 #ifdef MNTR_CATAPULT_HLS
 // SCVerify verification MACROs
 #include "mc_scverify.h"
-
 CCS_MAIN (int argc, char *argv[])
 {
   std::cout << "Mentor Graphics Catapult HLS" << std::endl;
@@ -49,6 +56,7 @@ CCS_MAIN (int argc, char *argv[])
   std::string RESULTS_LOG = "tb_data/catapult_fpga_csim_results.log";
 #endif
 #endif
+// ----  Vivado HLS  ----
 #else
 int main(int argc, char **argv)
 {
@@ -59,12 +67,25 @@ int main(int argc, char **argv)
   std::string RESULTS_LOG = "tb_data/vivado_csim_results.log";
 #endif
 #endif
+// ---- ------------ ----
+
   //load input data from text file
   std::ifstream fin("tb_data/tb_input_features.dat");
   //load predictions from text file
   std::ifstream fpr("tb_data/tb_output_predictions.dat");
 
   std::ofstream fout(RESULTS_LOG);
+
+#if defined(MNTR_CATAPULT_HLS) 
+#ifndef RTL_SIM
+#ifndef __ASIC__
+  std::string INPUT_FILE_BIN_MEM = "tb_data/tb_input_features.mem";
+  std::string OUTPUT_FILE_BIN_MEM = "tb_data/tb_output_predictions.mem";
+  std::ofstream fout_ifbm(INPUT_FILE_BIN_MEM);
+  std::ofstream fout_ofbm(OUTPUT_FILE_BIN_MEM);
+#endif
+#endif
+#endif
 
   std::string iline;
   std::string pline;
@@ -122,7 +143,24 @@ int main(int argc, char **argv)
         }
         std::cout << std::endl;
       }
+
+#ifdef MNTR_CATAPULT_HLS
+#ifndef RTL_SIM
+#ifndef __ASIC__
+    for(int i = N_INPUT_1_1-1; i >= 0; i--) {
+        print_fxd_as_bin<input_t>(fout_ifbm, input_48[i]);
     }
+    fout_ifbm << std::endl;
+    for(int i = N_LAYER_6-1; i >= 0; i--) {
+        print_fxd_as_bin<result_t>(fout_ofbm, layer7_out[i]);
+    }
+    fout_ofbm << std::endl;
+#endif
+#endif
+#endif
+
+    }
+
     fin.close();
     fpr.close();
   } else {
@@ -146,6 +184,21 @@ int main(int argc, char **argv)
     }
     std::cout << std::endl;
 
+#ifdef MNTR_CATAPULT_HLS
+#ifndef RTL_SIM
+#ifndef __ASIC__
+    for(int i = N_INPUT_1_1-1; i >= 0; i--) {
+        print_fxd_as_bin<input_t>(fout_ifbm, input_48[i]);
+    }
+    fout_ifbm << std::endl;
+    for(int i = N_LAYER_6-1; i >= 0; i--) {
+        print_fxd_as_bin<result_t>(fout_ofbm, layer7_out[i]);
+    }
+    fout_ofbm << std::endl;
+#endif
+#endif
+#endif
+
     //hls-fpga-machine-learning insert tb-output
     for(int i = 0; i < N_LAYER_6; i++) {
       fout << layer7_out[i].to_double() << " ";
@@ -155,6 +208,17 @@ int main(int argc, char **argv)
 
   fout.close();
   std::cout << "INFO: Saved inference results to file: " << RESULTS_LOG << std::endl;
+
+#ifdef MNTR_CATAPULT_HLS
+#ifndef RTL_SIM
+#ifndef __ASIC__
+  fout_ifbm.close();
+  std::cout << "INFO: Saved input data to .mem file: " << INPUT_FILE_BIN_MEM << std::endl;
+  fout_ofbm.close();
+  std::cout << "INFO: Saved output data to .mem file: " << OUTPUT_FILE_BIN_MEM << std::endl;
+#endif
+#endif
+#endif
 
 #ifdef MNTR_CATAPULT_HLS
   CCS_RETURN(0);
