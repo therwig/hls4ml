@@ -115,16 +115,30 @@ compare-rtl-fpga-asic-sim:
 .PHONY: compare-rtl-fpga-asic-sim
 
 clean:
-	@echo "INFO: make ultraclean"
+	@echo "INFO: make ultraclean<TAB>"
 .PHONY: clean
 
-ultraclean: clean
-	rm -rf Catapult*
-	rm -rf transcript vivado.jou vivado_*.str design_checker_constraints.tcl  design_checker_pre_build.tcl *.pinfo slec_*
-	rm -rf *.png *.csv *.log
-	rm -rf tb_data/*log
-	rm -rf memlib
-	rm -rf UVM_*
-	rm -rf BRAM* RAMB* memlib_* w2_* w4_* w6_*
+ultraclean-asic:
+	rm -rf Catapult_asic*
+	rm -f Catapult_asic*.ccs
+	rm -f catapult-asic*.log
+	rm -f catapult-gui-asic*.log
+	rm -f tb_data/*asic*.log
+.PHONY: ultraclean-asic
+
+ultraclean-fpga:
+	rm -rf Catapult_fpga*
+	rm -f Catapult_fpga*.ccs
+	rm -f catapult-fpga*.log
+	rm -f catapult-gui-fpga*.log
+	rm -f tb_data/*fpga*.log
+.PHONY: ultraclean-fpga
+
+
+ultraclean: ultraclean-fpga ultraclean-asic
+	rm -f design_checker_constraints.tcl  design_checker_pre_build.tcl design_checker_waivers.tcl
+	rm -f catapult.log
+	rm -f validate-catapult.png
+	rm -f validate-c.log
 .PHONY: ultraclean
 
