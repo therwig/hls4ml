@@ -1,0 +1,22 @@
+<AutoPilot:solution xmlns:AutoPilot="com.autoesl.autopilot.solution">
+    <name>
+        <value string="solution1"/>
+    </name>
+    <project>
+        <value string="econV1_prj"/>
+    </project>
+    <config>
+        <config_array_partition maximum_size="4096"/>
+    </config>
+    <targetInfo>
+        <TargetInfo value="xcku115:-flvb2104:-2-i"/>
+    </targetInfo>
+    <libraryList>
+        <library value="xilinx/kintexu/kintexu" name="DefaultPlatform"/>
+        <library value="xilinx/kintexu/kintexu_fpv7" name="DefaultPlatform"/>
+    </libraryList>
+    <clockList>
+        <clock name="default" period="5" default="false"/>
+    </clockList>
+</AutoPilot:solution>
+
