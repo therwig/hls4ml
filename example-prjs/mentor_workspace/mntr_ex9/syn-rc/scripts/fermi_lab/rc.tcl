@@ -45,7 +45,24 @@ if {[catch {
 	# Noload/zero-load analysis on final result
 	#####################################################################
 
-	report timing -full
+    # GDG: add extra reports
+	report timing -full  > report/fermi_lab/timing_full.rpt
+    report timing -lint  > report/fermi_lab/timing_lint.rpt
+    report boundary_opt  > report/fermi_lab/boundary_opto.rpt
+    report clocks        > report/fermi_lab/clocks.rpt
+    report design_rules  > report/fermi_lab/design_rules.rpt
+    report datapath      > report/fermi_lab/datapath.rpt;
+    report clock_gating  > report/fermi_lab/clock_gating.rpt
+    #report loop          > report/fermi_lab/loop_breakers.rpt; # NO
+    report messages -all > report/fermi_lab/messages.rpt
+    report qor           > report/fermi_lab/qor.rpt
+    #report runtime       > report/fermi_lab/runtime.rpt; # NO
+    report yield         > report/fermi_lab/des_yield.rpt
+    report gates         > report/fermi_lab/gates.rpt
+    report area          > report/fermi_lab/area.rpt
+    report ple           > report/fermi_lab/ple.rpt
+    report units         > report/fermi_lab/des_units.rpt
+    report sequential    > report/fermi_lab/des_registers.rpt
 
 
 	# end timer

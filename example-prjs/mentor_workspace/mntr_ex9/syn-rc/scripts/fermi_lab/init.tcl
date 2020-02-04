@@ -13,7 +13,7 @@ set ec::start [clock seconds]
 # Setup file, directories, and variables
 #####################################################################
 
-#set ec::inDir           ../verilog/syn-catapult-hls-keras1layer/Catapult/keras1layer.v1
+#set ec::inDir           ../verilog/syn-catapult-hls-econV0/Catapult/econV0.v1
 #set ec::outDir          ../output
 #set ec::reportDir       ../report
 set ec::inDir           ./input
@@ -33,9 +33,9 @@ set OPEN45NM_PDK "/opt/cad/catapult/pkgs/siflibs/nangate"
 
 set CORE_CHIP 	CHIP
 set DFT OFF
-#set DESIGN keras1layer
+#set DESIGN econV0
 
-#set ec::RTL_PATH        ../verilog/syn-catapult-hls-keras1layer/Catapult/keras1layer.v1
+#set ec::RTL_PATH        ../verilog/syn-catapult-hls-econV0/Catapult/econV0.v1
 #set ec::LIB_PATH        "$TSMC_PDK"
 set ec::RTL_PATH        ./input
 set ec::LIB_PATH        "$OPEN45NM_PDK"
