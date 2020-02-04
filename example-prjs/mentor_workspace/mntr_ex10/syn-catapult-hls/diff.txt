@@ -1,0 +1,442 @@
+7c7
+< -- Generated date:           Fri Jan 31 14:09:35 EST 2020                        
+---
+> -- Generated date:           Fri Jan 31 13:45:14 EST 2020                        
+11c11
+<   Project: Catapult_fpga_16
+---
+>   Project: Catapult_fpga_15
+61,62c61,62
+<     /econV0/core                       10      19         20            1  0          
+<     Design Total:                      10      19         20            1  0          
+---
+>     /econV0/core                       10      10         11            1  0          
+>     Design Total:                      10      10         11            1  0          
+65,92c65,92
+<     Component Name                                                                       Area Score Area(DSP) Area(LUTs) Delay Post Alloc Post Assign 
+<     ------------------------------------------------------------------------------------ ---------- --------- ---------- ----- ---------- -----------
+<     [Lib: ccs_ioport]                                                                                                                                 
+<     ccs_in_wait(22,864)                                                                       0.000     0.000      0.000 0.000          1           1 
+<     ccs_out_vld(24,16)                                                                        0.000     0.000      0.000 0.000          1           1 
+<     ccs_out_vld(25,16)                                                                        0.000     0.000      0.000 0.000          1           1 
+<     ccs_out_wait(23,54)                                                                       0.000     0.000      0.000 0.000          1           1 
+<     [Lib: cluster]                                                                                                                                    
+<     nnet__dense_large_input_t_layer2_t_config2__20a4f1ee65e085eab56d5002fbee6acb9f677()  278283.731     0.000      0.000 0.300          1           1 
+<     nnet__dense_large_layer3_t_layer4_t_config4__0d42feccc00a847b4d7b5f3b4a1fd84422f6c()  38713.977     0.000      0.000 0.300          1           1 
+<     nnet__dense_large_layer5_t_layer6_t_config6__6294c663bdcf5c7dd9271dbabd2f5fd7a7df()    5139.629     0.000      0.000 0.300          1           1 
+<     nnet__relu_layer2_t_layer3_t_relu_config3__79935801db37cc664e198aa39507a36413525()      648.000     0.000      0.000 0.300          1           1 
+<     nnet__relu_layer4_t_layer5_t_relu_config5__bcee722f28894521a9552a467e7e2dd2908a()       162.000     0.000      0.000 0.300          1           1 
+<     nnet__relu_layer6_t_result_t_relu_config7__4263e77ad5119b121ea849a900733d8b7608()        81.000     0.000      0.000 0.300          1           1 
+<     [Lib: mgc_Altera-Arria-10-1_beh]                                                                                                                  
+<     mgc_and(1,2)                                                                              1.000     0.000      1.000 0.535          0          10 
+<     mgc_mux(864,1,2)                                                                        864.000     0.000    864.000 0.585          0           1 
+<     mgc_nor(1,2)                                                                              1.000     0.000      1.000 0.533          0           4 
+<     mgc_not(1)                                                                                0.000     0.000      0.000 0.000          0           7 
+<     mgc_or(1,2)                                                                               1.000     0.000      1.000 0.533          0           1 
+<     mgc_or(1,3)                                                                               1.000     0.000      1.000 0.533          0           2 
+<     mgc_reg_pos(1,0,0,1,1,0,0)                                                                0.000     0.000      0.000 0.300          0           3 
+<     mgc_reg_pos(1,0,0,1,1,1,1)                                                                0.000     0.000      0.000 0.300          0           2 
+<     mgc_reg_pos(432,0,0,1,1,1,1)                                                              0.000     0.000      0.000 0.300          0           1 
+<     mgc_reg_pos(54,0,0,1,1,1,1)                                                               0.000     0.000      0.000 0.300          0           1 
+<     mgc_reg_pos(864,0,0,1,1,0,0)                                                              0.000     0.000      0.000 0.300          0           1 
+<                                                                                                                                                       
+<     TOTAL AREA (After Assignment):                                                       323909.336     0.000    881.000                              
+---
+>     Component Name                                                                       Area Score Area(LUTs) Delay Post Alloc Post Assign 
+>     ------------------------------------------------------------------------------------ ---------- ---------- ----- ---------- -----------
+>     [Lib: ccs_ioport]                                                                                                                       
+>     ccs_in_wait(22,864)                                                                       0.000      0.000 0.000          1           1 
+>     ccs_out_vld(24,16)                                                                        0.000      0.000 0.000          1           1 
+>     ccs_out_vld(25,16)                                                                        0.000      0.000 0.000          1           1 
+>     ccs_out_wait(23,54)                                                                       0.000      0.000 0.000          1           1 
+>     [Lib: cluster]                                                                                                                          
+>     nnet__dense_large_input_t_layer2_t_config2__364e1c37b02d84e7ac7b82af01ac2d169f65f()  593719.000      0.000 0.102          1           1 
+>     nnet__dense_large_layer3_t_layer4_t_config4__94b287357b02bb07e1610e9805c3544722f54()  82718.000      0.000 0.102          1           1 
+>     nnet__dense_large_layer5_t_layer6_t_config6__94f0c22b7dff80064d055ba335642303a7c7()   10991.000      0.000 0.102          1           1 
+>     nnet__relu_layer2_t_layer3_t_relu_config3__f95037ce0bcd1dc6e3a2c701deed63c61350d()      840.000      0.000 0.102          1           1 
+>     nnet__relu_layer4_t_layer5_t_relu_config5__b16a24b030de7d0c14080de9c051aa049072()       210.000      0.000 0.102          1           1 
+>     nnet__relu_layer6_t_result_t_relu_config7__90a8b58c2a2db6a41b99f312c705472975f0()       105.000      0.000 0.102          1           1 
+>     [Lib: mgc_Xilinx-KINTEX-u-2_beh]                                                                                                        
+>     mgc_and(1,2)                                                                              1.000      1.000 0.176          0          10 
+>     mgc_mux(864,1,2)                                                                        864.000    864.000 0.026          0           1 
+>     mgc_nor(1,2)                                                                              1.000      1.000 0.176          0           4 
+>     mgc_not(1)                                                                                0.000      0.000 0.000          0           7 
+>     mgc_or(1,2)                                                                               1.000      1.000 0.176          0           1 
+>     mgc_or(1,3)                                                                               1.000      1.000 0.176          0           2 
+>     mgc_reg_pos(1,0,0,1,1,0,0)                                                                0.000      0.000 0.103          0           3 
+>     mgc_reg_pos(1,0,0,1,1,1,1)                                                                0.000      0.000 0.103          0           2 
+>     mgc_reg_pos(432,0,0,0,0,1,1)                                                              0.000      0.000 0.103          0           1 
+>     mgc_reg_pos(54,0,0,0,0,1,1)                                                               0.000      0.000 0.103          0           1 
+>     mgc_reg_pos(864,0,0,0,0,0,0)                                                              0.000      0.000 0.103          0           1 
+>                                                                                                                                             
+>     TOTAL AREA (After Assignment):                                                       689464.000    881.000                              
+97c97
+<     Total Area Score:   323028.3          323910.3          323910.3        
+---
+>     Total Area Score:   688583.0          689465.0          689465.0        
+100c100
+<     DataPath:           323028.3 (100%)   323909.3 (100%)   323909.3 (100%) 
+---
+>     DataPath:           688583.0 (100%)   689464.0 (100%)   689464.0 (100%) 
+102c102
+<       FUNC:             323028.3 (100%)   323028.3 (100%)   323028.3 (100%) 
+---
+>       FUNC:             688583.0 (100%)   688583.0 (100%)   688583.0 (100%) 
+124,125c124,125
+<     reg(const_size_out_1:rsci.ivld.core.psct).cse                         1         Y                  reg(const_size_out_1:rsci.ivld.core.psct).cse                
+<     reg(layer7_out:rsci.ivld.core.psct).cse                               1         Y                  reg(layer7_out:rsci.ivld.core.psct).cse                      
+---
+>     reg(input_48:rsci.oswt).cse                                           1         Y                  reg(input_48:rsci.oswt).cse                                  
+>     reg(layer7_out:rsci.oswt).cse                                         1         Y                  reg(layer7_out:rsci.oswt).cse                                
+131,132c131,132
+<       Max Delay:  4.732303
+<       Slack:      0.2676970000000001
+---
+>       Max Delay:  4.105505
+>       Slack:      0.894495
+136c136
+<       1                                                                                      econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.idat.bfwt) econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                  4.7323 0.2677 
+---
+>       1                                                                                      econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.idat.bfwt) econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                  4.1055 0.8945 
+140,146c140,146
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.idat.bfwt)        mgc_reg_pos_864_0_0_1_1_0_0                                                                                                                                  0.3001 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.idat.bfwt                                                                                                                                                                          0.0000 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/mux                                 mgc_mux_864_1_2                                                                                                                                              0.5847 0.8848 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.idat.mxwt                                                                                                                                                                          0.0000 0.8848 
+<         econV0:core:input_48:rsci/input_48:rsci.idat.mxwt                                                                                                                                                                                                 0.0000 0.8848 
+<         econV0:core/input_48:rsci.idat.mxwt                                                                                                                                                                                                               0.0000 0.8848 
+<         econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                        nnet_dense_large_input_t_layer2_t_config2                                                                                                                    0.0000 4.7323 
+---
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.idat.bfwt)        mgc_reg_pos_864_0_0_0_0_0_0                                                                                                                                  0.1026 0.1026 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.idat.bfwt                                                                                                                                                                          0.0000 0.1026 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/mux                                 mgc_mux_864_1_2                                                                                                                                              0.0256 0.1282 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.idat.mxwt                                                                                                                                                                          0.0000 0.1282 
+>         econV0:core:input_48:rsci/input_48:rsci.idat.mxwt                                                                                                                                                                                                 0.0000 0.1282 
+>         econV0:core/input_48:rsci.idat.mxwt                                                                                                                                                                                                               0.0000 0.1282 
+>         econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                        nnet_dense_large_input_t_layer2_t_config2                                                                                                                    0.0000 4.1055 
+148c148
+<       2                                                                                      econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.bcwt)      econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                  4.7323 0.2677 
+---
+>       2                                                                                      econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.bcwt)      econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                  4.1055 0.8945 
+152,158c152,158
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.bcwt)             mgc_reg_pos_1_0_0_1_1_0_0                                                                                                                                    0.3001 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.bcwt                                                                                                                                                                               0.0000 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/mux                                 mgc_mux_864_1_2                                                                                                                                              0.5847 0.8848 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.idat.mxwt                                                                                                                                                                          0.0000 0.8848 
+<         econV0:core:input_48:rsci/input_48:rsci.idat.mxwt                                                                                                                                                                                                 0.0000 0.8848 
+<         econV0:core/input_48:rsci.idat.mxwt                                                                                                                                                                                                               0.0000 0.8848 
+<         econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                        nnet_dense_large_input_t_layer2_t_config2                                                                                                                    0.0000 4.7323 
+---
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.bcwt)             mgc_reg_pos_1_0_0_1_1_0_0                                                                                                                                    0.1026 0.1026 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.bcwt                                                                                                                                                                               0.0000 0.1026 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/mux                                 mgc_mux_864_1_2                                                                                                                                              0.0256 0.1282 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.idat.mxwt                                                                                                                                                                          0.0000 0.1282 
+>         econV0:core:input_48:rsci/input_48:rsci.idat.mxwt                                                                                                                                                                                                 0.0000 0.1282 
+>         econV0:core/input_48:rsci.idat.mxwt                                                                                                                                                                                                               0.0000 0.1282 
+>         econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                        nnet_dense_large_input_t_layer2_t_config2                                                                                                                    0.0000 4.1055 
+160c160
+<       3                                                                                      econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.idat           econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                  4.4322 0.5678 
+---
+>       3                                                                                      econV0:core/reg(nnet::dense_large<layer3_t,layer4_t,config4>(layer3_out))     econV0:core/nnet::dense_large<layer3_t,layer4_t,config4>():cmp                 4.0751 0.9249 
+164,169c164,168
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.idat                                                                                                                                                                               0.0000 0.0000 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/mux                                 mgc_mux_864_1_2                                                                                                                                              0.5847 0.5847 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.idat.mxwt                                                                                                                                                                          0.0000 0.5847 
+<         econV0:core:input_48:rsci/input_48:rsci.idat.mxwt                                                                                                                                                                                                 0.0000 0.5847 
+<         econV0:core/input_48:rsci.idat.mxwt                                                                                                                                                                                                               0.0000 0.5847 
+<         econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                        nnet_dense_large_input_t_layer2_t_config2                                                                                                                    0.3001 4.4322 
+---
+>         econV0:core/reg(nnet::dense_large<layer3_t,layer4_t,config4>(layer3_out))            mgc_reg_pos_432_0_0_0_0_1_1                                                                                                                                  0.1026 0.1026 
+>         econV0:core/nnet::dense_large<layer3_t,layer4_t,config4>(layer3_out).sva                                                                                                                                                                          0.0000 0.1026 
+>         econV0:core/asn(nnet::dense_large<layer3_t,layer4_t,config4>():cmp.data_rsc_dat)                                                                                                                                                                  0.0000 0.1026 
+>         econV0:core/asn(nnet::dense_large<layer3_t,layer4_t,config4>():cmp.data_rsc_dat).itm                                                                                                                                                              0.0000 0.1026 
+>         econV0:core/nnet::dense_large<layer3_t,layer4_t,config4>():cmp                       nnet_dense_large_layer3_t_layer4_t_config4                                                                                                                   0.0000 4.0751 
+171c170
+<       4                                                                                      econV0:core/reg(nnet::dense_large<layer3_t,layer4_t,config4>(layer3_out))     econV0:core/nnet::dense_large<layer3_t,layer4_t,config4>():cmp                 4.0104 0.9896 
+---
+>       4                                                                                      econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.idat           econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                  4.0029 0.9971 
+175,179c174,179
+<         econV0:core/reg(nnet::dense_large<layer3_t,layer4_t,config4>(layer3_out))            mgc_reg_pos_432_0_0_1_1_1_1                                                                                                                                  0.3001 0.3001 
+<         econV0:core/nnet::dense_large<layer3_t,layer4_t,config4>(layer3_out).sva                                                                                                                                                                          0.0000 0.3001 
+<         econV0:core/asn(nnet::dense_large<layer3_t,layer4_t,config4>():cmp.data_rsc_dat)                                                                                                                                                                  0.0000 0.3001 
+<         econV0:core/asn(nnet::dense_large<layer3_t,layer4_t,config4>():cmp.data_rsc_dat).itm                                                                                                                                                              0.0000 0.3001 
+<         econV0:core/nnet::dense_large<layer3_t,layer4_t,config4>():cmp                       nnet_dense_large_layer3_t_layer4_t_config4                                                                                                                   0.0000 4.0104 
+---
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.idat                                                                                                                                                                               0.0000 0.0000 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/mux                                 mgc_mux_864_1_2                                                                                                                                              0.0256 0.0256 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.idat.mxwt                                                                                                                                                                          0.0000 0.0256 
+>         econV0:core:input_48:rsci/input_48:rsci.idat.mxwt                                                                                                                                                                                                 0.0000 0.0256 
+>         econV0:core/input_48:rsci.idat.mxwt                                                                                                                                                                                                               0.0000 0.0256 
+>         econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                        nnet_dense_large_input_t_layer2_t_config2                                                                                                                    0.1026 4.0029 
+181c181
+<       5                                                                                      econV0:core/econV0:core_core:fsm:inst                                         econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                  3.8475 1.1525 
+---
+>       5                                                                                      econV0:core/econV0:core_core:fsm:inst                                         econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                  3.9773 1.0227 
+189c189
+<         econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                        nnet_dense_large_input_t_layer2_t_config2                                                                                                                    0.0000 3.8475 
+---
+>         econV0:core/nnet::dense_large<input_t,layer2_t,config2>():cmp                        nnet_dense_large_input_t_layer2_t_config2                                                                                                                    0.0000 3.9773 
+191c191
+<       6                                                                                      econV0:core/econV0:core_core:fsm:inst                                         econV0:core/nnet::dense_large<layer3_t,layer4_t,config4>():cmp                 3.7103 1.2897 
+---
+>       6                                                                                      econV0:core/econV0:core_core:fsm:inst                                         econV0:core/nnet::dense_large<layer3_t,layer4_t,config4>():cmp                 3.9725 1.0275 
+197,199c197,199
+<         econV0:core/slc(fsm_output)(8)                                                                                                                                                                                                                    0.0000 0.0000 
+<         econV0:core/slc(fsm_output)(8).itm                                                                                                                                                                                                                0.0000 0.0000 
+<         econV0:core/nnet::dense_large<layer3_t,layer4_t,config4>():cmp                       nnet_dense_large_layer3_t_layer4_t_config4                                                                                                                   0.0000 3.7103 
+---
+>         econV0:core/slc(fsm_output)(5)                                                                                                                                                                                                                    0.0000 0.0000 
+>         econV0:core/slc(fsm_output)(5).itm                                                                                                                                                                                                                0.0000 0.0000 
+>         econV0:core/nnet::dense_large<layer3_t,layer4_t,config4>():cmp                       nnet_dense_large_layer3_t_layer4_t_config4                                                                                                                   0.0000 3.9725 
+201c201
+<       7                                                                                      econV0:core/reg(const_size_out_1:rsci.ivld.core.psct)                         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.bcwt)       3.5041 1.4959 
+---
+>       7                                                                                      econV0:core/nnet::relu<layer4_t,layer5_t,relu_config5>():cmp                  econV0:core/nnet::dense_large<layer5_t,layer6_t,config6>():cmp                 3.4046 1.5954 
+205,231c205,207
+<         econV0:core/reg(const_size_out_1:rsci.ivld.core.psct)                                mgc_reg_pos_1_0_0_1_1_1_1                                                                                                                                    0.3001 0.3001 
+<         econV0:core/reg(const_size_out_1:rsci.ivld.core.psct).cse                                                                                                                                                                                         0.0000 0.3001 
+<         econV0:core:input_48:rsci/input_48:rsci.oswt                                                                                                                                                                                                      0.0000 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.oswt                                                                                                                                                                             0.0000 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/and#3                             mgc_and_1_2                                                                                                                                                  0.5347 0.8348 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.ogwt                                                                                                                                                                             0.0000 0.8348 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/and#1                             mgc_and_1_2                                                                                                                                                  0.5347 1.3695 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.biwt                                                                                                                                                                             0.0000 1.3695 
+<         econV0:core:input_48:rsci/input_48:rsci.biwt                                                                                                                                                                                                      0.0000 1.3695 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.biwt                                                                                                                                                                               0.0000 1.3695 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/or#1                                mgc_or_1_3                                                                                                                                                   0.5326 1.9021 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.wen_comp                                                                                                                                                                           0.0000 1.9021 
+<         econV0:core:input_48:rsci/input_48:rsci.wen_comp                                                                                                                                                                                                  0.0000 1.9021 
+<         econV0:core/input_48:rsci.wen_comp                                                                                                                                                                                                                0.0000 1.9021 
+<         econV0:core:staller/input_48:rsci.wen_comp                                                                                                                                                                                                        0.0000 1.9021 
+<         econV0:core:staller/and#14                                                           mgc_and_1_2                                                                                                                                                  0.5347 2.4368 
+<         econV0:core:staller/core.wen                                                                                                                                                                                                                      0.0000 2.4368 
+<         econV0:core/core.wen                                                                                                                                                                                                                              0.0000 2.4368 
+<         econV0:core:input_48:rsci/core.wen                                                                                                                                                                                                                0.0000 2.4368 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/core.wen                                                                                                                                                                                       0.0000 2.4368 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/and                               mgc_and_1_2                                                                                                                                                  0.5347 2.9715 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.bdwt                                                                                                                                                                             0.0000 2.9715 
+<         econV0:core:input_48:rsci/input_48:rsci.bdwt                                                                                                                                                                                                      0.0000 2.9715 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.bdwt                                                                                                                                                                               0.0000 2.9715 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/nor                                 mgc_nor_1_2                                                                                                                                                  0.5326 3.5041 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/nor.itm                                                                                                                                                                                          0.0000 3.5041 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.bcwt)             mgc_reg_pos_1_0_0_1_1_0_0                                                                                                                                    0.0000 3.5041 
+---
+>         econV0:core/nnet::relu<layer4_t,layer5_t,relu_config5>():cmp                         nnet_relu_layer4_t_layer5_t_relu_config5                                                                                                                     0.1025 0.1025 
+>         econV0:core/nnet::relu<layer4_t,layer5_t,relu_config5>():cmp.res_rsc_z                                                                                                                                                                            0.0000 0.1025 
+>         econV0:core/nnet::dense_large<layer5_t,layer6_t,config6>():cmp                       nnet_dense_large_layer5_t_layer6_t_config6                                                                                                                   0.0000 3.4046 
+233c209
+<       8                                                                                      econV0:core/reg(const_size_out_1:rsci.ivld.core.psct)                         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/reg(layer7_out:rsci.bcwt) 3.5041 1.4959 
+---
+>       8                                                                                      econV0:core/econV0:core_core:fsm:inst                                         econV0:core/nnet::dense_large<layer5_t,layer6_t,config6>():cmp                 3.3021 1.6979 
+237,263c213,217
+<         econV0:core/reg(const_size_out_1:rsci.ivld.core.psct)                                mgc_reg_pos_1_0_0_1_1_1_1                                                                                                                                    0.3001 0.3001 
+<         econV0:core/reg(const_size_out_1:rsci.ivld.core.psct).cse                                                                                                                                                                                         0.0000 0.3001 
+<         econV0:core:input_48:rsci/input_48:rsci.oswt                                                                                                                                                                                                      0.0000 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.oswt                                                                                                                                                                             0.0000 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/and#3                             mgc_and_1_2                                                                                                                                                  0.5347 0.8348 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.ogwt                                                                                                                                                                             0.0000 0.8348 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/and#1                             mgc_and_1_2                                                                                                                                                  0.5347 1.3695 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.biwt                                                                                                                                                                             0.0000 1.3695 
+<         econV0:core:input_48:rsci/input_48:rsci.biwt                                                                                                                                                                                                      0.0000 1.3695 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.biwt                                                                                                                                                                               0.0000 1.3695 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/or#1                                mgc_or_1_3                                                                                                                                                   0.5326 1.9021 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.wen_comp                                                                                                                                                                           0.0000 1.9021 
+<         econV0:core:input_48:rsci/input_48:rsci.wen_comp                                                                                                                                                                                                  0.0000 1.9021 
+<         econV0:core/input_48:rsci.wen_comp                                                                                                                                                                                                                0.0000 1.9021 
+<         econV0:core:staller/input_48:rsci.wen_comp                                                                                                                                                                                                        0.0000 1.9021 
+<         econV0:core:staller/and#14                                                           mgc_and_1_2                                                                                                                                                  0.5347 2.4368 
+<         econV0:core:staller/core.wen                                                                                                                                                                                                                      0.0000 2.4368 
+<         econV0:core/core.wen                                                                                                                                                                                                                              0.0000 2.4368 
+<         econV0:core:layer7_out:rsci/core.wen                                                                                                                                                                                                              0.0000 2.4368 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/core.wen                                                                                                                                                                                   0.0000 2.4368 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/and#4                         mgc_and_1_2                                                                                                                                                  0.5347 2.9715 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/layer7_out:rsci.bdwt                                                                                                                                                                       0.0000 2.9715 
+<         econV0:core:layer7_out:rsci/layer7_out:rsci.bdwt                                                                                                                                                                                                  0.0000 2.9715 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/layer7_out:rsci.bdwt                                                                                                                                                                         0.0000 2.9715 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/nor#2                           mgc_nor_1_2                                                                                                                                                  0.5326 3.5041 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/nor#2.itm                                                                                                                                                                                    0.0000 3.5041 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/reg(layer7_out:rsci.bcwt)       mgc_reg_pos_1_0_0_1_1_0_0                                                                                                                                    0.0000 3.5041 
+---
+>         econV0:core/econV0:core_core:fsm:inst                                                econV0:core_core:fsm                                                                                                                                         0.0000 0.0000 
+>         econV0:core/fsm_output                                                                                                                                                                                                                            0.0000 0.0000 
+>         econV0:core/slc(fsm_output)(8)                                                                                                                                                                                                                    0.0000 0.0000 
+>         econV0:core/slc(fsm_output)(8).itm                                                                                                                                                                                                                0.0000 0.0000 
+>         econV0:core/nnet::dense_large<layer5_t,layer6_t,config6>():cmp                       nnet_dense_large_layer5_t_layer6_t_config6                                                                                                                   0.0000 3.3021 
+265c219
+<       9                                                                                      econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.bcwt)      econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/reg(layer7_out:rsci.bcwt) 3.5041 1.4959 
+---
+>       9                                                                                      econV0:core/reg(input_48:rsci.oswt)                                           econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/reg(layer7_out:rsci.bcwt) 1.1603 3.8397 
+269,297c223,249
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.bcwt)             mgc_reg_pos_1_0_0_1_1_0_0                                                                                                                                    0.3001 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.bcwt                                                                                                                                                                               0.0000 0.3001 
+<         econV0:core:input_48:rsci/input_48:rsci.bcwt                                                                                                                                                                                                      0.0000 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.bcwt                                                                                                                                                                             0.0000 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/not#1                             mgc_not_1                                                                                                                                                    0.0000 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/not#1.itm                                                                                                                                                                                      0.0000 0.3001 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/and#3                             mgc_and_1_2                                                                                                                                                  0.5347 0.8348 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.ogwt                                                                                                                                                                             0.0000 0.8348 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/and#1                             mgc_and_1_2                                                                                                                                                  0.5347 1.3695 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.biwt                                                                                                                                                                             0.0000 1.3695 
+<         econV0:core:input_48:rsci/input_48:rsci.biwt                                                                                                                                                                                                      0.0000 1.3695 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.biwt                                                                                                                                                                               0.0000 1.3695 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/or#1                                mgc_or_1_3                                                                                                                                                   0.5326 1.9021 
+<         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.wen_comp                                                                                                                                                                           0.0000 1.9021 
+<         econV0:core:input_48:rsci/input_48:rsci.wen_comp                                                                                                                                                                                                  0.0000 1.9021 
+<         econV0:core/input_48:rsci.wen_comp                                                                                                                                                                                                                0.0000 1.9021 
+<         econV0:core:staller/input_48:rsci.wen_comp                                                                                                                                                                                                        0.0000 1.9021 
+<         econV0:core:staller/and#14                                                           mgc_and_1_2                                                                                                                                                  0.5347 2.4368 
+<         econV0:core:staller/core.wen                                                                                                                                                                                                                      0.0000 2.4368 
+<         econV0:core/core.wen                                                                                                                                                                                                                              0.0000 2.4368 
+<         econV0:core:layer7_out:rsci/core.wen                                                                                                                                                                                                              0.0000 2.4368 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/core.wen                                                                                                                                                                                   0.0000 2.4368 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/and#4                         mgc_and_1_2                                                                                                                                                  0.5347 2.9715 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/layer7_out:rsci.bdwt                                                                                                                                                                       0.0000 2.9715 
+<         econV0:core:layer7_out:rsci/layer7_out:rsci.bdwt                                                                                                                                                                                                  0.0000 2.9715 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/layer7_out:rsci.bdwt                                                                                                                                                                         0.0000 2.9715 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/nor#2                           mgc_nor_1_2                                                                                                                                                  0.5326 3.5041 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/nor#2.itm                                                                                                                                                                                    0.0000 3.5041 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/reg(layer7_out:rsci.bcwt)       mgc_reg_pos_1_0_0_1_1_0_0                                                                                                                                    0.0000 3.5041 
+---
+>         econV0:core/reg(input_48:rsci.oswt)                                                  mgc_reg_pos_1_0_0_1_1_1_1                                                                                                                                    0.1026 0.1026 
+>         econV0:core/reg(input_48:rsci.oswt).cse                                                                                                                                                                                                           0.0000 0.1026 
+>         econV0:core:input_48:rsci/input_48:rsci.oswt                                                                                                                                                                                                      0.0000 0.1026 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.oswt                                                                                                                                                                             0.0000 0.1026 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/and#3                             mgc_and_1_2                                                                                                                                                  0.1763 0.2788 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.ogwt                                                                                                                                                                             0.0000 0.2788 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/and#1                             mgc_and_1_2                                                                                                                                                  0.1763 0.4551 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.biwt                                                                                                                                                                             0.0000 0.4551 
+>         econV0:core:input_48:rsci/input_48:rsci.biwt                                                                                                                                                                                                      0.0000 0.4551 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.biwt                                                                                                                                                                               0.0000 0.4551 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/or#1                                mgc_or_1_3                                                                                                                                                   0.1763 0.6314 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.wen_comp                                                                                                                                                                           0.0000 0.6314 
+>         econV0:core:input_48:rsci/input_48:rsci.wen_comp                                                                                                                                                                                                  0.0000 0.6314 
+>         econV0:core/input_48:rsci.wen_comp                                                                                                                                                                                                                0.0000 0.6314 
+>         econV0:core:staller/input_48:rsci.wen_comp                                                                                                                                                                                                        0.0000 0.6314 
+>         econV0:core:staller/and#14                                                           mgc_and_1_2                                                                                                                                                  0.1763 0.8077 
+>         econV0:core:staller/core.wen                                                                                                                                                                                                                      0.0000 0.8077 
+>         econV0:core/core.wen                                                                                                                                                                                                                              0.0000 0.8077 
+>         econV0:core:layer7_out:rsci/core.wen                                                                                                                                                                                                              0.0000 0.8077 
+>         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/core.wen                                                                                                                                                                                   0.0000 0.8077 
+>         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/and#4                         mgc_and_1_2                                                                                                                                                  0.1763 0.9840 
+>         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/layer7_out:rsci.bdwt                                                                                                                                                                       0.0000 0.9840 
+>         econV0:core:layer7_out:rsci/layer7_out:rsci.bdwt                                                                                                                                                                                                  0.0000 0.9840 
+>         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/layer7_out:rsci.bdwt                                                                                                                                                                         0.0000 0.9840 
+>         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/nor#2                           mgc_nor_1_2                                                                                                                                                  0.1763 1.1603 
+>         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/nor#2.itm                                                                                                                                                                                    0.0000 1.1603 
+>         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/reg(layer7_out:rsci.bcwt)       mgc_reg_pos_1_0_0_1_1_0_0                                                                                                                                    0.0000 1.1603 
+299c251
+<       10                                                                                     econV0:core/reg(layer7_out:rsci.ivld.core.psct)                               econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/reg(layer7_out:rsci.bcwt) 3.5041 1.4959 
+---
+>       10                                                                                     econV0:core/reg(input_48:rsci.oswt)                                           econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.bcwt)       1.1603 3.8397 
+303,329c255,281
+<         econV0:core/reg(layer7_out:rsci.ivld.core.psct)                                      mgc_reg_pos_1_0_0_1_1_1_1                                                                                                                                    0.3001 0.3001 
+<         econV0:core/reg(layer7_out:rsci.ivld.core.psct).cse                                                                                                                                                                                               0.0000 0.3001 
+<         econV0:core:layer7_out:rsci/layer7_out:rsci.oswt                                                                                                                                                                                                  0.0000 0.3001 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/layer7_out:rsci.oswt                                                                                                                                                                       0.0000 0.3001 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/and#7                         mgc_and_1_2                                                                                                                                                  0.5347 0.8348 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/layer7_out:rsci.ogwt                                                                                                                                                                       0.0000 0.8348 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/and#5                         mgc_and_1_2                                                                                                                                                  0.5347 1.3695 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/layer7_out:rsci.biwt                                                                                                                                                                       0.0000 1.3695 
+<         econV0:core:layer7_out:rsci/layer7_out:rsci.biwt                                                                                                                                                                                                  0.0000 1.3695 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/layer7_out:rsci.biwt                                                                                                                                                                         0.0000 1.3695 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/or#3                            mgc_or_1_3                                                                                                                                                   0.5326 1.9021 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/layer7_out:rsci.wen_comp                                                                                                                                                                     0.0000 1.9021 
+<         econV0:core:layer7_out:rsci/layer7_out:rsci.wen_comp                                                                                                                                                                                              0.0000 1.9021 
+<         econV0:core/layer7_out:rsci.wen_comp                                                                                                                                                                                                              0.0000 1.9021 
+<         econV0:core:staller/layer7_out:rsci.wen_comp                                                                                                                                                                                                      0.0000 1.9021 
+<         econV0:core:staller/and#14                                                           mgc_and_1_2                                                                                                                                                  0.5347 2.4368 
+<         econV0:core:staller/core.wen                                                                                                                                                                                                                      0.0000 2.4368 
+<         econV0:core/core.wen                                                                                                                                                                                                                              0.0000 2.4368 
+<         econV0:core:layer7_out:rsci/core.wen                                                                                                                                                                                                              0.0000 2.4368 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/core.wen                                                                                                                                                                                   0.0000 2.4368 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/and#4                         mgc_and_1_2                                                                                                                                                  0.5347 2.9715 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_ctrl/layer7_out:rsci.bdwt                                                                                                                                                                       0.0000 2.9715 
+<         econV0:core:layer7_out:rsci/layer7_out:rsci.bdwt                                                                                                                                                                                                  0.0000 2.9715 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/layer7_out:rsci.bdwt                                                                                                                                                                         0.0000 2.9715 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/nor#2                           mgc_nor_1_2                                                                                                                                                  0.5326 3.5041 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/nor#2.itm                                                                                                                                                                                    0.0000 3.5041 
+<         econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/reg(layer7_out:rsci.bcwt)       mgc_reg_pos_1_0_0_1_1_0_0                                                                                                                                    0.0000 3.5041 
+---
+>         econV0:core/reg(input_48:rsci.oswt)                                                  mgc_reg_pos_1_0_0_1_1_1_1                                                                                                                                    0.1026 0.1026 
+>         econV0:core/reg(input_48:rsci.oswt).cse                                                                                                                                                                                                           0.0000 0.1026 
+>         econV0:core:input_48:rsci/input_48:rsci.oswt                                                                                                                                                                                                      0.0000 0.1026 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.oswt                                                                                                                                                                             0.0000 0.1026 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/and#3                             mgc_and_1_2                                                                                                                                                  0.1763 0.2788 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.ogwt                                                                                                                                                                             0.0000 0.2788 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/and#1                             mgc_and_1_2                                                                                                                                                  0.1763 0.4551 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.biwt                                                                                                                                                                             0.0000 0.4551 
+>         econV0:core:input_48:rsci/input_48:rsci.biwt                                                                                                                                                                                                      0.0000 0.4551 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.biwt                                                                                                                                                                               0.0000 0.4551 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/or#1                                mgc_or_1_3                                                                                                                                                   0.1763 0.6314 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.wen_comp                                                                                                                                                                           0.0000 0.6314 
+>         econV0:core:input_48:rsci/input_48:rsci.wen_comp                                                                                                                                                                                                  0.0000 0.6314 
+>         econV0:core/input_48:rsci.wen_comp                                                                                                                                                                                                                0.0000 0.6314 
+>         econV0:core:staller/input_48:rsci.wen_comp                                                                                                                                                                                                        0.0000 0.6314 
+>         econV0:core:staller/and#14                                                           mgc_and_1_2                                                                                                                                                  0.1763 0.8077 
+>         econV0:core:staller/core.wen                                                                                                                                                                                                                      0.0000 0.8077 
+>         econV0:core/core.wen                                                                                                                                                                                                                              0.0000 0.8077 
+>         econV0:core:input_48:rsci/core.wen                                                                                                                                                                                                                0.0000 0.8077 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/core.wen                                                                                                                                                                                       0.0000 0.8077 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/and                               mgc_and_1_2                                                                                                                                                  0.1763 0.9840 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_ctrl/input_48:rsci.bdwt                                                                                                                                                                             0.0000 0.9840 
+>         econV0:core:input_48:rsci/input_48:rsci.bdwt                                                                                                                                                                                                      0.0000 0.9840 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/input_48:rsci.bdwt                                                                                                                                                                               0.0000 0.9840 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/nor                                 mgc_nor_1_2                                                                                                                                                  0.1763 1.1603 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/nor.itm                                                                                                                                                                                          0.0000 1.1603 
+>         econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.bcwt)             mgc_reg_pos_1_0_0_1_1_0_0                                                                                                                                    0.0000 1.1603 
+338,352c290,304
+<       econV0:core/reg(const_size_out_1:rsci.ivld.core.psct)                          const_size_out_1:or.itm                                    4.4674  0.5326          
+<       econV0:core/reg(layer7_out:rsci.idat)                                          nnet::relu<layer6_t,result_t,relu_config7>():cmp.res_rsc_z 4.6999  0.3001          
+<       econV0:core/reg(layer7_out:rsci.ivld.core.psct)                                slc(fsm_output)(19).itm                                    5.0000  0.0000          
+<       econV0:core/reg(nnet::dense_large<layer3_t,layer4_t,config4>(layer3_out))      nnet::relu<layer2_t,layer3_t,relu_config3>():cmp.res_rsc_z 4.6999  0.3001          
+<       econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.bcwt)       nor.itm                                                    1.4959  3.5041          
+<       econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.idat.bfwt)  input_48:rsci.idat.mxwt                                    4.1152  0.8848          
+<       econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/reg(layer7_out:rsci.bcwt) nor#2.itm                                                  1.4959  3.5041          
+<       econV0:core:staller/reg(core.wten)                                             not#8.itm                                                  2.5632  2.4368          
+<       econV0                                                                         input_48:rsc.rdy                                           4.1652  0.8348          
+<       econV0                                                                         layer7_out:rsc.dat                                         4.1652  0.8348          
+<       econV0                                                                         layer7_out:rsc.vld                                         4.1652  0.8348          
+<       econV0                                                                         const_size_in_1:rsc.dat                                    4.1652  0.8348          
+<       econV0                                                                         const_size_in_1:rsc.vld                                    4.1652  0.8348          
+<       econV0                                                                         const_size_out_1:rsc.dat                                   4.1652  0.8348          
+<       econV0                                                                         const_size_out_1:rsc.vld                                   4.1652  0.8348          
+---
+>       econV0:core/reg(input_48:rsci.oswt)                                            or.itm                                                     4.8237  0.1763          
+>       econV0:core/reg(layer7_out:rsci.oswt)                                          slc(fsm_output)(10).itm                                    5.0000  0.0000          
+>       econV0:core/reg(layer7_out:rsci.idat)                                          nnet::relu<layer6_t,result_t,relu_config7>():cmp.res_rsc_z 4.8975  0.1025          
+>       econV0:core/reg(nnet::dense_large<layer3_t,layer4_t,config4>(layer3_out))      nnet::relu<layer2_t,layer3_t,relu_config3>():cmp.res_rsc_z 4.8975  0.1025          
+>       econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.bcwt)       nor.itm                                                    3.8397  1.1603          
+>       econV0:core:input_48:rsci:input_48:rsc.@:wait_dp/reg(input_48:rsci.idat.bfwt)  input_48:rsci.idat.mxwt                                    4.8718  0.1282          
+>       econV0:core:layer7_out:rsci:layer7_out:rsc.@:wait_dp/reg(layer7_out:rsci.bcwt) nor#2.itm                                                  3.8397  1.1603          
+>       econV0:core:staller/reg(core.wten)                                             not#8.itm                                                  4.1923  0.8077          
+>       econV0                                                                         input_48:rsc.rdy                                           4.7212  0.2788          
+>       econV0                                                                         layer7_out:rsc.dat                                         4.7212  0.2788          
+>       econV0                                                                         layer7_out:rsc.vld                                         4.7212  0.2788          
+>       econV0                                                                         const_size_in_1:rsc.dat                                    4.7212  0.2788          
+>       econV0                                                                         const_size_in_1:rsc.vld                                    4.7212  0.2788          
+>       econV0                                                                         const_size_out_1:rsc.dat                                   4.7212  0.2788          
+>       econV0                                                                         const_size_out_1:rsc.vld                                   4.7212  0.2788          
+361c313
+<     nnet__dense_large_input_t_layer2_t_config2__20a4f1ee65e085eab56d5002fbee6acb9f677                    
+---
+>     nnet__dense_large_input_t_layer2_t_config2__364e1c37b02d84e7ac7b82af01ac2d169f65f                    
+363c315
+<     nnet__dense_large_layer3_t_layer4_t_config4__0d42feccc00a847b4d7b5f3b4a1fd84422f6c                   
+---
+>     nnet__dense_large_layer3_t_layer4_t_config4__94b287357b02bb07e1610e9805c3544722f54                   
+365c317
+<     nnet__dense_large_layer5_t_layer6_t_config6__6294c663bdcf5c7dd9271dbabd2f5fd7a7df                    
+---
+>     nnet__dense_large_layer5_t_layer6_t_config6__94f0c22b7dff80064d055ba335642303a7c7                    
+367c319
+<     nnet__relu_layer2_t_layer3_t_relu_config3__79935801db37cc664e198aa39507a36413525                     
+---
+>     nnet__relu_layer2_t_layer3_t_relu_config3__f95037ce0bcd1dc6e3a2c701deed63c61350d                     
+369c321
+<     nnet__relu_layer4_t_layer5_t_relu_config5__bcee722f28894521a9552a467e7e2dd2908a                      
+---
+>     nnet__relu_layer4_t_layer5_t_relu_config5__b16a24b030de7d0c14080de9c051aa049072                      
+371c323
+<     nnet__relu_layer6_t_result_t_relu_config7__4263e77ad5119b121ea849a900733d8b7608                      
+---
+>     nnet__relu_layer6_t_result_t_relu_config7__90a8b58c2a2db6a41b99f312c705472975f0                      
