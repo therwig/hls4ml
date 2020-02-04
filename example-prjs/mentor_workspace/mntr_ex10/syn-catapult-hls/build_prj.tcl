@@ -188,27 +188,26 @@ if {$opt(hsynth)} {
             -ENABLE_ACTIVE high \
     } \
     }
-
-    directive set /econV1/nnet::conv_2d<input_t, layer2_t, config2> -MAP_TO_MODULE {[CCORE]}
-    directive set /econV1/nnet::conv_2d<layer4_t, layer5_t, config5> -MAP_TO_MODULE {[CCORE]}
-    directive set /econV1/nnet::conv_2d<layer7_t, layer8_t, config8> -MAP_TO_MODULE {[CCORE]}
-    directive set /econV1/nnet::relu<layer2_t, layer3_t, relu_config3> -MAP_TO_MODULE {[CCORE]}
-    directive set /econV1/nnet::relu<layer5_t, layer6_t, relu_config6> -MAP_TO_MODULE {[CCORE]}
-    directive set /econV1/nnet::relu<layer8_t, layer9_t, relu_config9> -MAP_TO_MODULE {[CCORE]}
-    directive set /econV1/nnet::pooling2d<layer3_t, config4> -MAP_TO_MODULE {[CCORE]}
-    directive set /econV1/nnet::pooling2d<layer6_t, config7> -MAP_TO_MODULE {[CCORE]}
-    directive set /econV1/nnet::pooling2d<layer9_t, config10> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV1/nnet::conv_2d<input_t,layer2_t,config2> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV1/nnet::conv_2d<layer4_t,layer5_t,config5> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV1/nnet::conv_2d<layer7_t,layer8_t,config8> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV1/nnet::relu<layer2_t,layer3_t,relu_config3> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV1/nnet::relu<layer5_t,layer6_t,relu_config6> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV1/nnet::relu<layer8_t,layer9_t,relu_config9> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV1/nnet::pooling2d<layer3_t,config4> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV1/nnet::pooling2d<layer6_t,config7> -MAP_TO_MODULE {[CCORE]}
+    directive set /econV1/nnet::pooling2d<layer9_t,config10> -MAP_TO_MODULE {[CCORE]}
 
     # Retains the solution for the CCOREs within the project.
-    directive set /econV1/nnet::conv_2d<input_t, layer2_t, config2> -CCORE_DEBUG true
-    directive set /econV1/nnet::conv_2d<layer4_t, layer5_t, config5> -CCORE_DEBUG true
-    directive set /econV1/nnet::conv_2d<layer7_t, layer8_t, config8> -CCORE_DEBUG true
-    directive set /econV1/nnet::relu<layer2_t, layer3_t, relu_config3> -CCORE_DEBUG true
-    directive set /econV1/nnet::relu<layer5_t, layer6_t, relu_config6> -CCORE_DEBUG true
-    directive set /econV1/nnet::relu<layer8_t, layer9_t, relu_config9> -CCORE_DEBUG true
-    directive set /econV1/nnet::pooling2d<layer3_t, config4> -CCORE_DEBUG true
-    directive set /econV1/nnet::pooling2d<layer6_t, config7> -CCORE_DEBUG true
-    directive set /econV1/nnet::pooling2d<layer9_t, config10> -CCORE_DEBUG true
+    directive set /econV1/nnet::conv_2d<input_t,layer2_t,config2> -CCORE_DEBUG true
+    directive set /econV1/nnet::conv_2d<layer4_t,layer5_t,config5> -CCORE_DEBUG true
+    directive set /econV1/nnet::conv_2d<layer7_t,layer8_t,config8> -CCORE_DEBUG true
+    directive set /econV1/nnet::relu<layer2_t,layer3_t,relu_config3> -CCORE_DEBUG true
+    directive set /econV1/nnet::relu<layer5_t,layer6_t,relu_config6> -CCORE_DEBUG true
+    directive set /econV1/nnet::relu<layer8_t,layer9_t,relu_config9> -CCORE_DEBUG true
+    directive set /econV1/nnet::pooling2d<layer3_t,config4> -CCORE_DEBUG true
+    directive set /econV1/nnet::pooling2d<layer6_t,config7> -CCORE_DEBUG true
+    directive set /econV1/nnet::pooling2d<layer9_t,config10> -CCORE_DEBUG true
 
 
     # BUGFIX: This prevents the creation of the empty module CGHpart. In the
@@ -233,26 +232,26 @@ if {$opt(hsynth)} {
     directive set /econV1/const_size_out_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
 
     # Arrays
-    directive set /econV1/nnet::conv_2d<input_t, layer2_t, config2> (input_1):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econV1/nnet::conv_2d<layer4_t, layer5_t, config5> (layer4_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econV1/nnet::conv_2d<layer7_t, layer8_t, config8> (layer7_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econV1/nnet::relu<layer2_t, layer3_t, relu_config3> (layer2_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econV1/nnet::relu<layer5_t, layer6_t, relu_config6> (layer5_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econV1/nnet::relu<layer8_t, layer9_t, relu_config9> (layer8_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econV1/nnet::pooling2d<layer3_t, config4> (layer3_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econV1/nnet::pooling2d<layer6_t, config7> (layer6_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econV1/nnet::pooling2d<layer9_t, config10> (layer9_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV1/nnet::conv_2d<input_t,layer2_t,config2> (input_1):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV1/nnet::conv_2d<layer4_t,layer5_t,config5> (layer4_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV1/nnet::conv_2d<layer7_t,layer8_t,config8> (layer7_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV1/nnet::relu<layer2_t,layer3_t,relu_config3> (layer2_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV1/nnet::relu<layer5_t,layer6_t,relu_config6> (layer5_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV1/nnet::relu<layer8_t,layer9_t,relu_config9> (layer8_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV1/nnet::pooling2d<layer3_t,config4> (layer3_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV1/nnet::pooling2d<layer6_t,config7> (layer6_out):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV1/nnet::pooling2d<layer9_t,config10> (layer9_out):rsc -MAP_TO_MODULE {[Register]}
     
     # Loops
-    directive set /econV1/nnet::conv_2d<input_t, layer2_t, config2>/core/main -UNROLL no
-    directive set /econV1/nnet::conv_2d<layer4_t, layer5_t, config5>/core/main -UNROLL no
-    directive set /econV1/nnet::conv_2d<layer7_t, layer8_t, config8>/core/main -UNROLL no
-    directive set /econV1/nnet::relu<layer2_t, layer3_t, relu_config3>/core/main -UNROLL no
-    directive set /econV1/nnet::relu<layer5_t, layer6_t, relu_config6>/core/main -UNROLL no
-    directive set /econV1/nnet::relu<layer8_t, layer9_t, relu_config9>/core/main -UNROLL no
-    directive set /econV1/nnet::pooling2d<layer3_t, config4>/core/main -UNROLL no
-    directive set /econV1/nnet::pooling2d<layer6_t, config7>/core/main -UNROLL no
-    directive set /econV1/nnet::pooling2d<layer9_t, config10>/core/main -UNROLL no
+    directive set /econV1/nnet::conv_2d<input_t,layer2_t,config2>/core/main -UNROLL no
+    directive set /econV1/nnet::conv_2d<layer4_t,layer5_t,config5>/core/main -UNROLL no
+    directive set /econV1/nnet::conv_2d<layer7_t,layer8_t,config8>/core/main -UNROLL no
+    directive set /econV1/nnet::relu<layer2_t,layer3_t,relu_config3>/core/main -UNROLL no
+    directive set /econV1/nnet::relu<layer5_t,layer6_t,relu_config6>/core/main -UNROLL no
+    directive set /econV1/nnet::relu<layer8_t,layer9_t,relu_config9>/core/main -UNROLL no
+    directive set /econV1/nnet::pooling2d<layer3_t,config4>/core/main -UNROLL no
+    directive set /econV1/nnet::pooling2d<layer6_t,config7>/core/main -UNROLL no
+    directive set /econV1/nnet::pooling2d<layer9_t,config10>/core/main -UNROLL no
 
     go architect
 
