@@ -42,6 +42,7 @@ solution options set /Input/CppStandard c++11
 #solution options set /Input/TargetPlatform x86_64
 
 flow package require /SCVerify
+options set Flows/OSCI/GCOV true
 flow package require /CDesignChecker
 
 #directive set -DESIGN_GOAL area
