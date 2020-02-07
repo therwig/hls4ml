@@ -40,7 +40,9 @@ solution options set Flows/ModelSim/VSIM_OPTS {-t ps -suppress 12110}
 solution options set Flows/DesignCompiler/OutNetlistFormat verilog
 solution options set /Input/CppStandard c++11
 #solution options set /Input/TargetPlatform x86_64
+
 flow package require /SCVerify
+flow package require /CDesignChecker
 
 #directive set -DESIGN_GOAL area
 ##directive set -OLD_SCHED false

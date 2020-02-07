@@ -6,10 +6,10 @@
 #ifndef W6_H_
 #define W6_H_
 
-#ifndef __SYNTHESIS__
+#ifdef __WEIGHTS_FROM_FILE__
 static model_default_t w6[18];
 #else
-static model_default_t w6[18] = {
+static const model_default_t w6[18] = {
 #include "w6.txt"
 };
 #endif

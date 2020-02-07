@@ -92,7 +92,7 @@ void  relu(data_T data[CONFIG_T::n_in], res_T res[CONFIG_T::n_in])
 #endif
         datareg = data[ii];
         if (datareg > 0) res[ii] = datareg;
-        else res[ii] = 0;
+        else res[ii] = res_T(0);
     }
 }
 

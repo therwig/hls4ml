@@ -38,7 +38,11 @@ CXX_FLAGS += -Wno-sign-compare
 CXX_FLAGS += -Wno-unused-variable
 CXX_FLAGS += -Wno-narrowing
 CXX_FLAGS += -std=c++11
-CXX_FLAGS += -D__WEIGHTS_DIR__=$(WEIGHTS_DIR)
+
+# Define the following MACROs to load weights/biases from file.
+#WEIGHTS_DIR := ../$(MODEL_DIR)/firmware/weights
+#CXX_FLAGS += -D__WEIGHTS_DIR__=$(WEIGHTS_DIR)
+#CXX_FLAGS += -D__WEIGHTS_FROM_FILE__
 
 LD_FLAGS :=
 LD_FLAGS += -lm
@@ -64,17 +68,16 @@ vivado: INCDIR += -I$(XILINX_VIVADO)/include
 vivado: $(MODEL)
 .PHONY: vivado
 
-#debug-vivado: CXX_FLAGS += -O0
-#debug-vivado: CXX_FLAGS += -g
-#debug-vivado: INCDIR += -I$(XILINX_VIVADO)/include
-#debug-vivado: $(MODEL)
-#	$(QUIET_INFO)echo "Compiled with debugging flags!"
-#.PHONY: debug-vivado
+debug-vivado: CXX_FLAGS += -O0
+debug-vivado: CXX_FLAGS += -g
+debug-vivado: INCDIR += -I$(XILINX_VIVADO)/include
+debug-vivado: $(MODEL)
+	$(QUIET_INFO)echo "Compiled with debugging flags!"
+.PHONY: debug-vivado
 
 # Catapult HLS
 catapult: INCDIR += -I../inc
 catapult: INCDIR += -I$(SYSTEMC)/include
-catapult: CXX_FLAGS += -Wno-unused-local-typedefs
 catapult: CXX_FLAGS += -DMNTR_CATAPULT_HLS
 catapult: CXX_FLAGS += -O3
 catapult: LD_LIBS += -L$(SYSTEMC)/lib
@@ -138,9 +141,9 @@ validate-c-fpga-sim:
 #	$(QUIET_RUN)valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(MODEL)
 #.PHONY: valgrind
 
-#gdb:
-#	$(QUIET_RUN)gdb ./$(MODEL)
-#.PHONY: gdb
+gdb:
+	$(QUIET_RUN)gdb ./$(MODEL)
+.PHONY: gdb
 
 clean:
 	$(QUIET_CLEAN)rm -rf $(MODEL) *.o *.d

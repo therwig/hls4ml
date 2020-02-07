@@ -20,8 +20,6 @@
 
 #include "econV0.h"
 
-#define __SYNTHESIS__
-
 //hls-fpga-machine-learning insert weights
 #include "weights/w2.h"
 #include "weights/b2.h"
@@ -46,7 +44,7 @@ void econV0(
     const_size_in_1 = N_INPUT_1_1;
     const_size_out_1 = N_LAYER_6;
 
-#ifndef __SYNTHESIS__
+#ifdef __WEIGHTS_FROM_FILE__
     static bool loaded_weights = false;
     if (!loaded_weights) {
         //hls-fpga-machine-learning insert load weights
