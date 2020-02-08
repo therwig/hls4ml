@@ -20,6 +20,12 @@
 
 #include "econV0.h"
 
+void econV0(
+    input_t input_48[N_INPUT_1_1],
+    result_t layer7_out[N_LAYER_6],
+    unsigned short &const_size_in_1,
+    unsigned short &const_size_out_1
+) {
 //hls-fpga-machine-learning insert weights
 #include "weights/w2.h"
 #include "weights/b2.h"
@@ -28,12 +34,6 @@
 #include "weights/w6.h"
 #include "weights/b6.h"
 
-void econV0(
-    input_t input_48[N_INPUT_1_1],
-    result_t layer7_out[N_LAYER_6],
-    unsigned short &const_size_in_1,
-    unsigned short &const_size_out_1
-) {
 #ifndef MNTR_CATAPULT_HLS
     //hls-fpga-machine-learning insert IO
     #pragma HLS ARRAY_RESHAPE variable=input_48 complete dim=0 

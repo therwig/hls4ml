@@ -76,15 +76,11 @@ int main(int argc, char **argv)
 
   std::ofstream fout(RESULTS_LOG);
 
-#if defined(MNTR_CATAPULT_HLS) 
-#ifndef RTL_SIM
-#ifndef __ASIC__
+#ifdef __SAVE_TRACES__ 
   std::string INPUT_FILE_BIN_MEM = "tb_data/tb_input_features.mem";
   std::string OUTPUT_FILE_BIN_MEM = "tb_data/tb_output_predictions.mem";
   std::ofstream fout_ifbm(INPUT_FILE_BIN_MEM);
   std::ofstream fout_ofbm(OUTPUT_FILE_BIN_MEM);
-#endif
-#endif
 #endif
 
   std::string iline;
@@ -144,9 +140,7 @@ int main(int argc, char **argv)
         std::cout << std::endl;
       }
 
-#ifdef MNTR_CATAPULT_HLS
-#ifndef RTL_SIM
-#ifndef __ASIC__
+#ifdef __SAVE_TRACES__
     for(int i = N_INPUT_1_1-1; i >= 0; i--) {
         print_fxd_as_bin<input_t>(fout_ifbm, input_48[i]);
     }
@@ -155,8 +149,6 @@ int main(int argc, char **argv)
         print_fxd_as_bin<result_t>(fout_ofbm, layer7_out[i]);
     }
     fout_ofbm << std::endl;
-#endif
-#endif
 #endif
 
     }
@@ -184,9 +176,7 @@ int main(int argc, char **argv)
     }
     std::cout << std::endl;
 
-#ifdef MNTR_CATAPULT_HLS
-#ifndef RTL_SIM
-#ifndef __ASIC__
+#ifdef __SAVE_TRACES__
     for(int i = N_INPUT_1_1-1; i >= 0; i--) {
         print_fxd_as_bin<input_t>(fout_ifbm, input_48[i]);
     }
@@ -195,8 +185,6 @@ int main(int argc, char **argv)
         print_fxd_as_bin<result_t>(fout_ofbm, layer7_out[i]);
     }
     fout_ofbm << std::endl;
-#endif
-#endif
 #endif
 
     //hls-fpga-machine-learning insert tb-output
@@ -209,15 +197,11 @@ int main(int argc, char **argv)
   fout.close();
   std::cout << "INFO: Saved inference results to file: " << RESULTS_LOG << std::endl;
 
-#ifdef MNTR_CATAPULT_HLS
-#ifndef RTL_SIM
-#ifndef __ASIC__
+#ifdef __SAVE_TRACES__
   fout_ifbm.close();
   std::cout << "INFO: Saved input data to .mem file: " << INPUT_FILE_BIN_MEM << std::endl;
   fout_ofbm.close();
   std::cout << "INFO: Saved output data to .mem file: " << OUTPUT_FILE_BIN_MEM << std::endl;
-#endif
-#endif
 #endif
 
 #ifdef MNTR_CATAPULT_HLS

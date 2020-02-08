@@ -79,6 +79,7 @@ debug-vivado: $(MODEL)
 catapult: INCDIR += -I../inc
 catapult: INCDIR += -I$(SYSTEMC)/include
 catapult: CXX_FLAGS += -DMNTR_CATAPULT_HLS
+catapult: CXX_FLAGS += -D__SAVE_TRACES__
 catapult: CXX_FLAGS += -O3
 catapult: LD_LIBS += -L$(SYSTEMC)/lib
 catapult: LD_FLAGS += -lsystemc
