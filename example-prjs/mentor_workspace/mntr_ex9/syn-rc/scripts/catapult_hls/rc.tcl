@@ -42,13 +42,6 @@ proc source_custom_script { stage } {
 #puts "-- RTL_TOOL_SCRIPT_DIR is set to '$RTL_TOOL_SCRIPT_DIR' "
 set MGC_HOME /opt/cad/catapult
 
-#puts "Note: Removing old directory gate_synthesis_rc"
-#if { [file isdirectory "gate_synthesis_rc"] } {
-#  file delete -force -- "gate_synthesis_rc"
-#}
-#puts "Note: Creating directory gate_synthesis_rc"
-#file mkdir "gate_synthesis_rc"
-#lcd "gate_synthesis_rc"
 puts "Note: Removing old directory gate_synthesis_rc"
 if { [file isdirectory "./output/catapult_hls/gate_synthesis_rc"] } {
   file delete -force -- "./output/catapult_hls/gate_synthesis_rc"
@@ -78,7 +71,6 @@ set_attr avoid true [find /lib*/NangateOpenCellLibrary -libcell CLKBUF_X3]
 source_custom_script analyze
 
 ## Analyze concat_rtl.v 
-#run_cmd {read_hdl -v2001   $RTL_TOOL_SCRIPT_DIR/concat_rtl.v} {analyze file 'concat_rtl.v'}
 run_cmd {read_hdl -v2001   ../../../input/concat_rtl.v} {analyze file concat_rtl.v}
 
 ## Elaborate design econV0 
@@ -89,7 +81,6 @@ set_attr interconnect_mode wireload
 
 ## Include SDC file
 cd /designs/econV0
-#read_sdc -stop_on_errors $RTL_TOOL_SCRIPT_DIR/concat_rtl.v.rc.sdc
 read_sdc -stop_on_errors ../../../scripts/constraint.sdc
 cd /
 
@@ -244,6 +235,22 @@ ungroup -all
     report timing -full_pin_names -from [find / -clock {*/clk}] -to [find / -port {*/const_size_out_1_rsc_dat[*]}]
     puts "-- END Synthesis register_to_output:timing report for design 'econV0' '0' 'INOUT' CLOCK 'clk' '25' 'OUT' port 'const_size_out_1_rsc_dat'"
 
+    puts "-- Synthesis register_to_output:timing report for design 'econV0' '0' 'INOUT' CLOCK 'clk' '22' 'IN' port 'input_48_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -clock {*/clk}] -to [find / -port {*/input_48_rsc_triosy_lz}]
+    puts "-- END Synthesis register_to_output:timing report for design 'econV0' '0' 'INOUT' CLOCK 'clk' '22' 'IN' port 'input_48_rsc_triosy_lz'"
+
+    puts "-- Synthesis register_to_output:timing report for design 'econV0' '0' 'INOUT' CLOCK 'clk' '23' 'OUT' port 'layer7_out_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -clock {*/clk}] -to [find / -port {*/layer7_out_rsc_triosy_lz}]
+    puts "-- END Synthesis register_to_output:timing report for design 'econV0' '0' 'INOUT' CLOCK 'clk' '23' 'OUT' port 'layer7_out_rsc_triosy_lz'"
+
+    puts "-- Synthesis register_to_output:timing report for design 'econV0' '0' 'INOUT' CLOCK 'clk' '24' 'OUT' port 'const_size_in_1_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -clock {*/clk}] -to [find / -port {*/const_size_in_1_rsc_triosy_lz}]
+    puts "-- END Synthesis register_to_output:timing report for design 'econV0' '0' 'INOUT' CLOCK 'clk' '24' 'OUT' port 'const_size_in_1_rsc_triosy_lz'"
+
+    puts "-- Synthesis register_to_output:timing report for design 'econV0' '0' 'INOUT' CLOCK 'clk' '25' 'OUT' port 'const_size_out_1_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -clock {*/clk}] -to [find / -port {*/const_size_out_1_rsc_triosy_lz}]
+    puts "-- END Synthesis register_to_output:timing report for design 'econV0' '0' 'INOUT' CLOCK 'clk' '25' 'OUT' port 'const_size_out_1_rsc_triosy_lz'"
+
   }
 
   if { [llength [find / -clock {*/input_48_rsc_vld}] ] > 0 } {
@@ -274,6 +281,22 @@ ungroup -all
     puts "-- Synthesis register_to_output:timing report for design 'econV0' '22' 'IN' CLOCK 'input_48_rsc_vld' '25' 'OUT' port 'const_size_out_1_rsc_dat'"
     report timing -full_pin_names -from [find / -clock {*/input_48_rsc_vld}] -to [find / -port {*/const_size_out_1_rsc_dat[*]}]
     puts "-- END Synthesis register_to_output:timing report for design 'econV0' '22' 'IN' CLOCK 'input_48_rsc_vld' '25' 'OUT' port 'const_size_out_1_rsc_dat'"
+
+    puts "-- Synthesis register_to_output:timing report for design 'econV0' '22' 'IN' CLOCK 'input_48_rsc_vld' '22' 'IN' port 'input_48_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -clock {*/input_48_rsc_vld}] -to [find / -port {*/input_48_rsc_triosy_lz}]
+    puts "-- END Synthesis register_to_output:timing report for design 'econV0' '22' 'IN' CLOCK 'input_48_rsc_vld' '22' 'IN' port 'input_48_rsc_triosy_lz'"
+
+    puts "-- Synthesis register_to_output:timing report for design 'econV0' '22' 'IN' CLOCK 'input_48_rsc_vld' '23' 'OUT' port 'layer7_out_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -clock {*/input_48_rsc_vld}] -to [find / -port {*/layer7_out_rsc_triosy_lz}]
+    puts "-- END Synthesis register_to_output:timing report for design 'econV0' '22' 'IN' CLOCK 'input_48_rsc_vld' '23' 'OUT' port 'layer7_out_rsc_triosy_lz'"
+
+    puts "-- Synthesis register_to_output:timing report for design 'econV0' '22' 'IN' CLOCK 'input_48_rsc_vld' '24' 'OUT' port 'const_size_in_1_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -clock {*/input_48_rsc_vld}] -to [find / -port {*/const_size_in_1_rsc_triosy_lz}]
+    puts "-- END Synthesis register_to_output:timing report for design 'econV0' '22' 'IN' CLOCK 'input_48_rsc_vld' '24' 'OUT' port 'const_size_in_1_rsc_triosy_lz'"
+
+    puts "-- Synthesis register_to_output:timing report for design 'econV0' '22' 'IN' CLOCK 'input_48_rsc_vld' '25' 'OUT' port 'const_size_out_1_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -clock {*/input_48_rsc_vld}] -to [find / -port {*/const_size_out_1_rsc_triosy_lz}]
+    puts "-- END Synthesis register_to_output:timing report for design 'econV0' '22' 'IN' CLOCK 'input_48_rsc_vld' '25' 'OUT' port 'const_size_out_1_rsc_triosy_lz'"
 
   }
 
@@ -306,6 +329,22 @@ ungroup -all
     report timing -full_pin_names -from [find / -clock {*/layer7_out_rsc_rdy}] -to [find / -port {*/const_size_out_1_rsc_dat[*]}]
     puts "-- END Synthesis register_to_output:timing report for design 'econV0' '23' 'OUT' CLOCK 'layer7_out_rsc_rdy' '25' 'OUT' port 'const_size_out_1_rsc_dat'"
 
+    puts "-- Synthesis register_to_output:timing report for design 'econV0' '23' 'OUT' CLOCK 'layer7_out_rsc_rdy' '22' 'IN' port 'input_48_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -clock {*/layer7_out_rsc_rdy}] -to [find / -port {*/input_48_rsc_triosy_lz}]
+    puts "-- END Synthesis register_to_output:timing report for design 'econV0' '23' 'OUT' CLOCK 'layer7_out_rsc_rdy' '22' 'IN' port 'input_48_rsc_triosy_lz'"
+
+    puts "-- Synthesis register_to_output:timing report for design 'econV0' '23' 'OUT' CLOCK 'layer7_out_rsc_rdy' '23' 'OUT' port 'layer7_out_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -clock {*/layer7_out_rsc_rdy}] -to [find / -port {*/layer7_out_rsc_triosy_lz}]
+    puts "-- END Synthesis register_to_output:timing report for design 'econV0' '23' 'OUT' CLOCK 'layer7_out_rsc_rdy' '23' 'OUT' port 'layer7_out_rsc_triosy_lz'"
+
+    puts "-- Synthesis register_to_output:timing report for design 'econV0' '23' 'OUT' CLOCK 'layer7_out_rsc_rdy' '24' 'OUT' port 'const_size_in_1_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -clock {*/layer7_out_rsc_rdy}] -to [find / -port {*/const_size_in_1_rsc_triosy_lz}]
+    puts "-- END Synthesis register_to_output:timing report for design 'econV0' '23' 'OUT' CLOCK 'layer7_out_rsc_rdy' '24' 'OUT' port 'const_size_in_1_rsc_triosy_lz'"
+
+    puts "-- Synthesis register_to_output:timing report for design 'econV0' '23' 'OUT' CLOCK 'layer7_out_rsc_rdy' '25' 'OUT' port 'const_size_out_1_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -clock {*/layer7_out_rsc_rdy}] -to [find / -port {*/const_size_out_1_rsc_triosy_lz}]
+    puts "-- END Synthesis register_to_output:timing report for design 'econV0' '23' 'OUT' CLOCK 'layer7_out_rsc_rdy' '25' 'OUT' port 'const_size_out_1_rsc_triosy_lz'"
+
   }
 
   if { [llength [all_inputs -design econV0]] != 0 && [llength [all_outputs -design econV0]] != 0 } {
@@ -337,6 +376,22 @@ ungroup -all
     report timing -full_pin_names -from [find / -port {*/input_48_rsc_vld}] -to [find / -port {*/const_size_out_1_rsc_dat[*]}]
     puts "-- END Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_vld' '25' 'OUT' port 'const_size_out_1_rsc_dat'"
 
+    puts "-- Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_vld' '22' 'IN' port 'input_48_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -port {*/input_48_rsc_vld}] -to [find / -port {*/input_48_rsc_triosy_lz}]
+    puts "-- END Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_vld' '22' 'IN' port 'input_48_rsc_triosy_lz'"
+
+    puts "-- Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_vld' '23' 'OUT' port 'layer7_out_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -port {*/input_48_rsc_vld}] -to [find / -port {*/layer7_out_rsc_triosy_lz}]
+    puts "-- END Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_vld' '23' 'OUT' port 'layer7_out_rsc_triosy_lz'"
+
+    puts "-- Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_vld' '24' 'OUT' port 'const_size_in_1_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -port {*/input_48_rsc_vld}] -to [find / -port {*/const_size_in_1_rsc_triosy_lz}]
+    puts "-- END Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_vld' '24' 'OUT' port 'const_size_in_1_rsc_triosy_lz'"
+
+    puts "-- Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_vld' '25' 'OUT' port 'const_size_out_1_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -port {*/input_48_rsc_vld}] -to [find / -port {*/const_size_out_1_rsc_triosy_lz}]
+    puts "-- END Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_vld' '25' 'OUT' port 'const_size_out_1_rsc_triosy_lz'"
+
     puts "-- Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_dat' '22' 'IN' port 'input_48_rsc_rdy'"
     report timing -full_pin_names -from [find / -port {*/input_48_rsc_dat[*]}] -to [find / -port {*/input_48_rsc_rdy}]
     puts "-- END Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_dat' '22' 'IN' port 'input_48_rsc_rdy'"
@@ -364,6 +419,22 @@ ungroup -all
     puts "-- Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_dat' '25' 'OUT' port 'const_size_out_1_rsc_dat'"
     report timing -full_pin_names -from [find / -port {*/input_48_rsc_dat[*]}] -to [find / -port {*/const_size_out_1_rsc_dat[*]}]
     puts "-- END Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_dat' '25' 'OUT' port 'const_size_out_1_rsc_dat'"
+
+    puts "-- Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_dat' '22' 'IN' port 'input_48_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -port {*/input_48_rsc_dat[*]}] -to [find / -port {*/input_48_rsc_triosy_lz}]
+    puts "-- END Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_dat' '22' 'IN' port 'input_48_rsc_triosy_lz'"
+
+    puts "-- Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_dat' '23' 'OUT' port 'layer7_out_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -port {*/input_48_rsc_dat[*]}] -to [find / -port {*/layer7_out_rsc_triosy_lz}]
+    puts "-- END Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_dat' '23' 'OUT' port 'layer7_out_rsc_triosy_lz'"
+
+    puts "-- Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_dat' '24' 'OUT' port 'const_size_in_1_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -port {*/input_48_rsc_dat[*]}] -to [find / -port {*/const_size_in_1_rsc_triosy_lz}]
+    puts "-- END Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_dat' '24' 'OUT' port 'const_size_in_1_rsc_triosy_lz'"
+
+    puts "-- Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_dat' '25' 'OUT' port 'const_size_out_1_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -port {*/input_48_rsc_dat[*]}] -to [find / -port {*/const_size_out_1_rsc_triosy_lz}]
+    puts "-- END Synthesis input_to_output:timing report for design 'econV0' '22' 'IN' port 'input_48_rsc_dat' '25' 'OUT' port 'const_size_out_1_rsc_triosy_lz'"
 
     puts "-- Synthesis input_to_output:timing report for design 'econV0' '23' 'OUT' port 'layer7_out_rsc_rdy' '22' 'IN' port 'input_48_rsc_rdy'"
     report timing -full_pin_names -from [find / -port {*/layer7_out_rsc_rdy}] -to [find / -port {*/input_48_rsc_rdy}]
@@ -393,6 +464,22 @@ ungroup -all
     report timing -full_pin_names -from [find / -port {*/layer7_out_rsc_rdy}] -to [find / -port {*/const_size_out_1_rsc_dat[*]}]
     puts "-- END Synthesis input_to_output:timing report for design 'econV0' '23' 'OUT' port 'layer7_out_rsc_rdy' '25' 'OUT' port 'const_size_out_1_rsc_dat'"
 
+    puts "-- Synthesis input_to_output:timing report for design 'econV0' '23' 'OUT' port 'layer7_out_rsc_rdy' '22' 'IN' port 'input_48_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -port {*/layer7_out_rsc_rdy}] -to [find / -port {*/input_48_rsc_triosy_lz}]
+    puts "-- END Synthesis input_to_output:timing report for design 'econV0' '23' 'OUT' port 'layer7_out_rsc_rdy' '22' 'IN' port 'input_48_rsc_triosy_lz'"
+
+    puts "-- Synthesis input_to_output:timing report for design 'econV0' '23' 'OUT' port 'layer7_out_rsc_rdy' '23' 'OUT' port 'layer7_out_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -port {*/layer7_out_rsc_rdy}] -to [find / -port {*/layer7_out_rsc_triosy_lz}]
+    puts "-- END Synthesis input_to_output:timing report for design 'econV0' '23' 'OUT' port 'layer7_out_rsc_rdy' '23' 'OUT' port 'layer7_out_rsc_triosy_lz'"
+
+    puts "-- Synthesis input_to_output:timing report for design 'econV0' '23' 'OUT' port 'layer7_out_rsc_rdy' '24' 'OUT' port 'const_size_in_1_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -port {*/layer7_out_rsc_rdy}] -to [find / -port {*/const_size_in_1_rsc_triosy_lz}]
+    puts "-- END Synthesis input_to_output:timing report for design 'econV0' '23' 'OUT' port 'layer7_out_rsc_rdy' '24' 'OUT' port 'const_size_in_1_rsc_triosy_lz'"
+
+    puts "-- Synthesis input_to_output:timing report for design 'econV0' '23' 'OUT' port 'layer7_out_rsc_rdy' '25' 'OUT' port 'const_size_out_1_rsc_triosy_lz'"
+    report timing -full_pin_names -from [find / -port {*/layer7_out_rsc_rdy}] -to [find / -port {*/const_size_out_1_rsc_triosy_lz}]
+    puts "-- END Synthesis input_to_output:timing report for design 'econV0' '23' 'OUT' port 'layer7_out_rsc_rdy' '25' 'OUT' port 'const_size_out_1_rsc_triosy_lz'"
+
   }
 
 if {$hls_status} {
@@ -400,21 +487,35 @@ if {$hls_status} {
 }
 puts "[clock format [clock seconds] -format {%a %b %d %H:%M:%S %Z %Y}]"
 change_names -verilog
-#write_hdl econV0 > $RTL_TOOL_SCRIPT_DIR/gate.rc.v.v
-#puts "-- Netlist for design 'econV0' written to $RTL_TOOL_SCRIPT_DIR/gate.rc.v.v"
 write_hdl econV0 > gate.rc.v.v
 puts "-- Netlist for design 'econV0' written to gate.rc.v.v"
-#write_sdc > $RTL_TOOL_SCRIPT_DIR/gate.rc.v.sdc
-#puts "-- SDC for design 'econV0' written to $RTL_TOOL_SCRIPT_DIR/gate.rc.v.sdc"
 write_sdc > gate.rc.v.sdc
 puts "-- SDC for design 'econV0' written to gate.rc.v.sdc"
-#write_sdf > $RTL_TOOL_SCRIPT_DIR/gate.rc.v.sdf
-#puts "-- SDF for design 'econV0' written to $RTL_TOOL_SCRIPT_DIR/gate.rc.v.sdf"
 write_sdf > gate.rc.v.sdf
 puts "-- SDF for design 'econV0' written to gate.rc.v.sdf"
 
 report messages -all > messages.rpt
 report timing > timing.rpt
+
+# GDG: add extra reports
+report timing        > ../../../report/catapult_hls/timing.rpt
+report timing -full  > ../../../report/catapult_hls/timing_full.rpt
+report timing -lint  > ../../../report/catapult_hls/timing_lint.rpt
+report boundary_opt  > ../../../report/catapult_hls/boundary_opto.rpt
+report clocks        > ../../../report/catapult_hls/clocks.rpt
+report design_rules  > ../../../report/catapult_hls/design_rules.rpt
+report datapath      > ../../../report/catapult_hls/datapath.rpt;
+report clock_gating  > ../../../report/catapult_hls/clock_gating.rpt
+#report loop          > ../../../report/catapult_hls/loop_breakers.rpt; # NO
+report messages -all > ../../../report/catapult_hls/messages.rpt
+report qor           > ../../../report/catapult_hls/qor.rpt
+#report runtime       > ../../../report/catapult_hls/runtime.rpt; # NO
+report yield         > ../../../report/catapult_hls/des_yield.rpt
+report gates         > ../../../report/catapult_hls/gates.rpt
+report area          > ../../../report/catapult_hls/area.rpt
+report ple           > ../../../report/catapult_hls/ple.rpt
+report units         > ../../../report/catapult_hls/des_units.rpt
+report sequential    > ../../../report/catapult_hls/des_registers.rpt
 
 # Source potential custom script
 source_custom_script final

@@ -43,6 +43,8 @@ solution options set /Input/CppStandard c++11
 
 flow package require /SCVerify
 options set Flows/OSCI/GCOV true
+#flow package require /CCOV
+flow package require /SLEC
 flow package require /CDesignChecker
 
 #directive set -DESIGN_GOAL area
@@ -70,7 +72,7 @@ directive set -REGISTER_THRESHOLD 4096
 #directive set -REGISTER_IDLE_SIGNAL false
 #directive set -IDLE_SIGNAL {}
 #directive set -STALL_FLAG false
-directive set -TRANSACTION_DONE_SIGNAL false
+directive set -TRANSACTION_DONE_SIGNAL true
 #directive set -DONE_FLAG {}
 #directive set -READY_FLAG {}
 #directive set -START_FLAG {}

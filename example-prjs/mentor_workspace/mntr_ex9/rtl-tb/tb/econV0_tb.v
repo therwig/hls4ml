@@ -26,6 +26,12 @@ wire size_out_ready;
 reg [53:0] expected_output_data;
 reg dut_error;
 
+// triosy signals
+wire input_triosy;
+wire output_triosy;
+wire size_in_triosy;
+wire size_out_triosy;
+
 // Module instance
 econV0 econV0_top (
     .clk (clk),
@@ -34,16 +40,19 @@ econV0 econV0_top (
     .input_48_rsc_dat (input_data), // IN
     .input_48_rsc_vld (input_valid), // IN
     .input_48_rsc_rdy (input_ready), // OUT
+    .input_48_rsc_triosy_lz (input_triosy), // OUT
 
     .layer7_out_rsc_dat (output_data), // OUT
     .layer7_out_rsc_vld (output_valid), // OUT
     .layer7_out_rsc_rdy (output_ready), // IN
+    .layer7_out_rsc_triosy_lz (output_triosy), // OUT
 
     .const_size_in_1_rsc_dat(size_in_data), // OUT
     .const_size_in_1_rsc_vld(size_in_valid), // OUT
-
+    .const_size_in_1_rsc_triosy_lz(size_in_triosy), // OUT
     .const_size_out_1_rsc_dat(size_out_data), // OUT
-    .const_size_out_1_rsc_vld(size_out_valid) // OUT
+    .const_size_out_1_rsc_vld(size_out_valid), // OUT
+    .const_size_out_1_rsc_triosy_lz(size_out_triosy) // OUT
 );
 
 // Trace file setup.
