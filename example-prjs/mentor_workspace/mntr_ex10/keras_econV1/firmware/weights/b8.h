@@ -6,10 +6,12 @@
 #ifndef B8_H_
 #define B8_H_
 
-#ifndef __SYNTHESIS__
-model_default_t b8[4];
+#ifdef __WEIGHTS_FROM_FILE__
+static model_default_t b8[4];
 #else
-model_default_t b8[4] = {0.3507, 0.0239, 0.2096, 0.1422};
+static const model_default_t b8[4] = {
+#include "b8.txt"
+};
 #endif
 
 #endif

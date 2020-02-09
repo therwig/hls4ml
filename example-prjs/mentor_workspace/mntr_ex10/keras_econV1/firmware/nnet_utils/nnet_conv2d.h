@@ -58,6 +58,9 @@ struct conv2d_config
 //This function should not be synthesized into firmware
 template<typename CONFIG_T>
     int compute_multiplier_limit_conv2d(
+#ifndef __WEIGHTS_FROM_FILE__
+    const
+#endif
     typename CONFIG_T::weight_t  weights[CONFIG_T::filt_height * CONFIG_T::filt_width * CONFIG_T::n_chan * CONFIG_T::n_filt]
 )
 {
@@ -104,7 +107,13 @@ template<class data_T, class res_T, typename CONFIG_T>
 void conv_2d(
     data_T data[CONFIG_T::in_height*CONFIG_T::in_width*CONFIG_T::n_chan],
     res_T  res[CONFIG_T::out_height*CONFIG_T::out_width*CONFIG_T::n_filt],
+#ifndef __WEIGHTS_FROM_FILE__
+    const
+#endif
     typename CONFIG_T::weight_t weights[CONFIG_T::filt_height * CONFIG_T::filt_width * CONFIG_T::n_chan * CONFIG_T::n_filt],
+#ifndef __WEIGHTS_FROM_FILE__
+    const
+#endif
     typename CONFIG_T::bias_t   biases[CONFIG_T::n_filt])
 {
 

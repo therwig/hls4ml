@@ -20,7 +20,7 @@
 #ifndef NNET_HELPERS_H
 #define NNET_HELPERS_H
 
-#ifndef __SYNTHESIS__
+#ifdef __WEIGHTS_FROM_FILE__
 #include <fstream>
 #include <sstream>
 #endif
@@ -35,7 +35,7 @@
 
 namespace nnet {
 
-#ifndef __SYNTHESIS__
+#ifdef __WEIGHTS_FROM_FILE__
 
 #ifndef __WEIGHTS_DIR__
 #define WEIGHTS_DIR "weights"
