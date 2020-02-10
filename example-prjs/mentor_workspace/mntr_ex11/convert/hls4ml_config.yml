@@ -1,0 +1,22 @@
+KerasJson: KERAS_mnist_cnn.json
+KerasH5:   KERAS_mnist_cnn.h5
+InputData: KERAS_mnist_cnn_input_features.dat
+OutputPredictions: KERAS_mnist_cnn_predictions.dat
+TruthLabels: KERAS_mnist_cnn_truth_labels.dat
+OutputDir: myproject_prj
+ProjectName: myproject
+XilinxPart: xcku115-flvb2104-2-i
+ClockPeriod: 5
+Backend: Vivado
+
+IOType: io_parallel # options: io_serial/io_parallel
+HLSConfig:
+  Model:
+    Precision: ap_fixed<16,6>
+    ReuseFactor: 64
+    Strategy: Resource
+#  LayerType:
+#    Dense:
+#      ReuseFactor: 2
+#      Strategy: Resource
+#      Compression: True

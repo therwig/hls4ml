@@ -40,13 +40,18 @@ solution options set Flows/ModelSim/VSIM_OPTS {-t ps -suppress 12110}
 solution options set Flows/DesignCompiler/OutNetlistFormat verilog
 solution options set /Input/CppStandard c++11
 #solution options set /Input/TargetPlatform x86_64
+
 flow package require /SCVerify
+options set Flows/OSCI/GCOV true
+#flow package require /CCOV
+flow package require /SLEC
+flow package require /CDesignChecker
 
 #directive set -DESIGN_GOAL area
 ##directive set -OLD_SCHED false
 #directive set -SPECULATE true
 #directive set -MERGEABLE true
-directive set -REGISTER_THRESHOLD 4096
+directive set -REGISTER_THRESHOLD 8192
 #directive set -MEM_MAP_THRESHOLD 32
 #directive set -LOGIC_OPT false
 #directive set -FSM_ENCODING none
@@ -67,7 +72,7 @@ directive set -REGISTER_THRESHOLD 4096
 #directive set -REGISTER_IDLE_SIGNAL false
 #directive set -IDLE_SIGNAL {}
 #directive set -STALL_FLAG false
-directive set -TRANSACTION_DONE_SIGNAL false
+directive set -TRANSACTION_DONE_SIGNAL true
 #directive set -DONE_FLAG {}
 #directive set -READY_FLAG {}
 #directive set -START_FLAG {}

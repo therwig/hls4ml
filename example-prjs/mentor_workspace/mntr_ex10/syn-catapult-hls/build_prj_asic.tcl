@@ -7,9 +7,9 @@ array set opt {
     asic       2
     csim       1
     hsynth     1
-    rtlsim     1
-    validation 1
-    lsynth     1
+    rtlsim     0
+    validation 0
+    lsynth     0
 }
 
 source ./build_prj.tcl
