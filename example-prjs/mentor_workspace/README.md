@@ -15,3 +15,8 @@ from Mentor Graphics.
 - :+1: `mntr_ex6`: porting an *hls4ml* project to Mentor Catapult HLS (1 layer)
 - :construction_worker: `mntr_ex7`: porting an *hls4ml* project to Mentor Catapult HLS (3 layer)
 - :construction_worker: `mntr_ex8`: testing Mentor [HLSLibs](http://hlslibs.org)
+- :construction_worker: `mntr_ex9`: econv0 dense
+- :construction_worker: `mntr_ex10`: econv1 cnn1
+- :construction_worker: `mntr_ex11`: econv1 cnn1 with phils conv2d impl
+- :construction_worker: `mntr_ex12`: econv2 cnn2
+- :construction_worker: `mntr_ex13`: econv0 dense with weights on the interface

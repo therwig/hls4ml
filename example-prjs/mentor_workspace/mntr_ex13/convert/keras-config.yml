@@ -1,0 +1,20 @@
+KerasJson: encoder_model.json
+KerasH5:   encoder_48_24_6_3.hdf5
+InputData: input.dat
+OutputPredictions: output.dat
+OutputDir: keras_econV0
+ProjectName: econV0
+XilinxPart: xcku115-flvb2104-2-i
+ClockPeriod: 5
+
+IOType: io_parallel # options: io_serial/io_parallel
+HLSConfig:
+  Model:
+    Precision: ap_fixed<18,8>
+    ReuseFactor: 1
+    Strategy: Resource
+#  LayerType:
+#    Dense:
+#      ReuseFactor: 2
+#      Strategy: Resource
+#      Compression: True
