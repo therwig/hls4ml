@@ -1,0 +1,5 @@
+econV1
+*.d
+*.o
+*.log
+*.png
