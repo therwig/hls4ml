@@ -24,15 +24,15 @@ void econV0(
     input_t input_48[N_INPUT_1_1],
     result_t layer7_out[N_LAYER_6],
     unsigned short &const_size_in_1,
-    unsigned short &const_size_out_1
+    unsigned short &const_size_out_1,
+    model_default_t w2[1152],
+    model_default_t b2[24],
+    model_default_t w4[144],
+    model_default_t b4[6],
+    model_default_t w6[18],
+    model_default_t b6[3]
 ) {
 //hls-fpga-machine-learning insert weights
-#include "weights/w2.h"
-#include "weights/b2.h"
-#include "weights/w4.h"
-#include "weights/b4.h"
-#include "weights/w6.h"
-#include "weights/b6.h"
 
 #ifndef MNTR_CATAPULT_HLS
     //hls-fpga-machine-learning insert IO
@@ -43,20 +43,6 @@ void econV0(
 #endif
     const_size_in_1 = N_INPUT_1_1;
     const_size_out_1 = N_LAYER_6;
-
-#ifdef __WEIGHTS_FROM_FILE__
-    static bool loaded_weights = false;
-    if (!loaded_weights) {
-        //hls-fpga-machine-learning insert load weights
-        nnet::load_weights_from_txt<model_default_t, 1152>(w2, "w2.txt");
-        nnet::load_weights_from_txt<model_default_t, 24>(b2, "b2.txt");
-        nnet::load_weights_from_txt<model_default_t, 144>(w4, "w4.txt");
-        nnet::load_weights_from_txt<model_default_t, 6>(b4, "b4.txt");
-        nnet::load_weights_from_txt<model_default_t, 18>(w6, "w6.txt");
-        nnet::load_weights_from_txt<model_default_t, 3>(b6, "b6.txt");
-        loaded_weights = true;
-    }
-#endif
 
     // ****************************************
     // NETWORK INSTANTIATION

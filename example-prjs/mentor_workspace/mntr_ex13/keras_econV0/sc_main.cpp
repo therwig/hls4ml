@@ -27,6 +27,13 @@
 #include "firmware/parameters.h"
 #include "firmware/econV0.h"
 
+#include "firmware/weights/w2.h"
+#include "firmware/weights/b2.h"
+#include "firmware/weights/w4.h"
+#include "firmware/weights/b4.h"
+#include "firmware/weights/w6.h"
+#include "firmware/weights/b6.h"
+
 #define CHECKPOINT 1
 
 template<class T> 
@@ -69,6 +76,14 @@ int main(int argc, char **argv)
 #endif
 // ---- ------------ ----
 
+  nnet::load_weights_from_txt<model_default_t, 1152>(w2, "w2.txt");
+  nnet::load_weights_from_txt<model_default_t, 24>(b2, "b2.txt");
+  nnet::load_weights_from_txt<model_default_t, 144>(w4, "w4.txt");
+  nnet::load_weights_from_txt<model_default_t, 6>(b4, "b4.txt");
+  nnet::load_weights_from_txt<model_default_t, 18>(w6, "w6.txt");
+  nnet::load_weights_from_txt<model_default_t, 3>(b6, "b6.txt");
+  
+  
   //load input data from text file
   std::ifstream fin("tb_data/tb_input_features.dat");
   //load predictions from text file
@@ -114,9 +129,9 @@ int main(int argc, char **argv)
       //hls-fpga-machine-learning insert top-level-function
       unsigned short size_in1,size_out1;
 #ifdef MNTR_CATAPULT_HLS
-      CCS_DESIGN(econV0)(input_48,layer7_out,size_in1,size_out1);
+      CCS_DESIGN(econV0)(input_48,layer7_out,size_in1,size_out1,w2,b2,w4,b4,w6,b6);
 #else
-      econV0(input_48,layer7_out,size_in1,size_out1);
+      econV0(input_48,layer7_out,size_in1,size_out1,w2,b2,w4,b4,w6,b6);
 #endif
 
       //hls-fpga-machine-learning insert tb-output
@@ -164,9 +179,9 @@ int main(int argc, char **argv)
     //hls-fpga-machine-learning insert top-level-function
     unsigned short size_in1,size_out1;
 #ifdef MNTR_CATAPULT_HLS
-    CCS_DESIGN(econV0)(input_48,layer7_out,size_in1,size_out1);
+    CCS_DESIGN(econV0)(input_48,layer7_out,size_in1,size_out1,w2,b2,w4,b4,w6,b6);
 #else
-    econV0(input_48,layer7_out,size_in1,size_out1);
+    econV0(input_48,layer7_out,size_in1,size_out1,w2,b2,w4,b4,w6,b6);
 #endif
 
     //hls-fpga-machine-learning insert output

@@ -32,7 +32,13 @@ void econV0(
     input_t input_48[N_INPUT_1_1],
     result_t layer7_out[N_LAYER_6],
     unsigned short &const_size_in_1,
-    unsigned short &const_size_out_1
+    unsigned short &const_size_out_1,
+    model_default_t w2[1152],
+    model_default_t b2[24],
+    model_default_t w4[144],
+    model_default_t b4[6],
+    model_default_t w6[18],
+    model_default_t b6[3]    
 );
 
 #endif
