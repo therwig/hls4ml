@@ -3,10 +3,10 @@
 #################
 array set opt {
   csim       1
-  synth      1
-  cosim      1
-  validation 1
-  export     1
+  synth      0
+  cosim      0
+  validation 0
+  export     0
 }
 
 foreach arg $::argv {
@@ -50,7 +50,7 @@ set RTL_COSIM_RESULTS "./tb_data/vivado_rtl_cosim_results.log"
 open_project -reset econV0_prj
 set_top econV0
 add_files ../keras_econV0/firmware/econV0.cpp -cflags "-std=c++0x"
-add_files -tb ../keras_econV0/sc_main.cpp -cflags "-std=c++0x"
+add_files -tb ../keras_econV0/sc_main.cpp -cflags "-std=c++0x -D__WEIGHTS_FROM_FILE__"
 add_files -tb ../keras_econV0/firmware/weights
 add_files -tb tb_data
 open_solution -reset "solution1"

@@ -40,9 +40,9 @@ CXX_FLAGS += -Wno-narrowing
 CXX_FLAGS += -std=c++11
 
 # Define the following MACROs to load weights/biases from file.
-#WEIGHTS_DIR := ../$(MODEL_DIR)/firmware/weights
-#CXX_FLAGS += -D__WEIGHTS_DIR__=$(WEIGHTS_DIR)
-#CXX_FLAGS += -D__WEIGHTS_FROM_FILE__
+WEIGHTS_DIR := ../$(MODEL_DIR)/firmware/weights
+CXX_FLAGS += -D__WEIGHTS_DIR__=$(WEIGHTS_DIR)
+CXX_FLAGS += -D__WEIGHTS_FROM_FILE__
 
 LD_FLAGS :=
 LD_FLAGS += -lm
