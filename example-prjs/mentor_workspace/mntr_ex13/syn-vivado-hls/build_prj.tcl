@@ -3,10 +3,10 @@
 #################
 array set opt {
   csim       1
-  synth      0
-  cosim      0
-  validation 0
-  export     0
+  synth      1
+  cosim      1
+  validation 1
+  export     1
 }
 
 foreach arg $::argv {
@@ -75,7 +75,7 @@ if {$opt(synth)} {
   if {$opt(cosim)} {
     puts "***** C/RTL SIMULATION *****"
     # TODO: This is a workaround (Xilinx defines __RTL_SIMULATION__ only for SystemC testbenches).
-    add_files -tb ../keras_econV0/sc_main.cpp -cflags "-std=c++0x -DRTL_SIM"
+    add_files -tb ../keras_econV0/sc_main.cpp -cflags "-std=c++0x -DRTL_SIM -D__WEIGHTS_FROM_FILE__"
     set time_start [clock clicks -milliseconds]
     cosim_design -trace_level all
     set time_end [clock clicks -milliseconds]

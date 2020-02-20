@@ -37,8 +37,15 @@ void econV0(
 #ifndef MNTR_CATAPULT_HLS
     //hls-fpga-machine-learning insert IO
     #pragma HLS ARRAY_RESHAPE variable=input_48 complete dim=0 
-    #pragma HLS ARRAY_RESHAPE variable=layer7_out complete dim=0 
-    #pragma HLS INTERFACE ap_vld port=input_48,layer7_out 
+    #pragma HLS ARRAY_RESHAPE variable=layer7_out complete dim=0
+    #pragma HLS INTERFACE ap_vld port=input_48,layer7_out
+
+	#pragma HLS ARRAY_RESHAPE variable=w2 complete dim=0
+	#pragma HLS ARRAY_RESHAPE variable=w4 complete dim=0
+	#pragma HLS ARRAY_RESHAPE variable=w6 complete dim=0
+
+	#pragma HLS INTERFACE ap_vld port=w2,w4,w6
+
     #pragma HLS DATAFLOW 
 #endif
     const_size_in_1 = N_INPUT_1_1;
