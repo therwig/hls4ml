@@ -176,9 +176,9 @@ if {$opt(hsynth)} {
 
     directive set -CLOCKS { \
         clk { \
-            -CLOCK_PERIOD 5 \
+            -CLOCK_PERIOD 25 \
             -CLOCK_EDGE rising \
-            -CLOCK_HIGH_TIME 2.5 \
+            -CLOCK_HIGH_TIME 12.5 \
             -CLOCK_OFFSET 0.000000 \
             -CLOCK_UNCERTAINTY 0.0 \
             -RESET_KIND sync \

@@ -1,7 +1,0 @@
-*
-!r2g.g
-!r2g.sdc
-!r2g.v
-!rc.cmd
-!rtl2map.tcl
-!.gitignore
