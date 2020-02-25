@@ -42,10 +42,10 @@ solution options set /Input/CppStandard c++11
 #solution options set /Input/TargetPlatform x86_64
 
 flow package require /SCVerify
-options set Flows/OSCI/GCOV true
+#options set Flows/OSCI/GCOV true
 #flow package require /CCOV
-flow package require /SLEC
-flow package require /CDesignChecker
+#flow package require /SLEC
+#flow package require /CDesignChecker
 
 #directive set -DESIGN_GOAL area
 ##directive set -OLD_SCHED false
@@ -106,6 +106,7 @@ solution options set /Input/SearchPath {../inc ../econV0/firmware/ ../econV0/fir
 # Add source files.
 solution file add ../keras_econV0/firmware/econV0.cpp -type C++
 solution file add ../keras_econV0/sc_main.cpp -type C++ -exclude true
+solution file set ../keras_econV0/sc_main.cpp -args {-D__WEIGHTS_FROM_FILE__ -D__WEIGHTS_DIR__=../keras_econV0/firmware/weights/}
 
 go new
 
@@ -176,9 +177,9 @@ if {$opt(hsynth)} {
 
     directive set -CLOCKS { \
         clk { \
-            -CLOCK_PERIOD 5 \
+            -CLOCK_PERIOD 25 \
             -CLOCK_EDGE rising \
-            -CLOCK_HIGH_TIME 2.5 \
+            -CLOCK_HIGH_TIME 12.5 \
             -CLOCK_OFFSET 0.000000 \
             -CLOCK_UNCERTAINTY 0.0 \
             -RESET_KIND sync \
@@ -211,6 +212,8 @@ if {$opt(hsynth)} {
     # next releases of Catapult HLS, this may be fixed.
     directive set /econV0 -GATE_EFFORT normal
 
+    directive set /econV0/core -EFFORT_LEVEL high
+
     go assembly
 
     #
@@ -223,10 +226,33 @@ if {$opt(hsynth)} {
     ##directive set /econV0/input_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
     ##directive set /econV0/layer5_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
 
-    directive set /econV0/input_48:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
-    directive set /econV0/layer7_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_wait
     directive set /econV0/const_size_in_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
     directive set /econV0/const_size_out_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
+
+    directive set /econV0/input_48:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+    directive set /econV0/input_48:rsc -PACKING_MODE sidebyside
+
+    directive set /econV0/layer7_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_wait
+    directive set /econV0/layer7_out:rsc -PACKING_MODE sidebyside
+
+    directive set /econV0/w2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+    directive set /econV0/w2:rsc -PACKING_MODE sidebyside
+    #directive set /econV0/w2 -WORD_WIDTH 9216
+
+    directive set /econV0/b2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+
+    directive set /econV0/w4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+    directive set /econV0/w4:rsc -PACKING_MODE sidebyside
+    #directive set /econV0/w4 -WORD_WIDTH 1152
+
+    directive set /econV0/b4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+    directive set /econV0/b4:rsc -PACKING_MODE sidebyside
+
+    directive set /econV0/w6:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+    directive set /econV0/w6:rsc -PACKING_MODE sidebyside
+
+    directive set /econV0/b6:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+    directive set /econV0/b6:rsc -PACKING_MODE sidebyside
 
     # Arrays
     directive set /econV0/nnet::dense_large<input_t,layer2_t,config2>(input_48):rsc -MAP_TO_MODULE {[Register]}
@@ -235,7 +261,14 @@ if {$opt(hsynth)} {
     directive set /econV0/nnet::relu<layer2_t,layer3_t,relu_config3>(layer2_out):rsc -MAP_TO_MODULE {[Register]}
     directive set /econV0/nnet::relu<layer4_t,layer5_t,relu_config5>(layer4_out):rsc -MAP_TO_MODULE {[Register]}
     directive set /econV0/nnet::relu<layer6_t,result_t,relu_config7>(layer6_out):rsc -MAP_TO_MODULE {[Register]}
-    
+
+    directive set /econV0/core/nnet::dense_large<input_t,layer2_t,config2>(w2):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV0/core/nnet::dense_large<layer3_t,layer4_t,config4>(w4):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV0/core/nnet::dense_large<layer5_t,layer6_t,config6>(w6):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV0/core/nnet::dense_large<input_t,layer2_t,config2>(b2):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV0/core/nnet::dense_large<layer3_t,layer4_t,config4>(b4):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econV0/core/nnet::dense_large<layer5_t,layer6_t,config6>(b6):rsc -MAP_TO_MODULE {[Register]}
+
     # Loops
     directive set /econV0/nnet::dense_large<input_t,layer2_t,config2>/core/main -UNROLL no
     directive set /econV0/nnet::dense_large<layer3_t,layer4_t,config4>/core/main -UNROLL no
