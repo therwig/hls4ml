@@ -10,6 +10,10 @@ run-rc-catapult-hls:
 	time rc -cmdfile ./output/catapult_hls/rc.cmd -logfile ./output/catapult_hls/rc.log -f ./scripts/catapult_hls/rc.tcl < ./scripts/terminator.rc
 .PHONY: run-rc-catapult-hls
 
+run-genus:
+	time genus -lic_startup Genus_Synthesis -abort_on_error -file ./scripts/genus/simp.g2c -log ./output/genus/genus
+.PHONY: run-genus
+
 clean:
 	@echo "INFO: make <TAB> for targets"
 .PHONY: clean
@@ -23,5 +27,9 @@ clean-catapult-hls:
 	rm -rf libscore_work fv output/catapult_hls/* ./report/catapult_hls/*
 .PHONY: clean-catapult-hls
 
-ultraclean: clean-fermi-lab clean-catapult-hls
+clean-genus:
+	rm -rf fv output/genus/* report/genus/*
+.PHONY: clean-genus
+
+ultraclean: clean-fermi-lab clean-catapult-hls clean-genus
 .PHONY: ultraclean
