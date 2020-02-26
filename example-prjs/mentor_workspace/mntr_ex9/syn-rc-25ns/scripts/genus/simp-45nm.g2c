@@ -18,8 +18,8 @@ set DESIGN econV0
 set SYN_EFF medium
 set MAP_EFF medium
 set DATE [clock format [clock seconds] -format "%b%d-%T"] 
-set _OUTPUTS_PATH output/45nm/genus/
-set _REPORTS_PATH report/45nm/genus/
+set _OUTPUTS_PATH output/genus/45nm
+set _REPORTS_PATH report/genus/45nm
 set _LOG_PATH logs_${DATE}
 ##set ET_WORKDIR <ET work directory>
 set_db / .init_lib_search_path { /vol/mentor/Catapult_Synthesis_10.4a/Mgc_home/pkgs/siflibs/nangate/ }
