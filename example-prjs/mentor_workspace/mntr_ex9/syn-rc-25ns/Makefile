@@ -10,9 +10,13 @@ run-rc-catapult-hls:
 	time rc -cmdfile ./output/catapult_hls/rc.cmd -logfile ./output/catapult_hls/rc.log -f ./scripts/catapult_hls/rc.tcl < ./scripts/terminator.rc
 .PHONY: run-rc-catapult-hls
 
-run-genus:
-	time genus -lic_startup Genus_Synthesis -abort_on_error -file ./scripts/genus/simp.g2c -log ./output/genus/genus
-.PHONY: run-genus
+run-genus65:
+	time genus -lic_startup Genus_Synthesis -abort_on_error -file ./scripts/genus/simp-65nm.g2c -log ./output/genus/65nm/genus
+.PHONY: run-genus65
+
+run-genus45:
+	time genus -lic_startup Genus_Synthesis -abort_on_error -file ./scripts/genus/simp-45nm.g2c -log ./output/genus/45nm/genus
+.PHONY: run-genus45
 
 clean:
 	@echo "INFO: make <TAB> for targets"
