@@ -15,8 +15,8 @@ puts "Hostname : [info hostname]"
 set DESIGN alu
 set DESIGN alu_arrtop
 set DESIGN econV0
-set SYN_EFF medium
-set MAP_EFF medium
+set SYN_EFF high
+set MAP_EFF high
 set DATE [clock format [clock seconds] -format "%b%d-%T"] 
 set _OUTPUTS_PATH output/45nm/genus/
 set _REPORTS_PATH report/45nm/genus/
