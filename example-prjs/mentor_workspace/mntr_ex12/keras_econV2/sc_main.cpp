@@ -146,7 +146,7 @@ int main(int argc, char **argv)
     }
     fout_ifbm << std::endl;
     for(int i = N_LAYER_12-1; i >= 0; i--) {
-        print_fxd_as_bin<result_t>(fout_ofbm, layer10_out[i]);
+        print_fxd_as_bin<result_t>(fout_ofbm, layer13_out[i]);
     }
     fout_ofbm << std::endl;
 #endif
