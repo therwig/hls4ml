@@ -1,5 +1,5 @@
-HDF5_FILE := encoder_CNN_16_8_4.hdf5
-JSON_FILE := encoder_model_CNN_16_8_4.json
+HDF5_FILE := encoder_4x4_norm_v8.hdf5
+JSON_FILE := encoder_4x4_norm_v8.json
 
 all:
 	@echo "INFO: make <TAB> for targets"
