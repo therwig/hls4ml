@@ -1,0 +1,8 @@
+*.tcl
+*.sdc
+*.do
+*.cmd
+*.g
+*.json
+econV0_m.v
+econV0_intermediate.v
