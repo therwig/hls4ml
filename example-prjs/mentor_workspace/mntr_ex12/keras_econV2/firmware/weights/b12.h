@@ -6,7 +6,7 @@
 #ifndef B12_H_
 #define B12_H_
 
-#ifndef __SYNTHESIS__
+#ifdef __WEIGHTS_FROM_FILE__
 model_default_t b12[12];
 #else
 model_default_t b12[12] = {0.3946, -0.0386, 0.1079, -0.3089, 0.1988, 0.1639, 0.0611, -0.0073, -0.0706, -0.0677, -0.0402, -0.1529};

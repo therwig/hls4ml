@@ -51,6 +51,10 @@ void econV2(
     const_size_in_1 = N_INPUT_1_1*N_INPUT_2_1*N_INPUT_3_1;
     const_size_out_1 = N_LAYER_12;
 
+//    for (int i = 0; i < const_size_in_1; i++) {
+//        std::cout << input_1[i] << std::endl;
+//    } 
+
 #ifdef __WEIGHTS_FROM_FILE__
     static bool loaded_weights = false;
     if (!loaded_weights) {

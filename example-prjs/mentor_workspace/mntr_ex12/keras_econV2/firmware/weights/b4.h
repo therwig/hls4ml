@@ -6,7 +6,7 @@
 #ifndef B4_H_
 #define B4_H_
 
-#ifndef __SYNTHESIS__
+#ifdef __WEIGHTS_FROM_FILE__
 model_default_t b4[4];
 #else
 model_default_t b4[4] = {-0.4029, 0.1534, 0.1654, 0.0376};

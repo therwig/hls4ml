@@ -1,3 +1,3 @@
-PROJECT = econV0
+PROJECT = econV2
 
 -include ../../scripts/Makefile-syn-vivado.mk
