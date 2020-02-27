@@ -1,0 +1,51 @@
+
+
+Working Directory = /home/ylf673/hls4ml-therwig/example-prjs/mentor_workspace/mntr_ex13/syn-rc-1808-25ns
+QoS Summary for econV0
+==========================================================================================
+Metric                          generic         map             syn_opt         final          
+==========================================================================================
+Slack (ps):                    13,864          17,008          17,405          17,405
+  R2R (ps):                    13,864          17,008          17,405          17,405
+  I2R (ps):                    14,327          17,939          18,245          18,245
+  R2O (ps):                    24,425          24,443          24,396          24,396
+  I2O (ps):                  no_value        no_value        no_value        no_value
+  CG  (ps):                  no_value        no_value        no_value        no_value
+TNS (ps):                           0               0               0               0
+  R2R (ps):                         0               0               0               0
+  I2R (ps):                         0               0               0               0
+  R2O (ps):                         0               0               0               0
+  I2O (ps):                  no_value        no_value        no_value        no_value
+  CG  (ps):                  no_value        no_value        no_value        no_value
+Failing Paths:                      0               0               0               0
+Cell Area:                  5,481,083       1,787,938       1,790,680       1,790,680
+Total Cell Area:            5,481,083       1,787,938       1,790,680       1,790,680
+Leaf Instances:             3,364,840       1,048,981       1,069,506       1,069,506
+Total Instances:            3,364,840       1,048,981       1,069,506       1,069,506
+Utilization (%):                 0.00            0.00            0.00            0.00
+Tot. Net Length (um):        no_value        no_value        no_value        no_value
+Avg. Net Length (um):        no_value        no_value        no_value        no_value
+Route Overflow H (%):        no_value        no_value        no_value        no_value
+Route Overflow V (%):        no_value        no_value        no_value        no_value
+MBCI(%) (bits/gate) :            0.00            0.00            0.00            0.00
+Norm Cong Hotspot Area:
+  Max Cong:                  no_value        no_value        no_value        no_value
+  Tot Cong:                  no_value        no_value        no_value        no_value
+==========================================================================================
+CPU  Runtime (h:m:s):        00:23:08        00:23:10        00:14:48        00:00:49
+Real Runtime (h:m:s):        00:47:35        01:30:09        00:16:36        00:02:41
+CPU  Elapsed (h:m:s):        00:23:13        00:46:23        01:01:11        01:02:00
+Real Elapsed (h:m:s):        00:47:36        02:17:45        02:34:21        02:37:02
+Memory (MB):                  5592.84         7668.68         7606.13         7611.07
+==========================================================================================
+==========================================================================================
+Flow Settings:
+==========================================================================================
+Total Runtime (h:m:s): 02:39:40
+Total Memory (MB):     7611.07
+Executable Version:    18.14-s037_1
+==========================================================================================
+Total Cell Area =  Cell Area + Physical Cell Area
+Total Instances =  Leaf Instances + Physical Instances
+
+
