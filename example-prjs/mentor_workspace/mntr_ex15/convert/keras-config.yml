@@ -1,0 +1,20 @@
+KerasJson: encoder_4x4_norm_d10.json
+KerasH5:   encoder_4x4_norm_d10.hdf5
+# InputData: input.dat
+# OutputPredictions: output.dat
+OutputDir: keras_econ_4x4_d10
+ProjectName: econ_4x4_d10
+XilinxPart: xcku115-flvb2104-2-i
+ClockPeriod: 5
+
+IOType: io_parallel # options: io_serial/io_parallel
+HLSConfig:
+  Model:
+    Precision: ap_fixed<18,8>
+    ReuseFactor: 1
+    Strategy: Resource
+#  LayerType:
+#    Dense:
+#      ReuseFactor: 2
+#      Strategy: Resource
+#      Compression: True
