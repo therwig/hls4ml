@@ -230,7 +230,7 @@ if {$opt(hsynth)} {
     ##directive set /econ_4x4_v4/input_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
     ##directive set /econ_4x4_v4/layer5_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
 
-    directive set /econ_4x4_v4/input_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+    directive set /econ_4x4_v4/input_3:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
     directive set /econ_4x4_v4/layer9_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_wait
     directive set /econ_4x4_v4/const_size_in_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
     directive set /econ_4x4_v4/const_size_out_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
