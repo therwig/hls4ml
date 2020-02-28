@@ -6,7 +6,7 @@
 #ifndef B2_H_
 #define B2_H_
 
-#ifndef __WEIGHTS_FROM_FILE__
+#ifdef __WEIGHTS_FROM_FILE__
 model_default_t b2[8];
 #else
 model_default_t b2[8] = {-0.0499, -0.2022, 0.0126, 0.5113, 0.0086, -0.2589, 0.2320, -0.7200};

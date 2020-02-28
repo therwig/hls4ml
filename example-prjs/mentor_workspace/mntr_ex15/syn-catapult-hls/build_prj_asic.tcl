@@ -5,11 +5,11 @@ array set opt {
     # = 2 -> Cadence Encounter RTL Compiler
     # = 3 -> Cadence Genus
     asic       2
-    csim       1
+    csim       0
     hsynth     1
     rtlsim     0
     validation 0
-    lsynth     0
+    lsynth     1
 }
 
 source ./build_prj.tcl
