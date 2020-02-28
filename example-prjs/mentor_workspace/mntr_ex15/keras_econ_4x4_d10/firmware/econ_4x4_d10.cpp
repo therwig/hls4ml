@@ -69,7 +69,7 @@ void econ_4x4_d10(
     #ifndef MNTR_CATAPULT_HLS
     #pragma HLS ARRAY_PARTITION variable=layer2_out complete dim=0
     #endif
-    nnet::conv_2d<input_t, layer2_t, config2>(input_1, layer2_out, w2, b2, 300);
+    nnet::conv_2d<input_t, layer2_t, config2>(input_1, layer2_out, w2, b2, 2234);
 
     layer3_t layer3_out[OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2];
     #ifndef MNTR_CATAPULT_HLS
