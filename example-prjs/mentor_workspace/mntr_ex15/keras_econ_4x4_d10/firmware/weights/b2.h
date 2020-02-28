@@ -7,9 +7,9 @@
 #define B2_H_
 
 #ifdef __WEIGHTS_FROM_FILE__
-model_default_t b2[8];
+static model_default_t b2[8];
 #else
-model_default_t b2[8] = {-0.0499, -0.2022, 0.0126, 0.5113, 0.0086, -0.2589, 0.2320, -0.7200};
+static model_default_t b2[8] = {-0.0499, -0.2022, 0.0126, 0.5113, 0.0086, -0.2589, 0.2320, -0.7200};
 #endif
 
 #endif

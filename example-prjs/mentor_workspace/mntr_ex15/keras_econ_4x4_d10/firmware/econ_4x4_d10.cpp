@@ -48,11 +48,15 @@ void econ_4x4_d10(
 //    } 
 
 #ifdef __WEIGHTS_FROM_FILE__
-    //hls-fpga-machine-learning insert load weights
-    nnet::load_weights_from_txt<model_default_t, 216>(w2, "w2.txt");
-    nnet::load_weights_from_txt<model_default_t, 8>(b2, "b2.txt");
-    nnet::load_weights_from_txt<model_default_t, 1280>(w4, "w4.txt");
-    nnet::load_weights_from_txt<model_default_t, 10>(b4, "b4.txt");
+    static bool loaded_weights = false;
+    if (!loaded_weights) {
+        //hls-fpga-machine-learning insert load weights
+        nnet::load_weights_from_txt<model_default_t, 216>(w2, "w2.txt");
+        nnet::load_weights_from_txt<model_default_t, 8>(b2, "b2.txt");
+        nnet::load_weights_from_txt<model_default_t, 1280>(w4, "w4.txt");
+        nnet::load_weights_from_txt<model_default_t, 10>(b4, "b4.txt");
+        loaded_weights = true;
+    }
 #endif
 
     // ****************************************
