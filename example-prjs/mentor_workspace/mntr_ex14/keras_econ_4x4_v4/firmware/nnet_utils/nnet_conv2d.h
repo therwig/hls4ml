@@ -133,8 +133,8 @@ void conv_2d(
     #pragma HLS ARRAY_PARTITION variable=biases complete dim=0
 #endif
     // Limit multipliers to control parallelization
-    const int multiplier_limit_ = compute_multiplier_limit_conv2d<CONFIG_T>(weights);
-    std::cout << "INFO: " << __func__ << ".multiplier_limit = " << multiplier_limit_ << std::endl;
+    //const int multiplier_limit = compute_multiplier_limit_conv2d<CONFIG_T>(weights);
+    //std::cout << "INFO: " << __func__ << ".multiplier_limit = " << multiplier_limit << std::endl;
 #ifndef MNTR_CATAPULT_HLS
     #pragma HLS ALLOCATION instances=mul limit=multiplier_limit operation
 #endif
