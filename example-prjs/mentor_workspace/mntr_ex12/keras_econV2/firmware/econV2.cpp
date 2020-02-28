@@ -82,69 +82,69 @@ void econV2(
     //hls-fpga-machine-learning insert layers
 
     layer2_t layer2_out[OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer2_out complete dim=0
-    #endif
-    nnet::conv_2d<input_t, layer2_t, config2>(input_1, layer2_out, w2, b2);
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer2_out complete dim=0
+#endif
+    nnet::conv_2d<input_t, layer2_t, config2>(input_1, layer2_out, w2, b2, 2234);
 
     layer3_t layer3_out[OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer3_out complete dim=0
-    #endif
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer3_out complete dim=0
+#endif
     nnet::relu<layer2_t, layer3_t, relu_config3>(layer2_out, layer3_out);
 
     layer4_t layer4_out[OUT_HEIGHT_4*OUT_WIDTH_4*N_FILT_4];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer4_out complete dim=0
-    #endif
-    nnet::conv_2d<layer3_t, layer4_t, config4>(layer3_out, layer4_out, w4, b4);
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer4_out complete dim=0
+#endif
+    nnet::conv_2d<layer3_t, layer4_t, config4>(layer3_out, layer4_out, w4, b4, 2240);
 
     layer5_t layer5_out[OUT_HEIGHT_4*OUT_WIDTH_4*N_FILT_4];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer5_out complete dim=0
-    #endif
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer5_out complete dim=0
+#endif
     nnet::relu<layer4_t, layer5_t, relu_config5>(layer4_out, layer5_out);
 
     layer6_t layer6_out[OUT_HEIGHT_6*OUT_WIDTH_6*N_FILT_6];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer6_out complete dim=0
-    #endif
-    nnet::conv_2d<layer5_t, layer6_t, config6>(layer5_out, layer6_out, w6, b6);
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer6_out complete dim=0
+#endif
+    nnet::conv_2d<layer5_t, layer6_t, config6>(layer5_out, layer6_out, w6, b6, 1120);
 
     layer7_t layer7_out[OUT_HEIGHT_6*OUT_WIDTH_6*N_FILT_6];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer7_out complete dim=0
-    #endif
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer7_out complete dim=0
+#endif
     nnet::relu<layer6_t, layer7_t, relu_config7>(layer6_out, layer7_out);
 
     layer8_t layer8_out[OUT_HEIGHT_8*OUT_WIDTH_8*N_FILT_8];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer8_out complete dim=0
-    #endif
-    nnet::conv_2d<layer7_t, layer8_t, config8>(layer7_out, layer8_out, w8, b8);
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer8_out complete dim=0
+#endif
+    nnet::conv_2d<layer7_t, layer8_t, config8>(layer7_out, layer8_out, w8, b8, 1111);
 
     layer9_t layer9_out[OUT_HEIGHT_8*OUT_WIDTH_8*N_FILT_8];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer9_out complete dim=0
-    #endif
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer9_out complete dim=0
+#endif
     nnet::relu<layer8_t, layer9_t, relu_config9>(layer8_out, layer9_out);
 
     layer10_t layer10_out[OUT_HEIGHT_10*OUT_WIDTH_10*N_FILT_10];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer10_out complete dim=0
-    #endif
-    nnet::conv_2d<layer9_t, layer10_t, config10>(layer9_out, layer10_out, w10, b10);
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer10_out complete dim=0
+#endif
+    nnet::conv_2d<layer9_t, layer10_t, config10>(layer9_out, layer10_out, w10, b10, 560);
 
     layer11_t layer11_out[OUT_HEIGHT_10*OUT_WIDTH_10*N_FILT_10];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer11_out complete dim=0
-    #endif
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer11_out complete dim=0
+#endif
     nnet::relu<layer10_t, layer11_t, relu_config11>(layer10_out, layer11_out);
 
     layer12_t layer12_out[N_LAYER_12];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer12_out complete dim=0
-    #endif
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer12_out complete dim=0
+#endif
     nnet::dense_large<layer11_t, layer12_t, config12>(layer11_out, layer12_out, w12, b12);
 
     nnet::relu<layer12_t, result_t, relu_config13>(layer12_out, layer13_out);
