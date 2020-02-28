@@ -20,5 +20,5 @@ from Mentor Graphics.
 - :construction_worker: `mntr_ex11`: econv1 cnn1 with phils conv2d impl
 - :construction_worker: `mntr_ex12`: econv2 cnn2, one of martin's conv2d models. arch = "4x4_norm_v8". 5 conv2d layers w 12dim encoding.
 - :construction_worker: `mntr_ex13`: econv0 dense with weights on the interface
-- :construction_worker: `mntr_ex14`: martin's conv2d model. arch = "4x4_norm_v4". 3 conv2d layers w 12dim encoding.
-- :construction_worker: `mntr_ex15`: martin's conv2d model. arch = "4x4_norm_d10". 1 conv2d layer w 10dim encoding.
+- :construction_worker: `mntr_ex14`: martin's conv2d model. arch = "4x4_norm_v4". 3 conv2d layers w 12dim encoding. weights on interface.
+- :construction_worker: `mntr_ex15`: martin's conv2d model. arch = "4x4_norm_d10". 1 conv2d layer w 10dim encoding. weights on interface.
