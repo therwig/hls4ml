@@ -42,10 +42,10 @@ solution options set /Input/CppStandard c++11
 #solution options set /Input/TargetPlatform x86_64
 
 flow package require /SCVerify
-options set Flows/OSCI/GCOV true
+#options set Flows/OSCI/GCOV true
 #flow package require /CCOV
-flow package require /SLEC
-flow package require /CDesignChecker
+#flow package require /SLEC
+#flow package require /CDesignChecker
 
 #directive set -DESIGN_GOAL area
 ##directive set -OLD_SCHED false
@@ -183,9 +183,9 @@ if {$opt(hsynth)} {
 
     directive set -CLOCKS { \
         clk { \
-            -CLOCK_PERIOD 5 \
+            -CLOCK_PERIOD 25 \
             -CLOCK_EDGE rising \
-            -CLOCK_HIGH_TIME 2.5 \
+            -CLOCK_HIGH_TIME 12.5 \
             -CLOCK_OFFSET 0.000000 \
             -CLOCK_UNCERTAINTY 0.0 \
             -RESET_KIND sync \

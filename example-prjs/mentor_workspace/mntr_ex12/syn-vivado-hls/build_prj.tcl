@@ -3,7 +3,7 @@
 #################
 array set opt {
   csim       1
-  synth      0
+  synth      1
   cosim      0
   validation 0
   export     0

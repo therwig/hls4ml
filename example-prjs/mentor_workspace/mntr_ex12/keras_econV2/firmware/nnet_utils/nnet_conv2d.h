@@ -114,7 +114,8 @@ void conv_2d(
 #ifndef __WEIGHTS_FROM_FILE__
     const
 #endif
-    typename CONFIG_T::bias_t   biases[CONFIG_T::n_filt])
+    typename CONFIG_T::bias_t   biases[CONFIG_T::n_filt],
+    const int multiplier_limit)
 {
 
     typename CONFIG_T::accum_t mult[CONFIG_T::out_height * CONFIG_T::out_width * CONFIG_T::n_filt * CONFIG_T::n_chan * CONFIG_T::filt_height * CONFIG_T::filt_width];
@@ -128,11 +129,12 @@ void conv_2d(
     #pragma HLS function_instantiate variable=weights,biases
 
     // Parallel mode
-    #pragma HLS PIPELINE
+    //#pragma HLS PIPELINE
     #pragma HLS ARRAY_PARTITION variable=biases complete dim=0
 #endif
     // Limit multipliers to control parallelization
-    const int multiplier_limit = compute_multiplier_limit_conv2d<CONFIG_T>(weights);
+    //const int multiplier_limit = compute_multiplier_limit_conv2d<CONFIG_T>(weights);
+    //std::cout << "INFO: " << __func__ << ".multiplier_limit = " << multiplier_limit << std::endl;
 #ifndef MNTR_CATAPULT_HLS
     #pragma HLS ALLOCATION instances=mul limit=multiplier_limit operation
 #endif
