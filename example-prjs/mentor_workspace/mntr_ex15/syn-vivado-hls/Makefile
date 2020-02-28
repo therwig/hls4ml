@@ -1,3 +1,3 @@
-PROJECT = econ_4x4_d10
+PROJECT = keras_econ_4x4
 
 -include ../../scripts/Makefile-syn-vivado.mk
