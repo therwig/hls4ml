@@ -66,24 +66,40 @@ void econ_4x4_d10(
     //hls-fpga-machine-learning insert layers
 
     layer2_t layer2_out[OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer2_out complete dim=0
-    #endif
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer2_out complete dim=0
+#endif
     nnet::conv_2d<input_t, layer2_t, config2>(input_1, layer2_out, w2, b2, 2234);
 
+//    for (int i = 0; i < OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2; i++) {
+//        std::cout << layer2_out[i] << std::endl;
+//    } 
+
+
     layer3_t layer3_out[OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer3_out complete dim=0
-    #endif
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer3_out complete dim=0
+#endif
     nnet::relu<layer2_t, layer3_t, relu_config3>(layer2_out, layer3_out);
 
+//    for (int i = 0; i < OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2; i++) {
+//        std::cout << layer3_out[i] << std::endl;
+//    } 
+
     layer4_t layer4_out[N_LAYER_4];
-    #ifndef MNTR_CATAPULT_HLS
-    #pragma HLS ARRAY_PARTITION variable=layer4_out complete dim=0
-    #endif
+#ifndef MNTR_CATAPULT_HLS
+#pragma HLS ARRAY_PARTITION variable=layer4_out complete dim=0
+#endif
     nnet::dense_large<layer3_t, layer4_t, config4>(layer3_out, layer4_out, w4, b4);
+
+    for (int i = 0; i < N_LAYER_4; i++) {
+        std::cout << layer4_out[i] << std::endl;
+    } 
 
     nnet::relu<layer4_t, result_t, relu_config5>(layer4_out, layer5_out);
 
+//    for (int i = 0; i < const_size_out_1; i++) {
+//        std::cout << layer5_out[i] << std::endl;
+//    } 
 
 }
