@@ -48,15 +48,11 @@ void econ_4x4_d10(
 //    } 
 
 #ifdef __WEIGHTS_FROM_FILE__
-    static bool loaded_weights = false;
-    if (!loaded_weights) {
-        //hls-fpga-machine-learning insert load weights
-        nnet::load_weights_from_txt<model_default_t, 216>(w2, "w2.txt");
-        nnet::load_weights_from_txt<model_default_t, 8>(b2, "b2.txt");
-        nnet::load_weights_from_txt<model_default_t, 1280>(w4, "w4.txt");
-        nnet::load_weights_from_txt<model_default_t, 10>(b4, "b4.txt");
-        loaded_weights = true;
-    }
+    //hls-fpga-machine-learning insert load weights
+    nnet::load_weights_from_txt<model_default_t, 216>(w2, "w2.txt");
+    nnet::load_weights_from_txt<model_default_t, 8>(b2, "b2.txt");
+    nnet::load_weights_from_txt<model_default_t, 1280>(w4, "w4.txt");
+    nnet::load_weights_from_txt<model_default_t, 10>(b4, "b4.txt");
 #endif
 
     // ****************************************
@@ -71,20 +67,11 @@ void econ_4x4_d10(
 #endif
     nnet::conv_2d<input_t, layer2_t, config2>(input_1, layer2_out, w2, b2, 2234);
 
-//    for (int i = 0; i < OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2; i++) {
-//        std::cout << layer2_out[i] << std::endl;
-//    } 
-
-
     layer3_t layer3_out[OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2];
 #ifndef MNTR_CATAPULT_HLS
 #pragma HLS ARRAY_PARTITION variable=layer3_out complete dim=0
 #endif
     nnet::relu<layer2_t, layer3_t, relu_config3>(layer2_out, layer3_out);
-
-//    for (int i = 0; i < OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2; i++) {
-//        std::cout << layer3_out[i] << std::endl;
-//    } 
 
     layer4_t layer4_out[N_LAYER_4];
 #ifndef MNTR_CATAPULT_HLS
@@ -92,14 +79,6 @@ void econ_4x4_d10(
 #endif
     nnet::dense_large<layer3_t, layer4_t, config4>(layer3_out, layer4_out, w4, b4);
 
-    for (int i = 0; i < N_LAYER_4; i++) {
-        std::cout << layer4_out[i] << std::endl;
-    } 
-
     nnet::relu<layer4_t, result_t, relu_config5>(layer4_out, layer5_out);
-
-//    for (int i = 0; i < const_size_out_1; i++) {
-//        std::cout << layer5_out[i] << std::endl;
-//    } 
 
 }
