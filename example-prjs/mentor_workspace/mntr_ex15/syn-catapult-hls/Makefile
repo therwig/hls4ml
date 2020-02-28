@@ -1,4 +1,4 @@
-PROJECT = keras1layer
+PROJECT = keras_econ_4x4_d10
 
 -include ../../scripts/Makefile-syn-catapult.mk
 

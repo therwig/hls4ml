@@ -72,12 +72,12 @@ void econ_4x4_v4(
     // ****************************************
 
     //hls-fpga-machine-learning insert layers
-
+    
     layer2_t layer2_out[OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2];
     #ifndef MNTR_CATAPULT_HLS
     #pragma HLS ARRAY_PARTITION variable=layer2_out complete dim=0
     #endif
-    nnet::conv_2d<input_t, layer2_t, config2>(input_3, layer2_out, w2, b2);
+    nnet::conv_2d<input_t, layer2_t, config2>(input_3, layer2_out, w2, b2, 303);
 
     layer3_t layer3_out[OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2];
     #ifndef MNTR_CATAPULT_HLS
@@ -89,7 +89,7 @@ void econ_4x4_v4(
     #ifndef MNTR_CATAPULT_HLS
     #pragma HLS ARRAY_PARTITION variable=layer4_out complete dim=0
     #endif
-    nnet::conv_2d<layer3_t, layer4_t, config4>(layer3_out, layer4_out, w4, b4);
+    nnet::conv_2d<layer3_t, layer4_t, config4>(layer3_out, layer4_out, w4, b4, 492);
 
     layer5_t layer5_out[OUT_HEIGHT_4*OUT_WIDTH_4*N_FILT_4];
     #ifndef MNTR_CATAPULT_HLS
@@ -101,7 +101,7 @@ void econ_4x4_v4(
     #ifndef MNTR_CATAPULT_HLS
     #pragma HLS ARRAY_PARTITION variable=layer6_out complete dim=0
     #endif
-    nnet::conv_2d<layer5_t, layer6_t, config6>(layer5_out, layer6_out, w6, b6);
+    nnet::conv_2d<layer5_t, layer6_t, config6>(layer5_out, layer6_out, w6, b6, 916);
 
     layer7_t layer7_out[OUT_HEIGHT_6*OUT_WIDTH_6*N_FILT_6];
     #ifndef MNTR_CATAPULT_HLS

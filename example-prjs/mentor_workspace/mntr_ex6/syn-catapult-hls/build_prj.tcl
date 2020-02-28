@@ -150,10 +150,15 @@ if {$opt(hsynth)} {
         puts "ERROR: Cadence Genus is not supported"
         exit 1
     } else {
-        solution library add mgc_Xilinx-KINTEX-u-2_beh -- -rtlsyntool Vivado -manufacturer Xilinx -family KINTEX-u -speed -2 -part xcku115-flva2104-2-i
-        solution library add Xilinx_RAMS
-        solution library add Xilinx_ROMS
-        solution library add Xilinx_FIFO
+	solution library add mgc_Altera-Arria-10-1_beh -- -rtlsyntool Quartus -manufacturer Altera -family {Arria 10} -speed 1 -part 10AS016E3F27E1HG
+	solution library add Altera_ROMS
+	solution library add Altera_DIST
+	solution library add Altera_M20K
+	solution library add Altera_MLAB	
+        # solution library add mgc_Xilinx-KINTEX-u-2_beh -- -rtlsyntool Vivado -manufacturer Xilinx -family KINTEX-u -speed -2 -part xcku115-flva2104-2-i
+        # solution library add Xilinx_RAMS
+        # solution library add Xilinx_ROMS
+        # solution library add Xilinx_FIFO
     }
 
     go libraries
