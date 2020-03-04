@@ -31,6 +31,7 @@ INCDIR += -I../$(MODEL_DIR)/firmware/weights
 CXX_FLAGS :=
 CXX_FLAGS += -MMD
 CXX_FLAGS += -Wall
+CXX_FLAGS += -Wno-int-in-bool-context
 CXX_FLAGS += -Wno-uninitialized
 CXX_FLAGS += -Wno-unknown-pragmas
 CXX_FLAGS += -Wno-unused-label
@@ -68,12 +69,12 @@ vivado: INCDIR += -I$(XILINX_VIVADO)/include
 vivado: $(MODEL)
 .PHONY: vivado
 
-debug-vivado: CXX_FLAGS += -O0
-debug-vivado: CXX_FLAGS += -g
-debug-vivado: INCDIR += -I$(XILINX_VIVADO)/include
-debug-vivado: $(MODEL)
-	$(QUIET_INFO)echo "Compiled with debugging flags!"
-.PHONY: debug-vivado
+#debug-vivado: CXX_FLAGS += -O0
+#debug-vivado: CXX_FLAGS += -g
+#debug-vivado: INCDIR += -I$(XILINX_VIVADO)/include
+#debug-vivado: $(MODEL)
+#	$(QUIET_INFO)echo "Compiled with debugging flags!"
+#.PHONY: debug-vivado
 
 # Catapult HLS
 catapult: INCDIR += -I../inc
@@ -142,9 +143,9 @@ validate-c-fpga-sim:
 #	$(QUIET_RUN)valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(MODEL)
 #.PHONY: valgrind
 
-gdb:
-	$(QUIET_RUN)gdb ./$(MODEL)
-.PHONY: gdb
+#gdb:
+#	$(QUIET_RUN)gdb ./$(MODEL)
+#.PHONY: gdb
 
 clean:
 	$(QUIET_CLEAN)rm -rf $(MODEL) *.o *.d

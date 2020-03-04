@@ -10,14 +10,14 @@
 export CAD_PATH="/opt/cad"
 
 # We do need Catapult HLS (high-level synthesis).
-export PATH="${CAD_PATH}/catapult/bin":${PATH}
+export PATH="${CAD_PATH}/catapult_beta/bin":${PATH}
 
 # We do need Catapult Coverage.
 export CCOV_HOME="${CAD_PATH}/ccov"
 #export PATH="${CCOV_HOME}/bin:$PATH"
 
 # Let's use the SystemC headers and library provided with Catapult HLS.
-export SYSTEMC="${CAD_PATH}/catapult/shared"
+export SYSTEMC="${CAD_PATH}/catapult_beta/shared"
 
 # We do need Mentor Modelsim (simulator).
 export PATH="${CAD_PATH}/msim/modeltech/bin":$PATH
@@ -35,7 +35,7 @@ export PATH="${CAD_PATH}/genus/tools/bin":$PATH
 export PATH="${CAD_PATH}/encounter/tools/bin":$PATH
 
 # Makefiles and scripts from Catapult HLS may rely on this variable.
-export MGC_HOME=${CAD_PATH}/catapult
+export MGC_HOME=${CAD_PATH}/catapult_beta
 
 ####
 # We do need licensing for this example.
@@ -50,4 +50,4 @@ export LM_LICENSE_FILE=${LM_LICENSE_FILE}:"5280@bioeecad.ee.columbia.edu"
 # Xilinx
 export XILINXD_LICENSE_FILE="2177@espdev.cs.columbia.edu"
 
-export PS1="[catapult] $PS1"
+export PS1="[catapult-beta] $PS1"

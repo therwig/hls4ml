@@ -140,5 +140,7 @@ ultraclean: ultraclean-fpga ultraclean-asic
 	rm -f catapult.log
 	rm -f validate-catapult.png
 	rm -f validate-c.log
+	rm -f tb_data/*.mem
+	rm -f *.pinfo
 .PHONY: ultraclean
 

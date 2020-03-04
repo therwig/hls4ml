@@ -17,8 +17,8 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef ECONV2_H_
-#define ECONV2_H_
+#ifndef ECON_4X4_D10_H_
+#define ECON_4X4_D10_H_
 
 /* #include <complex> */
 /* #include "ap_int.h" */

@@ -17,10 +17,10 @@
 /* #include "nnet_utils/nnet_helpers.h" */
 
 //hls-fpga-machine-learning insert numbers
-#define N_INPUT_1_1 3
+#define N_INPUT_1_1 4
 #define N_INPUT_2_1 4
-#define N_INPUT_3_1 4
-#define OUT_HEIGHT_2 3
+#define N_INPUT_3_1 3
+#define OUT_HEIGHT_2 4
 #define OUT_WIDTH_2 4
 #define N_FILT_2 8
 #define N_LAYER_4 10

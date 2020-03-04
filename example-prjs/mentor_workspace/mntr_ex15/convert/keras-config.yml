@@ -1,7 +1,7 @@
 KerasJson: encoder_4x4_norm_d10.json
 KerasH5:   encoder_4x4_norm_d10.hdf5
-# InputData: input.dat
-# OutputPredictions: output.dat
+InputData: verify_input.dat
+OutputPredictions: verify_output.dat
 OutputDir: keras_econ_4x4_d10
 ProjectName: econ_4x4_d10
 XilinxPart: xcku115-flvb2104-2-i

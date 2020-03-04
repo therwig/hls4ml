@@ -157,7 +157,7 @@ void conv_2d(
                                                  + fw*CONFIG_T::n_chan*CONFIG_T::n_filt
                                                  + cc*CONFIG_T::n_filt
                                                   + ff;
-#if 0
+#if 1
                                 if ((oh*CONFIG_T::stride_height+fh) < CONFIG_T::pad_top
                                 || (oh*CONFIG_T::stride_height+fh) >= (CONFIG_T::pad_top+CONFIG_T::in_height)
                                 || (ow*CONFIG_T::stride_width+fw) < CONFIG_T::pad_left
@@ -179,7 +179,7 @@ void conv_2d(
                                         || (ow * CONFIG_T::stride_width+fw) < CONFIG_T::pad_left
                                         || (ow * CONFIG_T::stride_width+fw) >= (CONFIG_T::pad_left + CONFIG_T::in_width));
 
-                                mult[index_mult] = (flag) ? 0 : data[index_data] * weights[index_weight];
+                                mult[index_mult] = (flag) ? typename CONFIG_T::accum_t(0) : typename CONFIG_T::accum_t(data[index_data] * weights[index_weight]);
 #endif
 
                         }//end mult loop

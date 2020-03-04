@@ -66,6 +66,9 @@ template<typename CONFIG_T>
 {
     int n_mult = 0;
 
+    typename CONFIG_T::weight_t TOP = 1e-20;
+    typename CONFIG_T::weight_t BOTTOM = -1e-20;
+
     for(int oh = 0; oh < CONFIG_T::out_height; oh++) {
         for(int ow = 0; ow < CONFIG_T::out_width; ow++) {
             for(int ff = 0; ff < CONFIG_T::n_filt; ff++){
@@ -85,7 +88,7 @@ template<typename CONFIG_T>
                                     //padded - do nothing
                                     continue;
                                 } else {
-                                    if (weights[index_weight] > 1e-20 || weights[index_weight] < -1e-20) {
+                                    if (weights[index_weight] > TOP || weights[index_weight] < BOTTOM) {
                                           n_mult++;
                                     }
                                 }
@@ -133,9 +136,9 @@ void conv_2d(
     #pragma HLS ARRAY_PARTITION variable=biases complete dim=0
 #endif
     // Limit multipliers to control parallelization
-    const int multiplier_limit_ = compute_multiplier_limit_conv2d<CONFIG_T>(weights);
-    std::cout << "INFO: " << __func__ << ".multiplier_limit = " << multiplier_limit_ << std::endl;
 #ifndef MNTR_CATAPULT_HLS
+    const int multiplier_limit_assert = compute_multiplier_limit_conv2d<CONFIG_T>(weights);
+    std::cout << "INFO: " << __func__ << ".multiplier_limit = " << multiplier_limit_assert << " (offline " << multiplier_limit << ")" << std::endl;
     #pragma HLS ALLOCATION instances=mul limit=multiplier_limit operation
 #endif
     // Convolve, saving all multiplication results to accumulate later

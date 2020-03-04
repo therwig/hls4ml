@@ -6,3 +6,4 @@ design_checker_pre_build.tcl
 *.log
 *.png
 *.tgz
+*_cache

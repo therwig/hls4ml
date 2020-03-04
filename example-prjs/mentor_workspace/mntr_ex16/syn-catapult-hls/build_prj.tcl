@@ -42,6 +42,7 @@ solution options set /Input/CppStandard c++11
 #solution options set /Input/TargetPlatform x86_64
 
 solution options set Cache/UserCacheHome "catapul_104c_cache"
+#solution options set Cache/UserCacheHome "catapul_105beta_cache"
 solution options set Cache/DefaultCacheHomeEnabled false
 
 flow package require /SCVerify
@@ -125,18 +126,16 @@ go analyze
 
 
 # Set the top module and inline all of the other functions.
-#directive set -DESIGN_HIERARCHY econ_4x4_d10
 
-# Set the top module and set FC, RELU, Sigmoid as submodules.
-directive set -DESIGN_HIERARCHY { \
-    econ_4x4_d10 \
-    {nnet::conv_2d<ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, config2>} \
-    {nnet::relu<ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, relu_config3>} \
-    {nnet::relu<ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, relu_config5>} \
-    {nnet::dense_large<ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, ac_fixed<18, 8, true, AC_TRN, AC_WRAP>, config4>} \
-}
+# 10.4c
+directive set -DESIGN_HIERARCHY econ_4x4_d10
 
-go compile
+# 10.5beta
+#solution design set econ_4x4_d10 -top
+#solution design set {nnet::dense_large<ac_fixed<12, 4, true, AC_TRN, AC_WRAP>, ac_fixed<12, 4, true, AC_TRN, AC_WRAP>, config4>} -inline
+#solution design set {nnet::conv_2d<ac_fixed<12, 2, true, AC_TRN, AC_WRAP>, ac_fixed<12, 4, true, AC_TRN, AC_WRAP>, config2>} -inline
+#solution design set {nnet::relu<ac_fixed<12, 4, true, AC_TRN, AC_WRAP>, ac_fixed<12, 4, true, AC_TRN, AC_WRAP>, relu_config3>} -inline
+#solution design set {nnet::relu<ac_fixed<12, 4, true, AC_TRN, AC_WRAP>, ac_fixed<12, 4, true, AC_TRN, AC_WRAP>, relu_config5>} -inline
 
 # Run C simulation.
 if {$opt(csim)} {
@@ -164,7 +163,7 @@ if {$opt(hsynth)} {
 	# solution library add Altera_ROMS
 	# solution library add Altera_DIST
 	# solution library add Altera_M20K
-	# solution library add Altera_MLAB	
+	# solution library add Altera_MLAB
         solution library add mgc_Xilinx-KINTEX-u-2_beh -- -rtlsyntool Vivado -manufacturer Xilinx -family KINTEX-u -speed -2 -part xcku115-flva2104-2-i
         solution library add Xilinx_RAMS
         solution library add Xilinx_ROMS
@@ -194,18 +193,6 @@ if {$opt(hsynth)} {
     } \
     }
 
-    directive set /econ_4x4_d10/nnet::conv_2d<input_t,layer2_t,config2> -MAP_TO_MODULE {[CCORE]}
-    directive set /econ_4x4_d10/nnet::relu<layer2_t,layer3_t,relu_config3> -MAP_TO_MODULE {[CCORE]}
-    directive set /econ_4x4_d10/nnet::relu<layer4_t,result_t,relu_config5> -MAP_TO_MODULE {[CCORE]}
-    directive set /econ_4x4_d10/nnet::dense_large<layer3_t,layer4_t,config4> -MAP_TO_MODULE {[CCORE]}
-
-    # Retains the solution for the CCOREs within the project.
-    directive set /econ_4x4_d10/nnet::conv_2d<input_t,layer2_t,config2> -CCORE_DEBUG true
-    directive set /econ_4x4_d10/nnet::relu<layer2_t,layer3_t,relu_config3> -CCORE_DEBUG true
-    directive set /econ_4x4_d10/nnet::relu<layer4_t,result_t,relu_config5> -CCORE_DEBUG true
-    directive set /econ_4x4_d10/nnet::dense_large<layer3_t,layer4_t,config4> -CCORE_DEBUG true
-
-
     # BUGFIX: This prevents the creation of the empty module CGHpart. In the
     # next releases of Catapult HLS, this may be fixed.
     directive set /econ_4x4_d10 -GATE_EFFORT normal
@@ -218,44 +205,67 @@ if {$opt(hsynth)} {
 
     # Top-Module I/O
 
-    ## DEPRECATED
-    ##directive set /econ_4x4_d10/input_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
-    ##directive set /econ_4x4_d10/layer5_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
+    directive set /econ_4x4_d10/input_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
+    directive set /econ_4x4_d10/input_1:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/input_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
-    directive set /econ_4x4_d10/layer5_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_wait
+    directive set /econ_4x4_d10/layer5_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
+    directive set /econ_4x4_d10/layer5_out:rsc -PACKING_MODE sidebyside
+
     directive set /econ_4x4_d10/const_size_in_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
     directive set /econ_4x4_d10/const_size_out_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
 
-    directive set /econ_4x4_d10/w2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+    directive set /econ_4x4_d10/w2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
     directive set /econ_4x4_d10/w2:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/b2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+    directive set /econ_4x4_d10/b2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
     directive set /econ_4x4_d10/b2:rsc -PACKING_MODE sidebyside
-   
-    directive set /econ_4x4_d10/w4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+
+    directive set /econ_4x4_d10/w4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
     directive set /econ_4x4_d10/w4:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/b4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
+    directive set /econ_4x4_d10/b4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
     directive set /econ_4x4_d10/b4:rsc -PACKING_MODE sidebyside
 
     # Arrays
-    directive set /econ_4x4_d10/nnet::conv_2d<input_t,layer2_t,config2>(input_1):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econ_4x4_d10/nnet::relu<layer2_t,layer3_t,relu_config3>(layer2_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econ_4x4_d10/nnet::relu<layer4_t,result_t,relu_config5>(layer4_out):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econ_4x4_d10/nnet::dense_large<layer3_t,layer4_t,config4>(layer3_out):rsc -MAP_TO_MODULE {[Register]}
 
-    #directive set /econ_4x4_d10/core/nnet::conv_2d<input_t,layer2_t,config2>(w2):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econ_4x4_d10/core/nnet::conv_2d<input_t,layer2_t,config2>(b2):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econ_4x4_d10/core/nnet::dense_large<layer3_t,layer4_t,config4>(w4):rsc -MAP_TO_MODULE {[Register]}
-    directive set /econ_4x4_d10/core/nnet::dense_large<layer3_t,layer4_t,config4>(b4):rsc -MAP_TO_MODULE {[Register]}
+    directive set /econ_4x4_d10/core/layer2_out:rsc -MAP_TO_MODULE {[Register]}
+    directive set /econ_4x4_d10/core/layer3_out:rsc -MAP_TO_MODULE {[Register]}
+    directive set /econ_4x4_d10/core/layer4_out:rsc -MAP_TO_MODULE {[Register]}
+    directive set /econ_4x4_d10/core/nnet::conv_2d<input_t,layer2_t,config2>:mult:rsc -MAP_TO_MODULE {[Register]}
+    directive set /econ_4x4_d10/core/nnet::conv_2d<input_t,layer2_t,config2>:acc:rsc -MAP_TO_MODULE {[Register]}
+    directive set /econ_4x4_d10/core/nnet::dense_large_rf_leq_nin<layer3_t,layer4_t,config4>:acc:rsc -MAP_TO_MODULE {[Register]}
 
     # Loops
-    directive set /econ_4x4_d10/nnet::conv_2d<input_t,layer2_t,config2>/core/main -UNROLL no
-    directive set /econ_4x4_d10/nnet::relu<layer2_t,layer3_t,relu_config3>/core/main -UNROLL no
-    directive set /econ_4x4_d10/nnet::relu<layer4_t,result_t,relu_config5>/core/main -UNROLL no
-    directive set /econ_4x4_d10/nnet::dense_large<layer3_t,layer4_t,config4>/core/main -UNROLL no
-    
+
+    directive set /econ_4x4_d10/core/ConvOutHeight -UNROLL yes
+    directive set /econ_4x4_d10/core/ConvOutWidth -UNROLL yes
+    directive set /econ_4x4_d10/core/ConvFilt -UNROLL yes
+    directive set /econ_4x4_d10/core/ConvChan -UNROLL yes
+    directive set /econ_4x4_d10/core/ConvFiltHeight -UNROLL yes
+    directive set /econ_4x4_d10/core/ConvFiltWidth -UNROLL yes
+    directive set /econ_4x4_d10/core/nnet::conv_2d<input_t,layer2_t,config2>:for -UNROLL yes
+    directive set /econ_4x4_d10/core/nnet::conv_2d<input_t,layer2_t,config2>:for:for -UNROLL yes
+    directive set /econ_4x4_d10/core/nnet::conv_2d<input_t,layer2_t,config2>:for:for:for -UNROLL yes
+    directive set /econ_4x4_d10/core/AccumOutHeight -UNROLL yes
+    directive set /econ_4x4_d10/core/AccumOutWidth -UNROLL yes
+    directive set /econ_4x4_d10/core/AccumFilt -UNROLL yes
+    directive set /econ_4x4_d10/core/AccumChan -UNROLL yes
+    directive set /econ_4x4_d10/core/AccumDotHeight -UNROLL yes
+    directive set /econ_4x4_d10/core/AccumDotWidth -UNROLL yes
+    directive set /econ_4x4_d10/core/nnet::conv_2d<input_t,layer2_t,config2>:for#1 -UNROLL yes
+    directive set /econ_4x4_d10/core/nnet::conv_2d<input_t,layer2_t,config2>:for#1:for -UNROLL yes
+    directive set /econ_4x4_d10/core/nnet::conv_2d<input_t,layer2_t,config2>:for#1:for:for -UNROLL yes
+    directive set /econ_4x4_d10/core/nnet::relu<layer2_t,layer3_t,relu_config3>:for -UNROLL yes
+    directive set /econ_4x4_d10/core/InitAccum -UNROLL yes
+    directive set /econ_4x4_d10/core/MultLoop -UNROLL yes
+    directive set /econ_4x4_d10/core/Result -UNROLL yes
+    directive set /econ_4x4_d10/core/nnet::relu<layer4_t,result_t,relu_config5>:for -UNROLL yes
+
+    #directive set /econ_4x4_d10 -CLUSTER multadd
+
+    directive set /econ_4x4_d10/core -MAX_LATENCY 8
+    directive set /econ_4x4_d10/core -DESIGN_GOAL Area
+
     go architect
 
     #
@@ -305,7 +315,6 @@ if {$opt(hsynth)} {
         }
 
     }
-
 }
 
 project save
