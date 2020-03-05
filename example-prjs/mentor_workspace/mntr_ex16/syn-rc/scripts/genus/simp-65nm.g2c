@@ -2,11 +2,11 @@
 ## Preset global variables and attributes
 ##############################################################################
 
-set DESIGN econV0
-#set SYN_EFF high
-#set MAP_EFF high
-set SYN_EFF medium
-set MAP_EFF medium
+set DESIGN econ_4x4_d10
+set SYN_EFF high
+set MAP_EFF high
+#set SYN_EFF medium
+#set MAP_EFF medium
 set DATE [clock format [clock seconds] -format "%b%d-%T"]
 set _OUTPUTS_PATH output/genus/65nm
 set _REPORTS_PATH report/genus/65nm
