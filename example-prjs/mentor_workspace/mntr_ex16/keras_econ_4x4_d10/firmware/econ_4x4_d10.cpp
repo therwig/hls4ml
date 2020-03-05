@@ -43,9 +43,16 @@ void econ_4x4_d10(
     const_size_in_1 = N_INPUT_1_1*N_INPUT_2_1*N_INPUT_3_1;
     const_size_out_1 = N_LAYER_4;
 
-//    for (int i = 0; i < const_size_in_1; i++) {
-//        std::cout << input_1[i] << std::endl;
-//    } 
+#if 0
+    float input_t_min = FLT_MAX;
+    float input_t_max = FLT_MIN;
+    for (int i = 0; i < const_size_in_1; i++) {
+        if (input_1[i].to_double() < input_t_min) input_t_min = input_1[i].to_double();
+        if (input_1[i].to_double() > input_t_max) input_t_max = input_1[i].to_double();
+    }
+    std::cout << "DEBUG: min(input_t): " << input_t_min << std::endl;
+    std::cout << "DEBUG: max(input_t): " << input_t_max << std::endl;
+#endif
 
     // ****************************************
     // NETWORK INSTANTIATION
@@ -59,11 +66,33 @@ void econ_4x4_d10(
     #endif
     nnet::conv_2d<input_t, layer2_t, config2>(input_1, layer2_out, w2, b2, 2234);
 
+#if 0
+    float layer2_t_min = FLT_MAX;
+    float layer2_t_max = FLT_MIN;
+    for (int i = 0; i < OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2; i++) {
+        if (layer2_out[i].to_double() < layer2_t_min) layer2_t_min = layer2_out[i].to_double();
+        if (layer2_out[i].to_double() > layer2_t_max) layer2_t_max = layer2_out[i].to_double();
+    }
+    std::cout << "DEBUG: min(layer2_t): " << layer2_t_min << std::endl;
+    std::cout << "DEBUG: max(layer2_t): " << layer2_t_max << std::endl;
+#endif
+
     layer3_t layer3_out[OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2];
     #ifndef MNTR_CATAPULT_HLS
     #pragma HLS ARRAY_PARTITION variable=layer3_out complete dim=0
     #endif
     nnet::relu<layer2_t, layer3_t, relu_config3>(layer2_out, layer3_out);
+
+#if 0
+    float layer3_t_min = FLT_MAX;
+    float layer3_t_max = FLT_MIN;
+    for (int i = 0; i < OUT_HEIGHT_2*OUT_WIDTH_2*N_FILT_2; i++) {
+        if (layer3_out[i].to_double() < layer3_t_min) layer3_t_min = layer3_out[i].to_double();
+        if (layer3_out[i].to_double() > layer3_t_max) layer3_t_max = layer3_out[i].to_double();
+    }
+    std::cout << "DEBUG: min(layer3_t): " << layer3_t_min << std::endl;
+    std::cout << "DEBUG: max(layer3_t): " << layer3_t_max << std::endl;
+#endif
 
     layer4_t layer4_out[N_LAYER_4];
     #ifndef MNTR_CATAPULT_HLS
@@ -71,7 +100,27 @@ void econ_4x4_d10(
     #endif
     nnet::dense_large<layer3_t, layer4_t, config4>(layer3_out, layer4_out, w4, b4);
 
+#if 0
+    float layer4_t_min = FLT_MAX;
+    float layer4_t_max = FLT_MIN;
+    for (int i = 0; i < N_LAYER_4; i++) {
+        if (layer4_out[i].to_double() < layer4_t_min) layer4_t_min = layer4_out[i].to_double();
+        if (layer4_out[i].to_double() > layer4_t_max) layer4_t_max = layer4_out[i].to_double();
+    }
+    std::cout << "DEBUG: min(layer4_t): " << layer4_t_min << std::endl;
+    std::cout << "DEBUG: max(layer4_t): " << layer4_t_max << std::endl;
+#endif
+
     nnet::relu<layer4_t, result_t, relu_config5>(layer4_out, layer5_out);
 
-
+#if 0
+    float result_t_min = FLT_MAX;
+    float result_t_max = FLT_MIN;
+    for (int i = 0; i < N_LAYER_4; i++) {
+        if (layer5_out[i].to_double() < result_t_min) result_t_min = layer5_out[i].to_double();
+        if (layer5_out[i].to_double() > result_t_max) result_t_max = layer5_out[i].to_double();
+    }
+    std::cout << "DEBUG: min(result_t): " << result_t_min << std::endl;
+    std::cout << "DEBUG: max(result_t): " << result_t_max << std::endl;
+#endif
 }

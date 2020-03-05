@@ -90,8 +90,16 @@ int main(int argc, char **argv)
 #ifdef __SAVE_TRACES__ 
   std::string INPUT_FILE_BIN_MEM = "tb_data/tb_input_features.mem";
   std::string OUTPUT_FILE_BIN_MEM = "tb_data/tb_output_predictions.mem";
+  std::string W2_FILE_BIN_MEM = "tb_data/w2.mem";
+  std::string B2_FILE_BIN_MEM = "tb_data/b2.mem";
+  std::string W4_FILE_BIN_MEM = "tb_data/w4.mem";
+  std::string B4_FILE_BIN_MEM = "tb_data/b4.mem";
   std::ofstream fout_ifbm(INPUT_FILE_BIN_MEM);
   std::ofstream fout_ofbm(OUTPUT_FILE_BIN_MEM);
+  std::ofstream fout_w2fbm(W2_FILE_BIN_MEM);
+  std::ofstream fout_b2fbm(B2_FILE_BIN_MEM);
+  std::ofstream fout_w4fbm(W4_FILE_BIN_MEM);
+  std::ofstream fout_b4fbm(B4_FILE_BIN_MEM);
 #endif
 
   std::string iline;
@@ -152,14 +160,40 @@ int main(int argc, char **argv)
       }
 
 #ifdef __SAVE_TRACES__
-    for(int i = N_INPUT_1_1-1; i >= 0; i--) {
+    for(int i = size_in1-1; i >= 0; i--) {
         print_fxd_as_bin<input_t>(fout_ifbm, input_1[i]);
     }
     fout_ifbm << std::endl;
-    for(int i = N_LAYER_4-1; i >= 0; i--) {
+    for(int i = size_out1-1; i >= 0; i--) {
         print_fxd_as_bin<result_t>(fout_ofbm, layer5_out[i]);
     }
     fout_ofbm << std::endl;
+
+    static bool one_time = true;
+    if (one_time) {
+        unsigned int size_w2 = 216;
+        unsigned int size_b2 = 8;
+        unsigned int size_w4 = 1280;
+        unsigned int size_b4 = 10;
+
+        for(int i = size_w2-1; i >= 0; i--) {
+            print_fxd_as_bin<model_default_t>(fout_w2fbm, w2[i]);
+        }
+        fout_w2fbm << std::endl;
+        for(int i = size_b2-1; i >= 0; i--) {
+            print_fxd_as_bin<model_default_t>(fout_b2fbm, b2[i]);
+        }
+        fout_b2fbm << std::endl;
+        for(int i = size_w4-1; i >= 0; i--) {
+            print_fxd_as_bin<model_default_t>(fout_w4fbm, w4[i]);
+        }
+        fout_w4fbm << std::endl;
+        for(int i = size_b4-1; i >= 0; i--) {
+            print_fxd_as_bin<model_default_t>(fout_b4fbm, b4[i]);
+        }
+        fout_b4fbm << std::endl;
+        one_time = false;
+    }
 #endif
 
     }
@@ -188,14 +222,40 @@ int main(int argc, char **argv)
     std::cout << std::endl;
 
 #ifdef __SAVE_TRACES__
-    for(int i = N_INPUT_1_1-1; i >= 0; i--) {
+    for(int i = size_in1-1; i >= 0; i--) {
         print_fxd_as_bin<input_t>(fout_ifbm, input_1[i]);
     }
     fout_ifbm << std::endl;
-    for(int i = N_LAYER_4-1; i >= 0; i--) {
+    for(int i = size_out1-1; i >= 0; i--) {
         print_fxd_as_bin<result_t>(fout_ofbm, layer5_out[i]);
     }
     fout_ofbm << std::endl;
+
+    static bool one_time = true;
+    if (one_time) {
+        unsigned int size_w2 = 216;
+        unsigned int size_b2 = 8;
+        unsigned int size_w4 = 1280;
+        unsigned int size_b4 = 10;
+
+        for(int i = size_w2-1; i >= 0; i--) {
+            print_fxd_as_bin<model_default_t>(fout_w2fbm, w2[i]);
+        }
+        fout_w2fbm << std::endl;
+        for(int i = size_b2-1; i >= 0; i--) {
+            print_fxd_as_bin<model_default_t>(fout_b2fbm, b2[i]);
+        }
+        fout_b2fbm << std::endl;
+        for(int i = size_w4-1; i >= 0; i--) {
+            print_fxd_as_bin<model_default_t>(fout_w4fbm, w4[i]);
+        }
+        fout_w4fbm << std::endl;
+        for(int i = size_b4-1; i >= 0; i--) {
+            print_fxd_as_bin<model_default_t>(fout_b4fbm, b4[i]);
+        }
+        fout_b4fbm << std::endl;
+        one_time = false;
+    }
 #endif
 
     //hls-fpga-machine-learning insert tb-output
@@ -213,6 +273,11 @@ int main(int argc, char **argv)
   std::cout << "INFO: Saved input data to .mem file: " << INPUT_FILE_BIN_MEM << std::endl;
   fout_ofbm.close();
   std::cout << "INFO: Saved output data to .mem file: " << OUTPUT_FILE_BIN_MEM << std::endl;
+
+  fout_w2fbm.close();
+  fout_b2fbm.close();
+  fout_w4fbm.close();
+  fout_b4fbm.close();
 #endif
 
 #ifdef MNTR_CATAPULT_HLS
