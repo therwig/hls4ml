@@ -1,0 +1,54 @@
+##############################################################################
+## Preset global variables and attributes
+##############################################################################
+
+set DESIGN econ_4x4_d10
+
+set SYN_EFF medium
+set MAP_EFF medium
+
+set DATE [clock format [clock seconds] -format "%b%d-%T"]
+
+set _OUTPUTS_PATH output/genus/45nm
+set _REPORTS_PATH report/genus/45nm
+set _SCRIPTS_PATH scripts/genus
+set _LOG_PATH logs_${DATE}
+
+#set ET_WORKDIR <ET work directory>
+
+# Northwestern University
+set_db / .init_lib_search_path { /vol/mentor/Catapult_Synthesis_10.4a/Mgc_home/pkgs/siflibs/nangate/ }
+
+# Columbia University
+#set_db / .init_lib_search_path { /tools/Mentor_Graphics/Catapult_Synthesis/10.4c-853139/Mgc_home/pkgs/siflibs/nangate/ }
+
+set_db / .script_search_path {. }
+set_db / .init_hdl_search_path {. ../verilog}
+
+#Uncomment and specify machine names to enable super-threading.
+#set_db / .super_thread_servers {<machine names>}
+#For design size of 1.5M - 5M gates, use 8 to 16 CPUs. For designs > 5M gates, use 16 to 32 CPUs
+#set_db / .max_cpus_per_server 8
+
+#Default undriven/unconnected setting is 'none'.
+#set_db / .hdl_unconnected_input_port_value 0 | 1 | x | none
+#set_db / .hdl_undriven_output_port_value   0 | 1 | x | none
+#set_db / .hdl_undriven_signal_value        0 | 1 | x | none
+
+
+#set_db / .wireload_mode <value>
+set_db / .information_level 7
+
+##############################################################
+# Library setup
+##############################################################
+
+set_db / .library { nangate45nm_nldm.lib }
+
+# PLE
+#set_db / .lef_library <lef file(s)>
+# Provide either cap_table_file or the qrc_tech_file
+#set_db / .cap_table_file <file>
+#set_db / .qrc_tech_file <file>
+
+source $_SCRIPTS_PATH/common.tcl
