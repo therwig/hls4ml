@@ -41,8 +41,8 @@ solution options set Flows/DesignCompiler/OutNetlistFormat verilog
 solution options set /Input/CppStandard c++11
 #solution options set /Input/TargetPlatform x86_64
 
-solution options set Cache/UserCacheHome "catapul_104c_cache"
-#solution options set Cache/UserCacheHome "catapul_105beta_cache"
+set CATAPULT_VERSION  [string map { / - } [string map { . - } [application get /SYSTEM/RELEASE_VERSION]]]
+solution options set Cache/UserCacheHome "catapult_cache_$CATAPULT_VERSION"
 solution options set Cache/DefaultCacheHomeEnabled false
 
 flow package require /SCVerify
@@ -260,6 +260,8 @@ if {$opt(hsynth)} {
     directive set /econ_4x4_d10/core/MultLoop -UNROLL yes
     directive set /econ_4x4_d10/core/Result -UNROLL yes
     directive set /econ_4x4_d10/core/nnet::relu<layer4_t,result_t,relu_config5>:for -UNROLL yes
+
+    directive set /econ_4x4_d10/core/main -PIPELINE_INIT_INTERVAL 1
 
     #directive set /econ_4x4_d10 -CLUSTER multadd
 
