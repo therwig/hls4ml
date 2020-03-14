@@ -205,25 +205,25 @@ if {$opt(hsynth)} {
 
     # Top-Module I/O
 
-    directive set /econ_4x4_d10/input_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
+    directive set /econ_4x4_d10/input_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
     directive set /econ_4x4_d10/input_1:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/layer5_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
+    directive set /econ_4x4_d10/layer5_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_wait
     directive set /econ_4x4_d10/layer5_out:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/const_size_in_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
-    directive set /econ_4x4_d10/const_size_out_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
+    directive set /econ_4x4_d10/const_size_in_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_wait
+    directive set /econ_4x4_d10/const_size_out_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_wait
 
-    directive set /econ_4x4_d10/w2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
+    directive set /econ_4x4_d10/w2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
     directive set /econ_4x4_d10/w2:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/b2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
+    directive set /econ_4x4_d10/b2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
     directive set /econ_4x4_d10/b2:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/w4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
+    directive set /econ_4x4_d10/w4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
     directive set /econ_4x4_d10/w4:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/b4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
+    directive set /econ_4x4_d10/b4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
     directive set /econ_4x4_d10/b4:rsc -PACKING_MODE sidebyside
 
     # Arrays

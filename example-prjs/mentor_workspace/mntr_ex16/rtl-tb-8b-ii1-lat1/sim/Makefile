@@ -15,7 +15,7 @@ V_SOURCES += $(subst ../src/,,$(wildcard ../src/*.v))
 
 .SUFFIXES: .v .x
 
-TB_INDEX ?= 0
+TEST_SIZE ?= 50
 
 all:
 	@echo "INFO: make <TAB> for targets"
@@ -24,15 +24,11 @@ all:
 compile: $(EXE)
 
 $(EXE): $(V_SOURCES)
-	iverilog $^ -o $@ -DTB_INDEX=$(TB_INDEX)
+	iverilog $^ -o $@ -DTEST_SIZE=$(TEST_SIZE)
 
 run: compile
-	./$(EXE)
+	./$(EXE) | tee console.log
 .PHONY: run
-
-run-all:
-	@./run_tests.sh
-.PHONY: run-all
 
 view: run
 	gtkwave $(VCD_FILE) $(CONFIG_FILE) &

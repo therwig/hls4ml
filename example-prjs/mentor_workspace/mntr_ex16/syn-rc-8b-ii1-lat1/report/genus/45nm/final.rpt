@@ -5,10 +5,10 @@ QoS Summary for econ_4x4_d10
 ==========================================================================================
 Metric                          generic         map             syn_opt         final          
 ==========================================================================================
-Slack (ps):                    11,075          17,188          17,259          17,259
-  R2R (ps):                    24,355          24,186          24,394          24,394
-  I2R (ps):                    11,075          17,188          17,259          17,259
-  R2O (ps):                    24,730          24,778          24,814          24,814
+Slack (ps):                     7,341          14,253          14,991          14,991
+  R2R (ps):                     7,341          14,253          14,991          14,991
+  I2R (ps):                     7,668          14,980          15,658          15,658
+  R2O (ps):                    24,466          23,758          23,954          23,954
   I2O (ps):                  no_value        no_value        no_value        no_value
   CG  (ps):                  no_value        no_value        no_value        no_value
 TNS (ps):                           0               0               0               0
@@ -18,10 +18,10 @@ TNS (ps):                           0               0               0           
   I2O (ps):                  no_value        no_value        no_value        no_value
   CG  (ps):                  no_value        no_value        no_value        no_value
 Failing Paths:                      0               0               0               0
-Cell Area:                  3,328,866       1,069,772       1,080,286       1,080,286
-Total Cell Area:            3,328,866       1,069,772       1,080,286       1,080,286
-Leaf Instances:             2,088,060         573,843         579,246         579,246
-Total Instances:            2,088,060         573,843         579,246         579,246
+Cell Area:                  3,461,945       1,216,654       1,227,089       1,227,089
+Total Cell Area:            3,461,945       1,216,654       1,227,089       1,227,089
+Leaf Instances:             2,140,334         686,141         698,764         698,764
+Total Instances:            2,140,334         686,141         698,764         698,764
 Utilization (%):                 0.00            0.00            0.00            0.00
 Tot. Net Length (um):        no_value        no_value        no_value        no_value
 Avg. Net Length (um):        no_value        no_value        no_value        no_value
@@ -32,17 +32,17 @@ Norm Cong Hotspot Area:
   Max Cong:                  no_value        no_value        no_value        no_value
   Tot Cong:                  no_value        no_value        no_value        no_value
 ==========================================================================================
-CPU  Runtime (h:m:s):        00:15:34        00:12:45        00:08:28        00:00:30
-Real Runtime (h:m:s):        00:26:33        00:51:22        00:09:56        00:01:27
-CPU  Elapsed (h:m:s):        00:15:38        00:28:23        00:36:51        00:37:21
-Real Elapsed (h:m:s):        00:26:35        01:17:57        01:27:53        01:29:20
-Memory (MB):                  3894.08         5188.90         5210.50         5210.50
+CPU  Runtime (h:m:s):        00:16:12        00:15:44        00:11:11        00:00:40
+Real Runtime (h:m:s):        00:48:42        00:58:32        00:13:54        00:02:00
+CPU  Elapsed (h:m:s):        00:16:16        00:32:00        00:43:11        00:43:51
+Real Elapsed (h:m:s):        00:48:43        01:47:15        02:01:09        02:03:09
+Memory (MB):                  4028.89         5662.96         5666.33         5666.33
 ==========================================================================================
 ==========================================================================================
 Flow Settings:
 ==========================================================================================
-Total Runtime (h:m:s): 01:30:45
-Total Memory (MB):     5210.50
+Total Runtime (h:m:s): 02:05:11
+Total Memory (MB):     5666.33
 Executable Version:    18.14-s037_1
 ==========================================================================================
 Total Cell Area =  Cell Area + Physical Cell Area

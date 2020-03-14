@@ -12,7 +12,7 @@
 8324   Info  CWD-36      Sorted the set of valid implementations for        
                          synthetic operator.                                
    1   Info  ELAB-1      Elaborating Design.                                
-  39   Info  ELAB-2      Elaborating Subdesign.                             
+  52   Info  ELAB-2      Elaborating Subdesign.                             
    1   Info  ELAB-3      Done Elaborating Design.                           
    1   Info  ENC_MSV-301 Design has no library or power domains.            
                          No power domains will be created for Encounter.    
@@ -22,6 +22,14 @@
                          Setting leakage_power_effort to 'none' will        
                          enable the backward compatible mode.               
  138   Info  GB-6        A datapath component has been ungrouped.           
+   1   Info  GLO-32      Deleting sequential instances not driving any      
+                         primary outputs.                                   
+                         Optimizations such as constant propagation or      
+                         redundancy removal could change the connections    
+                         so an instance does not drive any primary outputs  
+                         anymore. To see the list of deleted sequential,    
+                         set the 'information_level' attribute to 2 or      
+                         above.                                             
    3   Info  GLO-34      Deleting instances not driving any primary         
                          outputs.                                           
                          Optimizations such as constant propagation or      
