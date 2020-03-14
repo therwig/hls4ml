@@ -151,7 +151,7 @@ begin
     reset = 0;
     $display ("@%04d INFO: Reset low", $time);
 
-    $display ("@%04d INFO: Ready to run %d test vectors", $time, `TEST_SIZE);
+    $display ("@%04d INFO: Ready to simulate %0d test vectors", $time, `TEST_SIZE);
 
 end
 
@@ -213,9 +213,9 @@ begin
             dut_error = 1;
         end else
         begin
-            $display ("@%04d INFO:  DUT OK!", $time);
-            $display ("@%04d INFO:  Expected value [%04d/%04d] %b", $time, vectornum_ou, `TEST_SIZE, expected_output_data);
-            $display ("@%04d INFO:   got value                 %b", $time, output_data);
+            //$display ("@%04d INFO:  DUT OK!", $time);
+            //$display ("@%04d INFO:  Expected value [%04d/%04d] %b", $time, vectornum_ou, `TEST_SIZE, expected_output_data);
+            //$display ("@%04d INFO:   got value                 %b", $time, output_data);
 
             dut_error = 0;
         end
@@ -225,7 +225,7 @@ begin
         if (vectornum_ou == `TEST_SIZE)
         begin
             $display ("@%04d INFO: Terminating simulation", $time);
-            $display ("@%04d INFO: Simulated %0d testvectors with %0d errors", $time, vectornum_ou, errors);
+            $display ("@%04d INFO: Simulated %0d test vectors with %0d errors", $time, vectornum_ou, errors);
             if (errors == 0)
                 $display ("@%04d INFO: Validation: PASSED", $time);
             else
