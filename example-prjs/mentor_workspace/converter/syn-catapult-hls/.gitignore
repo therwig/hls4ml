@@ -1,0 +1,10 @@
+Catapult*.ccs
+Catapult_asic*
+Catapult_fpga*
+catapult_cache_*
+design_checker_constraints.tcl
+design_checker_pre_build.tcl
+*.log
+*.png
+*.tgz
+*_cache

@@ -20,20 +20,21 @@
 #include "converter.h"
 
 void converter(
-    data_t input[N_INPUT_1_1*N_INPUT_2_1*N_INPUT_3_1],
-    econ_t output[N_INPUT_1_1*N_INPUT_2_1*N_INPUT_3_1]
-) {
+        data_t input[N_INPUT_1_1*N_INPUT_2_1*N_INPUT_3_1],
+        econ_t output[N_INPUT_1_1*N_INPUT_2_1*N_INPUT_3_1]
+        ) {
     int const_size_in = N_INPUT_1_1*N_INPUT_2_1*N_INPUT_3_1;
-    
+
     // sum input data
-    uint sum = 0; 
-    for (int i = 0; i < const_size_in; i++) {
+    uint sum = 0;
+SUM_LOOP:
+    for (unsigned int i = 0; i < const_size_in; i++) {
         sum += input[i];
     }
     std::cout << sum <<std::endl;
     // find MSB with 1
     // de Bruijn Sequences
-    // http://supertech.csail.mit.edu/papers/debruijn.pdf 
+    // http://supertech.csail.mit.edu/papers/debruijn.pdf
     const uint de_bruijin[32] =
     {
         0, 9, 1, 10, 13, 21, 2, 29, 11, 14, 16, 18, 22, 25, 3, 30,
@@ -51,11 +52,12 @@ void converter(
     else if(msb < 7)
         lsb = 0;
     else
-        lsb = msb - 7; 
+        lsb = msb - 7;
     std::cout << msb << std::endl;
     std::cout << lsb << std::endl;
 
     // reduce data to 8 bits
+REDUCE_LOOP:
     for(int i = 0; i < const_size_in; i++) {
         output[i].bit_fill((int[1]) {input[i].slc<8>(lsb)});
     }
