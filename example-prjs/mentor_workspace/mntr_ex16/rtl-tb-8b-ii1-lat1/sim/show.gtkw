@@ -1,0 +1,101 @@
+[*]
+[*] GTKWave Analyzer v3.3.61 (w)1999-2014 BSI
+[*] Fri Mar 13 23:05:00 2020
+[*]
+[dumpfile] "/home/giuseppe/research/projects/fastml/hls4ml-mentor-therwig.git/example-prjs/mentor_workspace/mntr_ex16/rtl-tb-8b-ii1-lat1/sim/econV0.vcd"
+[dumpfile_mtime] "Fri Mar 13 23:03:30 2020"
+[dumpfile_size] 1393644
+[savefile] "/home/giuseppe/research/projects/fastml/hls4ml-mentor-therwig.git/example-prjs/mentor_workspace/mntr_ex16/rtl-tb-8b-ii1-lat1/sim/show.gtkw"
+[timestart] 0
+[size] 3373 1276
+[pos] -1 -1
+*-6.000000 175 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] econV0_tb.
+[treeopen] econV0_tb.econ_4x4_d10_top.
+[treeopen] econV0_tb.econ_4x4_d10_top.econ_4x4_d10_core_inst.
+[sst_width] 590
+[signals_width] 273
+[sst_expanded] 1
+[sst_vpaned_height] 523
+@28
+econV0_tb.clk
+econV0_tb.reset
+@200
+-
+@22
+econV0_tb.input_data[383:0]
+@28
+econV0_tb.input_valid
+econV0_tb.input_ready
+[color] 7
+econV0_tb.input_triosy
+@200
+-
+@22
+econV0_tb.b2_data[63:0]
+@28
+econV0_tb.b2_valid
+econV0_tb.b2_ready
+[color] 7
+econV0_tb.b2_triosy
+@200
+-
+@22
+econV0_tb.b4_data[79:0]
+@28
+econV0_tb.b4_valid
+econV0_tb.b4_ready
+[color] 7
+econV0_tb.b4_triosy
+@200
+-
+@22
+econV0_tb.w2_data[1727:0]
+@28
+econV0_tb.w2_valid
+econV0_tb.w2_ready
+[color] 7
+econV0_tb.w2_triosy
+@200
+-
+@22
+econV0_tb.w4_data[10239:0]
+@28
+econV0_tb.w4_valid
+econV0_tb.w4_ready
+[color] 7
+econV0_tb.w4_triosy
+@200
+-
+@22
+econV0_tb.size_in_data[15:0]
+@28
+econV0_tb.size_in_valid
+econV0_tb.size_in_ready
+[color] 7
+econV0_tb.size_in_triosy
+@22
+econV0_tb.size_out_data[15:0]
+@28
+econV0_tb.size_out_valid
+econV0_tb.size_out_ready
+[color] 7
+econV0_tb.size_out_triosy
+@200
+-
+@22
+econV0_tb.output_data[79:0]
+@28
+econV0_tb.output_ready
+[color] 7
+econV0_tb.output_triosy
+econV0_tb.output_valid
+@200
+-
+@22
+econV0_tb.expected_output_data[79:0]
+@28
+[color] 2
+econV0_tb.dut_error
+[pattern_trace] 1
+[pattern_trace] 0

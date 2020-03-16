@@ -26,12 +26,21 @@
 #define N_LAYER_4 10
 
 //hls-fpga-machine-learning insert layer-precision
+#ifdef __AC_FLOAT__
+typedef ac_float<4,1,3> model_default_t;
+typedef ac_float<4,1,3> input_t;
+typedef ac_float<4,1,3> layer2_t;
+typedef ac_float<4,1,3> layer3_t;
+typedef ac_float<4,1,3> layer4_t;
+typedef ac_float<4,1,3> result_t;
+#else
 typedef ap_fixed<8,1> model_default_t;
-typedef ap_fixed<22,2> input_t;
-typedef ap_fixed<22,4> layer2_t;
-typedef ap_fixed<22,4> layer3_t;
-typedef ap_fixed<22,4> layer4_t;
-typedef ap_fixed<22,4> result_t;
+typedef ap_fixed<8,2> input_t;
+typedef ap_fixed<8,2> layer2_t;
+typedef ap_fixed<8,2> layer3_t;
+typedef ap_fixed<8,2> layer4_t;
+typedef ap_fixed<8,2> result_t;
+#endif
 
 //hls-fpga-machine-learning insert layer-config
 struct config2 : nnet::conv2d_config {
@@ -52,7 +61,11 @@ struct config2 : nnet::conv2d_config {
     static const unsigned reuse_factor = 1;
     static const unsigned n_zeros = 0;
     static const bool store_weights_in_bram = false;
-    typedef ap_fixed<22,4> accum_t;
+#ifdef __AC_FLOAT__
+    typedef ac_float<4,1,3> accum_t;
+#else
+    typedef ap_fixed<8,2> accum_t;
+#endif
     typedef model_default_t bias_t;
     typedef model_default_t weight_t;
 };
@@ -71,7 +84,11 @@ struct config4 : nnet::dense_config {
     static const unsigned n_zeros = 0;
     static const unsigned n_nonzeros = 1280;
     static const bool store_weights_in_bram = false;
-    typedef ap_fixed<22,4> accum_t;
+#ifdef __AC_FLOAT__
+    typedef ac_float<4,1,3> accum_t;
+#else
+    typedef ap_fixed<8,2> accum_t;
+#endif
     typedef model_default_t bias_t;
     typedef model_default_t weight_t;
     typedef ap_uint<1> index_t;

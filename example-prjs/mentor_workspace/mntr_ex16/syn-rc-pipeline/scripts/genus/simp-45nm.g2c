@@ -17,10 +17,10 @@ set _LOG_PATH logs_${DATE}
 #set ET_WORKDIR <ET work directory>
 
 # Northwestern University
-set_db / .init_lib_search_path { /vol/mentor/Catapult_Synthesis_10.4a/Mgc_home/pkgs/siflibs/nangate/ }
+#set_db / .init_lib_search_path { /vol/mentor/Catapult_Synthesis_10.4a/Mgc_home/pkgs/siflibs/nangate/ }
 
 # Columbia University
-#set_db / .init_lib_search_path { /tools/Mentor_Graphics/Catapult_Synthesis/10.4c-853139/Mgc_home/pkgs/siflibs/nangate/ }
+set_db / .init_lib_search_path { /tools/Mentor_Graphics/Catapult_Synthesis/10.4c-853139/Mgc_home/pkgs/siflibs/nangate/ }
 
 set_db / .script_search_path {. }
 set_db / .init_hdl_search_path {. ../verilog}

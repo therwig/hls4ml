@@ -1,0 +1,2098 @@
+
+//------> /opt/cad/catapult/pkgs/siflibs/ccs_in_wait_v1.v 
+//------------------------------------------------------------------------------
+// Catapult Synthesis - Sample I/O Port Library
+//
+// Copyright (c) 2003-2017 Mentor Graphics Corp.
+//       All Rights Reserved
+//
+// This document may be used and distributed without restriction provided that
+// this copyright statement is not removed from the file and that any derivative
+// work contains this copyright notice.
+//
+// The design information contained in this file is intended to be an example
+// of the functionality which the end user may study in preparation for creating
+// their own custom interfaces. This design does not necessarily present a 
+// complete implementation of the named protocol or standard.
+//
+//------------------------------------------------------------------------------
+
+
+module ccs_in_wait_v1 (idat, rdy, ivld, dat, irdy, vld);
+
+  parameter integer rscid = 1;
+  parameter integer width = 8;
+
+  output [width-1:0] idat;
+  output             rdy;
+  output             ivld;
+  input  [width-1:0] dat;
+  input              irdy;
+  input              vld;
+
+  wire   [width-1:0] idat;
+  wire               rdy;
+  wire               ivld;
+
+  assign idat = dat;
+  assign rdy = irdy;
+  assign ivld = vld;
+
+endmodule
+
+
+//------> /opt/cad/catapult/pkgs/siflibs/ccs_out_wait_v1.v 
+//------------------------------------------------------------------------------
+// Catapult Synthesis - Sample I/O Port Library
+//
+// Copyright (c) 2003-2017 Mentor Graphics Corp.
+//       All Rights Reserved
+//
+// This document may be used and distributed without restriction provided that
+// this copyright statement is not removed from the file and that any derivative
+// work contains this copyright notice.
+//
+// The design information contained in this file is intended to be an example
+// of the functionality which the end user may study in preparation for creating
+// their own custom interfaces. This design does not necessarily present a 
+// complete implementation of the named protocol or standard.
+//
+//------------------------------------------------------------------------------
+
+
+module ccs_out_wait_v1 (dat, irdy, vld, idat, rdy, ivld);
+
+  parameter integer rscid = 1;
+  parameter integer width = 8;
+
+  output [width-1:0] dat;
+  output             irdy;
+  output             vld;
+  input  [width-1:0] idat;
+  input              rdy;
+  input              ivld;
+
+  wire   [width-1:0] dat;
+  wire               irdy;
+  wire               vld;
+
+  assign dat = idat;
+  assign irdy = rdy;
+  assign vld = ivld;
+
+endmodule
+
+
+
+//------> /opt/cad/catapult/pkgs/siflibs/mgc_io_sync_v2.v 
+//------------------------------------------------------------------------------
+// Catapult Synthesis - Sample I/O Port Library
+//
+// Copyright (c) 2003-2017 Mentor Graphics Corp.
+//       All Rights Reserved
+//
+// This document may be used and distributed without restriction provided that
+// this copyright statement is not removed from the file and that any derivative
+// work contains this copyright notice.
+//
+// The design information contained in this file is intended to be an example
+// of the functionality which the end user may study in preparation for creating
+// their own custom interfaces. This design does not necessarily present a 
+// complete implementation of the named protocol or standard.
+//
+//------------------------------------------------------------------------------
+
+
+module mgc_io_sync_v2 (ld, lz);
+    parameter valid = 0;
+
+    input  ld;
+    output lz;
+
+    wire   lz;
+
+    assign lz = ld;
+
+endmodule
+
+
+//------> /opt/cad/catapult/pkgs/siflibs/mgc_shift_r_beh_v5.v 
+module mgc_shift_r_v5(a,s,z);
+   parameter    width_a = 4;
+   parameter    signd_a = 1;
+   parameter    width_s = 2;
+   parameter    width_z = 8;
+
+   input [width_a-1:0] a;
+   input [width_s-1:0] s;
+   output [width_z -1:0] z;
+
+   generate
+     if (signd_a)
+     begin: SGNED
+       assign z = fshr_u(a,s,a[width_a-1]);
+     end
+     else
+     begin: UNSGNED
+       assign z = fshr_u(a,s,1'b0);
+     end
+   endgenerate
+
+   //Shift right - unsigned shift argument
+   function [width_z-1:0] fshr_u;
+      input [width_a-1:0] arg1;
+      input [width_s-1:0] arg2;
+      input sbit;
+      parameter olen = width_z;
+      parameter ilen = signd_a ? width_a : width_a+1;
+      parameter len = (ilen >= olen) ? ilen : olen;
+      reg signed [len-1:0] result;
+      reg signed [len-1:0] result_t;
+      begin
+        result_t = $signed( {(len){sbit}} );
+        result_t[width_a-1:0] = arg1;
+        result = result_t >>> arg2;
+        fshr_u =  result[olen-1:0];
+      end
+   endfunction // fshl_u
+
+endmodule
+
+//------> ../td_ccore_solutions/ACC_11i16_1o30_d342556a359f23f521bf9605a686f82f1e1_0/rtl.v 
+// ----------------------------------------------------------------------
+//  HLS HDL:        Verilog Netlister
+//  HLS Version:    10.5/861329 Production Release
+//  HLS Date:       Wed Mar  4 15:45:36 PST 2020
+// 
+//  Generated by:   giuseppe@fastml02
+//  Generated date: Mon Mar 16 10:32:50 2020
+// ----------------------------------------------------------------------
+
+// 
+// ------------------------------------------------------------------
+//  Design Unit:    ACC_11i16_1o30_d342556a359f23f521bf9605a686f82f1e1
+// ------------------------------------------------------------------
+
+
+module ACC_11i16_1o30_d342556a359f23f521bf9605a686f82f1e1 (
+  I_1, I_2, I_3, I_4, I_5, I_6, I_7, I_8, I_9, I_10, I_11, O_1
+);
+  input [11:0] I_1;
+  input [15:0] I_2;
+  input [13:0] I_3;
+  input [10:0] I_4;
+  input [7:0] I_5;
+  input [13:0] I_6;
+  input [5:0] I_7;
+  input [3:0] I_8;
+  input [1:0] I_9;
+  input [9:0] I_10;
+  input [4:0] I_11;
+  output [29:0] O_1;
+  wire [30:0] nl_O_1;
+
+
+  // Interconnect Declarations
+  wire [21:0] msb_acc_sdt;
+  wire [22:0] nl_msb_acc_sdt;
+  wire [19:0] msb_acc_sdt_1;
+  wire [20:0] nl_msb_acc_sdt_1;
+
+  wire[17:0] msb_acc_72_nl;
+  wire[19:0] nl_msb_acc_72_nl;
+  wire[15:0] msb_acc_63_nl;
+  wire[16:0] nl_msb_acc_63_nl;
+  wire[15:0] msb_acc_67_nl;
+  wire[16:0] nl_msb_acc_67_nl;
+  wire[29:0] msb_acc_45_nl;
+  wire[31:0] nl_msb_acc_45_nl;
+
+  // Interconnect Declarations for Component Instantiations 
+  assign nl_msb_acc_sdt = ({I_11 , 3'b000 , (I_2[15:2])}) + ({(~ I_8) , (~ I_2) ,
+      2'b01});
+  assign msb_acc_sdt = nl_msb_acc_sdt[21:0];
+  assign nl_msb_acc_72_nl = conv_u2u_14_18({I_1 , 2'b00}) + conv_u2u_16_18({(~ I_1)
+      , 4'b0000}) + ({(~ I_9) , (~ I_2)}) + 18'b110000000000010001;
+  assign msb_acc_72_nl = nl_msb_acc_72_nl[17:0];
+  assign nl_msb_acc_sdt_1 = ({msb_acc_72_nl , 2'b01}) + (msb_acc_sdt[21:2]);
+  assign msb_acc_sdt_1 = nl_msb_acc_sdt_1[19:0];
+  assign nl_msb_acc_67_nl = (msb_acc_sdt_1[19:4]) + ({I_3 , 2'b00});
+  assign msb_acc_67_nl = nl_msb_acc_67_nl[15:0];
+  assign nl_msb_acc_63_nl = msb_acc_67_nl + I_2;
+  assign msb_acc_63_nl = nl_msb_acc_63_nl[15:0];
+  assign nl_msb_acc_45_nl = ({(~ I_4) , 3'b111 , (~ I_2)}) + ({(~ I_10) , 1'b1 ,
+      (~ I_2) , 3'b001}) + ({I_5 , 8'b00000000 , I_6}) + ({(~ I_7) , (~ I_2) , 8'b00001000});
+  assign msb_acc_45_nl = nl_msb_acc_45_nl[29:0];
+  assign nl_O_1 = ({msb_acc_63_nl , (msb_acc_sdt_1[3:0]) , (msb_acc_sdt[1:0]) , (I_2[1:0])
+      , 6'b000000}) + msb_acc_45_nl;
+  assign O_1 = nl_O_1[29:0];
+
+  function automatic [17:0] conv_u2u_14_18 ;
+    input [13:0]  vector ;
+  begin
+    conv_u2u_14_18 = {{4{1'b0}}, vector};
+  end
+  endfunction
+
+
+  function automatic [17:0] conv_u2u_16_18 ;
+    input [15:0]  vector ;
+  begin
+    conv_u2u_16_18 = {{2{1'b0}}, vector};
+  end
+  endfunction
+
+endmodule
+
+
+
+
+//------> ../td_ccore_solutions/ROM_1i5_1o5_9b0145e8009ee9dec38f1b38bd1a9ee5b0_0/rtl.v 
+// ----------------------------------------------------------------------
+//  HLS HDL:        Verilog Netlister
+//  HLS Version:    10.5/861329 Production Release
+//  HLS Date:       Wed Mar  4 15:45:36 PST 2020
+// 
+//  Generated by:   giuseppe@fastml02
+//  Generated date: Mon Mar 16 10:32:47 2020
+// ----------------------------------------------------------------------
+
+// 
+// ------------------------------------------------------------------
+//  Design Unit:    ROM_1i5_1o5_9b0145e8009ee9dec38f1b38bd1a9ee5b0
+// ------------------------------------------------------------------
+
+
+module ROM_1i5_1o5_9b0145e8009ee9dec38f1b38bd1a9ee5b0 (
+  I_1, O_1
+);
+  input [4:0] I_1;
+  output [4:0] O_1;
+
+
+
+  // Interconnect Declarations for Component Instantiations 
+  assign O_1 = MUX_v_5_32_2(5'b00000, 5'b01001, 5'b00001, 5'b01010, 5'b01101, 5'b10101,
+      5'b00010, 5'b11101, 5'b01011, 5'b01110, 5'b10000, 5'b10010, 5'b10110, 5'b11001,
+      5'b00011, 5'b11110, 5'b01000, 5'b01100, 5'b10100, 5'b11100, 5'b01111, 5'b10001,
+      5'b11000, 5'b00111, 5'b10011, 5'b11011, 5'b10111, 5'b00110, 5'b11010, 5'b00101,
+      5'b00100, 5'b11111, I_1);
+
+  function automatic [4:0] MUX_v_5_32_2;
+    input [4:0] input_0;
+    input [4:0] input_1;
+    input [4:0] input_2;
+    input [4:0] input_3;
+    input [4:0] input_4;
+    input [4:0] input_5;
+    input [4:0] input_6;
+    input [4:0] input_7;
+    input [4:0] input_8;
+    input [4:0] input_9;
+    input [4:0] input_10;
+    input [4:0] input_11;
+    input [4:0] input_12;
+    input [4:0] input_13;
+    input [4:0] input_14;
+    input [4:0] input_15;
+    input [4:0] input_16;
+    input [4:0] input_17;
+    input [4:0] input_18;
+    input [4:0] input_19;
+    input [4:0] input_20;
+    input [4:0] input_21;
+    input [4:0] input_22;
+    input [4:0] input_23;
+    input [4:0] input_24;
+    input [4:0] input_25;
+    input [4:0] input_26;
+    input [4:0] input_27;
+    input [4:0] input_28;
+    input [4:0] input_29;
+    input [4:0] input_30;
+    input [4:0] input_31;
+    input [4:0] sel;
+    reg [4:0] result;
+  begin
+    case (sel)
+      5'b00000 : begin
+        result = input_0;
+      end
+      5'b00001 : begin
+        result = input_1;
+      end
+      5'b00010 : begin
+        result = input_2;
+      end
+      5'b00011 : begin
+        result = input_3;
+      end
+      5'b00100 : begin
+        result = input_4;
+      end
+      5'b00101 : begin
+        result = input_5;
+      end
+      5'b00110 : begin
+        result = input_6;
+      end
+      5'b00111 : begin
+        result = input_7;
+      end
+      5'b01000 : begin
+        result = input_8;
+      end
+      5'b01001 : begin
+        result = input_9;
+      end
+      5'b01010 : begin
+        result = input_10;
+      end
+      5'b01011 : begin
+        result = input_11;
+      end
+      5'b01100 : begin
+        result = input_12;
+      end
+      5'b01101 : begin
+        result = input_13;
+      end
+      5'b01110 : begin
+        result = input_14;
+      end
+      5'b01111 : begin
+        result = input_15;
+      end
+      5'b10000 : begin
+        result = input_16;
+      end
+      5'b10001 : begin
+        result = input_17;
+      end
+      5'b10010 : begin
+        result = input_18;
+      end
+      5'b10011 : begin
+        result = input_19;
+      end
+      5'b10100 : begin
+        result = input_20;
+      end
+      5'b10101 : begin
+        result = input_21;
+      end
+      5'b10110 : begin
+        result = input_22;
+      end
+      5'b10111 : begin
+        result = input_23;
+      end
+      5'b11000 : begin
+        result = input_24;
+      end
+      5'b11001 : begin
+        result = input_25;
+      end
+      5'b11010 : begin
+        result = input_26;
+      end
+      5'b11011 : begin
+        result = input_27;
+      end
+      5'b11100 : begin
+        result = input_28;
+      end
+      5'b11101 : begin
+        result = input_29;
+      end
+      5'b11110 : begin
+        result = input_30;
+      end
+      default : begin
+        result = input_31;
+      end
+    endcase
+    MUX_v_5_32_2 = result;
+  end
+  endfunction
+
+endmodule
+
+
+
+
+//------> ../td_ccore_solutions/ACC_48i22_1o28_8f2ce58d1f6aab115bca62d958d78cd9162_0/rtl.v 
+// ----------------------------------------------------------------------
+//  HLS HDL:        Verilog Netlister
+//  HLS Version:    10.5/861329 Production Release
+//  HLS Date:       Wed Mar  4 15:45:36 PST 2020
+// 
+//  Generated by:   giuseppe@fastml02
+//  Generated date: Mon Mar 16 10:32:31 2020
+// ----------------------------------------------------------------------
+
+// 
+// ------------------------------------------------------------------
+//  Design Unit:    ACC_48i22_1o28_8f2ce58d1f6aab115bca62d958d78cd9162
+// ------------------------------------------------------------------
+
+
+module ACC_48i22_1o28_8f2ce58d1f6aab115bca62d958d78cd9162 (
+  I_1, I_2, I_3, I_4, I_5, I_6, I_7, I_8, I_9, I_10, I_11, I_12, I_13, I_14, I_15,
+      I_16, I_17, I_18, I_19, I_20, I_21, I_22, I_23, I_24, I_25, I_26, I_27, I_28,
+      I_29, I_30, I_31, I_32, I_33, I_34, I_35, I_36, I_37, I_38, I_39, I_40, I_41,
+      I_42, I_43, I_44, I_45, I_46, I_47, I_48, O_1
+);
+  input [21:0] I_1;
+  input [21:0] I_2;
+  input [21:0] I_3;
+  input [21:0] I_4;
+  input [21:0] I_5;
+  input [21:0] I_6;
+  input [21:0] I_7;
+  input [21:0] I_8;
+  input [21:0] I_9;
+  input [21:0] I_10;
+  input [21:0] I_11;
+  input [21:0] I_12;
+  input [21:0] I_13;
+  input [21:0] I_14;
+  input [21:0] I_15;
+  input [21:0] I_16;
+  input [21:0] I_17;
+  input [21:0] I_18;
+  input [21:0] I_19;
+  input [21:0] I_20;
+  input [21:0] I_21;
+  input [21:0] I_22;
+  input [21:0] I_23;
+  input [21:0] I_24;
+  input [21:0] I_25;
+  input [21:0] I_26;
+  input [21:0] I_27;
+  input [21:0] I_28;
+  input [21:0] I_29;
+  input [21:0] I_30;
+  input [21:0] I_31;
+  input [21:0] I_32;
+  input [21:0] I_33;
+  input [21:0] I_34;
+  input [21:0] I_35;
+  input [21:0] I_36;
+  input [21:0] I_37;
+  input [21:0] I_38;
+  input [21:0] I_39;
+  input [21:0] I_40;
+  input [21:0] I_41;
+  input [21:0] I_42;
+  input [21:0] I_43;
+  input [21:0] I_44;
+  input [21:0] I_45;
+  input [21:0] I_46;
+  input [21:0] I_47;
+  input [21:0] I_48;
+  output [27:0] O_1;
+  wire [33:0] nl_O_1;
+
+
+
+  // Interconnect Declarations for Component Instantiations 
+  assign nl_O_1 = conv_u2u_22_28(I_17) + conv_u2u_22_28(I_18) + conv_u2u_22_28(I_19)
+      + conv_u2u_22_28(I_20) + conv_u2u_22_28(I_45) + conv_u2u_22_28(I_46) + conv_u2u_22_28(I_41)
+      + conv_u2u_22_28(I_42) + conv_u2u_22_28(I_43) + conv_u2u_22_28(I_44) + conv_u2u_22_28(I_33)
+      + conv_u2u_22_28(I_34) + conv_u2u_22_28(I_35) + conv_u2u_22_28(I_36) + conv_u2u_22_28(I_37)
+      + conv_u2u_22_28(I_38) + conv_u2u_22_28(I_39) + conv_u2u_22_28(I_40) + conv_u2u_22_28(I_1)
+      + conv_u2u_22_28(I_2) + conv_u2u_22_28(I_3) + conv_u2u_22_28(I_4) + conv_u2u_22_28(I_5)
+      + conv_u2u_22_28(I_6) + conv_u2u_22_28(I_7) + conv_u2u_22_28(I_8) + conv_u2u_22_28(I_13)
+      + conv_u2u_22_28(I_14) + conv_u2u_22_28(I_15) + conv_u2u_22_28(I_16) + conv_u2u_22_28(I_9)
+      + conv_u2u_22_28(I_10) + conv_u2u_22_28(I_11) + conv_u2u_22_28(I_12) + conv_u2u_22_28(I_21)
+      + conv_u2u_22_28(I_22) + conv_u2u_22_28(I_23) + conv_u2u_22_28(I_24) + conv_u2u_22_28(I_29)
+      + conv_u2u_22_28(I_30) + conv_u2u_22_28(I_31) + conv_u2u_22_28(I_32) + conv_u2u_22_28(I_25)
+      + conv_u2u_22_28(I_26) + conv_u2u_22_28(I_27) + conv_u2u_22_28(I_28) + conv_u2u_22_28(I_47)
+      + conv_u2u_22_28(I_48);
+  assign O_1 = nl_O_1[27:0];
+
+  function automatic [27:0] conv_u2u_22_28 ;
+    input [21:0]  vector ;
+  begin
+    conv_u2u_22_28 = {{6{1'b0}}, vector};
+  end
+  endfunction
+
+endmodule
+
+
+
+
+//------> ./rtl.v 
+// ----------------------------------------------------------------------
+//  HLS HDL:        Verilog Netlister
+//  HLS Version:    10.5/861329 Production Release
+//  HLS Date:       Wed Mar  4 15:45:36 PST 2020
+// 
+//  Generated by:   giuseppe@fastml02
+//  Generated date: Mon Mar 16 10:33:03 2020
+// ----------------------------------------------------------------------
+
+// 
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core_core_fsm
+//  FSM Module
+// ------------------------------------------------------------------
+
+
+module converter_core_core_fsm (
+  clk, rst, core_wen, fsm_output
+);
+  input clk;
+  input rst;
+  input core_wen;
+  output [1:0] fsm_output;
+  reg [1:0] fsm_output;
+
+
+  // FSM State Type Declaration for converter_core_core_fsm_1
+  parameter
+    core_rlp_C_0 = 1'd0,
+    main_C_0 = 1'd1;
+
+  reg [0:0] state_var;
+  reg [0:0] state_var_NS;
+
+
+  // Interconnect Declarations for Component Instantiations 
+  always @(*)
+  begin : converter_core_core_fsm_1
+    case (state_var)
+      main_C_0 : begin
+        fsm_output = 2'b10;
+        state_var_NS = main_C_0;
+      end
+      // core_rlp_C_0
+      default : begin
+        fsm_output = 2'b01;
+        state_var_NS = main_C_0;
+      end
+    endcase
+  end
+
+  always @(posedge clk) begin
+    if ( rst ) begin
+      state_var <= core_rlp_C_0;
+    end
+    else if ( core_wen ) begin
+      state_var <= state_var_NS;
+    end
+  end
+
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core_staller
+// ------------------------------------------------------------------
+
+
+module converter_core_staller (
+  clk, rst, core_wen, core_wten, input_rsci_wen_comp, output_rsci_wen_comp
+);
+  input clk;
+  input rst;
+  output core_wen;
+  output core_wten;
+  reg core_wten;
+  input input_rsci_wen_comp;
+  input output_rsci_wen_comp;
+
+
+
+  // Interconnect Declarations for Component Instantiations 
+  assign core_wen = input_rsci_wen_comp & output_rsci_wen_comp;
+  always @(posedge clk) begin
+    if ( rst ) begin
+      core_wten <= 1'b0;
+    end
+    else begin
+      core_wten <= ~ core_wen;
+    end
+  end
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core_output_rsc_triosy_obj_output_rsc_triosy_wait_ctrl
+// ------------------------------------------------------------------
+
+
+module converter_core_output_rsc_triosy_obj_output_rsc_triosy_wait_ctrl (
+  core_wten, output_rsc_triosy_obj_iswt0, output_rsc_triosy_obj_ld_core_sct
+);
+  input core_wten;
+  input output_rsc_triosy_obj_iswt0;
+  output output_rsc_triosy_obj_ld_core_sct;
+
+
+
+  // Interconnect Declarations for Component Instantiations 
+  assign output_rsc_triosy_obj_ld_core_sct = output_rsc_triosy_obj_iswt0 & (~ core_wten);
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core_input_rsc_triosy_obj_input_rsc_triosy_wait_ctrl
+// ------------------------------------------------------------------
+
+
+module converter_core_input_rsc_triosy_obj_input_rsc_triosy_wait_ctrl (
+  core_wten, input_rsc_triosy_obj_iswt0, input_rsc_triosy_obj_ld_core_sct
+);
+  input core_wten;
+  input input_rsc_triosy_obj_iswt0;
+  output input_rsc_triosy_obj_ld_core_sct;
+
+
+
+  // Interconnect Declarations for Component Instantiations 
+  assign input_rsc_triosy_obj_ld_core_sct = input_rsc_triosy_obj_iswt0 & (~ core_wten);
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core_output_rsci_output_rsc_wait_dp
+// ------------------------------------------------------------------
+
+
+module converter_core_output_rsci_output_rsc_wait_dp (
+  clk, rst, output_rsci_oswt, output_rsci_wen_comp, output_rsci_biwt, output_rsci_bdwt,
+      output_rsci_bcwt
+);
+  input clk;
+  input rst;
+  input output_rsci_oswt;
+  output output_rsci_wen_comp;
+  input output_rsci_biwt;
+  input output_rsci_bdwt;
+  output output_rsci_bcwt;
+  reg output_rsci_bcwt;
+
+
+
+  // Interconnect Declarations for Component Instantiations 
+  assign output_rsci_wen_comp = (~ output_rsci_oswt) | output_rsci_biwt | output_rsci_bcwt;
+  always @(posedge clk) begin
+    if ( rst ) begin
+      output_rsci_bcwt <= 1'b0;
+    end
+    else begin
+      output_rsci_bcwt <= ~((~(output_rsci_bcwt | output_rsci_biwt)) | output_rsci_bdwt);
+    end
+  end
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core_output_rsci_output_rsc_wait_ctrl
+// ------------------------------------------------------------------
+
+
+module converter_core_output_rsci_output_rsc_wait_ctrl (
+  core_wen, output_rsci_oswt, output_rsci_irdy, output_rsci_biwt, output_rsci_bdwt,
+      output_rsci_bcwt, output_rsci_ivld_core_sct
+);
+  input core_wen;
+  input output_rsci_oswt;
+  input output_rsci_irdy;
+  output output_rsci_biwt;
+  output output_rsci_bdwt;
+  input output_rsci_bcwt;
+  output output_rsci_ivld_core_sct;
+
+
+  // Interconnect Declarations
+  wire output_rsci_ogwt;
+
+
+  // Interconnect Declarations for Component Instantiations 
+  assign output_rsci_bdwt = output_rsci_oswt & core_wen;
+  assign output_rsci_biwt = output_rsci_ogwt & output_rsci_irdy;
+  assign output_rsci_ogwt = output_rsci_oswt & (~ output_rsci_bcwt);
+  assign output_rsci_ivld_core_sct = output_rsci_ogwt;
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core_input_rsci_input_rsc_wait_dp
+// ------------------------------------------------------------------
+
+
+module converter_core_input_rsci_input_rsc_wait_dp (
+  clk, rst, input_rsci_oswt, input_rsci_wen_comp, input_rsci_idat_mxwt, input_rsci_biwt,
+      input_rsci_bdwt, input_rsci_bcwt, input_rsci_idat
+);
+  input clk;
+  input rst;
+  input input_rsci_oswt;
+  output input_rsci_wen_comp;
+  output [1055:0] input_rsci_idat_mxwt;
+  input input_rsci_biwt;
+  input input_rsci_bdwt;
+  output input_rsci_bcwt;
+  reg input_rsci_bcwt;
+  input [1055:0] input_rsci_idat;
+
+
+  // Interconnect Declarations
+  reg [1055:0] input_rsci_idat_bfwt;
+
+
+  // Interconnect Declarations for Component Instantiations 
+  assign input_rsci_wen_comp = (~ input_rsci_oswt) | input_rsci_biwt | input_rsci_bcwt;
+  assign input_rsci_idat_mxwt = MUX_v_1056_2_2(input_rsci_idat, input_rsci_idat_bfwt,
+      input_rsci_bcwt);
+  always @(posedge clk) begin
+    if ( rst ) begin
+      input_rsci_bcwt <= 1'b0;
+    end
+    else begin
+      input_rsci_bcwt <= ~((~(input_rsci_bcwt | input_rsci_biwt)) | input_rsci_bdwt);
+    end
+  end
+  always @(posedge clk) begin
+    if ( rst ) begin
+      input_rsci_idat_bfwt <= {528'b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+          , 528'b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000};
+    end
+    else if ( input_rsci_biwt ) begin
+      input_rsci_idat_bfwt <= input_rsci_idat;
+    end
+  end
+
+  function automatic [1055:0] MUX_v_1056_2_2;
+    input [1055:0] input_0;
+    input [1055:0] input_1;
+    input [0:0] sel;
+    reg [1055:0] result;
+  begin
+    case (sel)
+      1'b0 : begin
+        result = input_0;
+      end
+      default : begin
+        result = input_1;
+      end
+    endcase
+    MUX_v_1056_2_2 = result;
+  end
+  endfunction
+
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core_input_rsci_input_rsc_wait_ctrl
+// ------------------------------------------------------------------
+
+
+module converter_core_input_rsci_input_rsc_wait_ctrl (
+  core_wen, input_rsci_oswt, input_rsci_biwt, input_rsci_bdwt, input_rsci_bcwt, input_rsci_irdy_core_sct,
+      input_rsci_ivld
+);
+  input core_wen;
+  input input_rsci_oswt;
+  output input_rsci_biwt;
+  output input_rsci_bdwt;
+  input input_rsci_bcwt;
+  output input_rsci_irdy_core_sct;
+  input input_rsci_ivld;
+
+
+  // Interconnect Declarations
+  wire input_rsci_ogwt;
+
+
+  // Interconnect Declarations for Component Instantiations 
+  assign input_rsci_bdwt = input_rsci_oswt & core_wen;
+  assign input_rsci_biwt = input_rsci_ogwt & input_rsci_ivld;
+  assign input_rsci_ogwt = input_rsci_oswt & (~ input_rsci_bcwt);
+  assign input_rsci_irdy_core_sct = input_rsci_ogwt;
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core_output_rsc_triosy_obj
+// ------------------------------------------------------------------
+
+
+module converter_core_output_rsc_triosy_obj (
+  output_rsc_triosy_lz, core_wten, output_rsc_triosy_obj_iswt0
+);
+  output output_rsc_triosy_lz;
+  input core_wten;
+  input output_rsc_triosy_obj_iswt0;
+
+
+  // Interconnect Declarations
+  wire output_rsc_triosy_obj_ld_core_sct;
+
+
+  // Interconnect Declarations for Component Instantiations 
+  mgc_io_sync_v2 #(.valid(32'sd0)) output_rsc_triosy_obj (
+      .ld(output_rsc_triosy_obj_ld_core_sct),
+      .lz(output_rsc_triosy_lz)
+    );
+  converter_core_output_rsc_triosy_obj_output_rsc_triosy_wait_ctrl converter_core_output_rsc_triosy_obj_output_rsc_triosy_wait_ctrl_inst
+      (
+      .core_wten(core_wten),
+      .output_rsc_triosy_obj_iswt0(output_rsc_triosy_obj_iswt0),
+      .output_rsc_triosy_obj_ld_core_sct(output_rsc_triosy_obj_ld_core_sct)
+    );
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core_input_rsc_triosy_obj
+// ------------------------------------------------------------------
+
+
+module converter_core_input_rsc_triosy_obj (
+  input_rsc_triosy_lz, core_wten, input_rsc_triosy_obj_iswt0
+);
+  output input_rsc_triosy_lz;
+  input core_wten;
+  input input_rsc_triosy_obj_iswt0;
+
+
+  // Interconnect Declarations
+  wire input_rsc_triosy_obj_ld_core_sct;
+
+
+  // Interconnect Declarations for Component Instantiations 
+  mgc_io_sync_v2 #(.valid(32'sd0)) input_rsc_triosy_obj (
+      .ld(input_rsc_triosy_obj_ld_core_sct),
+      .lz(input_rsc_triosy_lz)
+    );
+  converter_core_input_rsc_triosy_obj_input_rsc_triosy_wait_ctrl converter_core_input_rsc_triosy_obj_input_rsc_triosy_wait_ctrl_inst
+      (
+      .core_wten(core_wten),
+      .input_rsc_triosy_obj_iswt0(input_rsc_triosy_obj_iswt0),
+      .input_rsc_triosy_obj_ld_core_sct(input_rsc_triosy_obj_ld_core_sct)
+    );
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core_output_rsci
+// ------------------------------------------------------------------
+
+
+module converter_core_output_rsci (
+  clk, rst, output_rsc_dat, output_rsc_vld, output_rsc_rdy, core_wen, output_rsci_oswt,
+      output_rsci_wen_comp, output_rsci_idat
+);
+  input clk;
+  input rst;
+  output [383:0] output_rsc_dat;
+  output output_rsc_vld;
+  input output_rsc_rdy;
+  input core_wen;
+  input output_rsci_oswt;
+  output output_rsci_wen_comp;
+  input [383:0] output_rsci_idat;
+
+
+  // Interconnect Declarations
+  wire output_rsci_irdy;
+  wire output_rsci_biwt;
+  wire output_rsci_bdwt;
+  wire output_rsci_bcwt;
+  wire output_rsci_ivld_core_sct;
+
+
+  // Interconnect Declarations for Component Instantiations 
+  ccs_out_wait_v1 #(.rscid(32'sd2),
+  .width(32'sd384)) output_rsci (
+      .irdy(output_rsci_irdy),
+      .ivld(output_rsci_ivld_core_sct),
+      .idat(output_rsci_idat),
+      .rdy(output_rsc_rdy),
+      .vld(output_rsc_vld),
+      .dat(output_rsc_dat)
+    );
+  converter_core_output_rsci_output_rsc_wait_ctrl converter_core_output_rsci_output_rsc_wait_ctrl_inst
+      (
+      .core_wen(core_wen),
+      .output_rsci_oswt(output_rsci_oswt),
+      .output_rsci_irdy(output_rsci_irdy),
+      .output_rsci_biwt(output_rsci_biwt),
+      .output_rsci_bdwt(output_rsci_bdwt),
+      .output_rsci_bcwt(output_rsci_bcwt),
+      .output_rsci_ivld_core_sct(output_rsci_ivld_core_sct)
+    );
+  converter_core_output_rsci_output_rsc_wait_dp converter_core_output_rsci_output_rsc_wait_dp_inst
+      (
+      .clk(clk),
+      .rst(rst),
+      .output_rsci_oswt(output_rsci_oswt),
+      .output_rsci_wen_comp(output_rsci_wen_comp),
+      .output_rsci_biwt(output_rsci_biwt),
+      .output_rsci_bdwt(output_rsci_bdwt),
+      .output_rsci_bcwt(output_rsci_bcwt)
+    );
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core_input_rsci
+// ------------------------------------------------------------------
+
+
+module converter_core_input_rsci (
+  clk, rst, input_rsc_dat, input_rsc_vld, input_rsc_rdy, core_wen, input_rsci_oswt,
+      input_rsci_wen_comp, input_rsci_idat_mxwt
+);
+  input clk;
+  input rst;
+  input [1055:0] input_rsc_dat;
+  input input_rsc_vld;
+  output input_rsc_rdy;
+  input core_wen;
+  input input_rsci_oswt;
+  output input_rsci_wen_comp;
+  output [1055:0] input_rsci_idat_mxwt;
+
+
+  // Interconnect Declarations
+  wire input_rsci_biwt;
+  wire input_rsci_bdwt;
+  wire input_rsci_bcwt;
+  wire input_rsci_irdy_core_sct;
+  wire input_rsci_ivld;
+  wire [1055:0] input_rsci_idat;
+
+
+  // Interconnect Declarations for Component Instantiations 
+  ccs_in_wait_v1 #(.rscid(32'sd1),
+  .width(32'sd1056)) input_rsci (
+      .rdy(input_rsc_rdy),
+      .vld(input_rsc_vld),
+      .dat(input_rsc_dat),
+      .irdy(input_rsci_irdy_core_sct),
+      .ivld(input_rsci_ivld),
+      .idat(input_rsci_idat)
+    );
+  converter_core_input_rsci_input_rsc_wait_ctrl converter_core_input_rsci_input_rsc_wait_ctrl_inst
+      (
+      .core_wen(core_wen),
+      .input_rsci_oswt(input_rsci_oswt),
+      .input_rsci_biwt(input_rsci_biwt),
+      .input_rsci_bdwt(input_rsci_bdwt),
+      .input_rsci_bcwt(input_rsci_bcwt),
+      .input_rsci_irdy_core_sct(input_rsci_irdy_core_sct),
+      .input_rsci_ivld(input_rsci_ivld)
+    );
+  converter_core_input_rsci_input_rsc_wait_dp converter_core_input_rsci_input_rsc_wait_dp_inst
+      (
+      .clk(clk),
+      .rst(rst),
+      .input_rsci_oswt(input_rsci_oswt),
+      .input_rsci_wen_comp(input_rsci_wen_comp),
+      .input_rsci_idat_mxwt(input_rsci_idat_mxwt),
+      .input_rsci_biwt(input_rsci_biwt),
+      .input_rsci_bdwt(input_rsci_bdwt),
+      .input_rsci_bcwt(input_rsci_bcwt),
+      .input_rsci_idat(input_rsci_idat)
+    );
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter_core
+// ------------------------------------------------------------------
+
+
+module converter_core (
+  clk, rst, input_rsc_dat, input_rsc_vld, input_rsc_rdy, input_rsc_triosy_lz, output_rsc_dat,
+      output_rsc_vld, output_rsc_rdy, output_rsc_triosy_lz
+);
+  input clk;
+  input rst;
+  input [1055:0] input_rsc_dat;
+  input input_rsc_vld;
+  output input_rsc_rdy;
+  output input_rsc_triosy_lz;
+  output [383:0] output_rsc_dat;
+  output output_rsc_vld;
+  input output_rsc_rdy;
+  output output_rsc_triosy_lz;
+
+
+  // Interconnect Declarations
+  wire core_wen;
+  wire core_wten;
+  wire input_rsci_wen_comp;
+  wire [1055:0] input_rsci_idat_mxwt;
+  wire output_rsci_wen_comp;
+  reg [7:0] output_rsci_idat_383_376;
+  reg [7:0] output_rsci_idat_375_368;
+  reg [7:0] output_rsci_idat_367_360;
+  reg [7:0] output_rsci_idat_359_352;
+  reg [7:0] output_rsci_idat_351_344;
+  reg [7:0] output_rsci_idat_343_336;
+  reg [7:0] output_rsci_idat_335_328;
+  reg [7:0] output_rsci_idat_327_320;
+  reg [7:0] output_rsci_idat_319_312;
+  reg [7:0] output_rsci_idat_311_304;
+  reg [7:0] output_rsci_idat_303_296;
+  reg [7:0] output_rsci_idat_295_288;
+  reg [7:0] output_rsci_idat_287_280;
+  reg [7:0] output_rsci_idat_279_272;
+  reg [7:0] output_rsci_idat_271_264;
+  reg [7:0] output_rsci_idat_263_256;
+  reg [7:0] output_rsci_idat_255_248;
+  reg [7:0] output_rsci_idat_247_240;
+  reg [7:0] output_rsci_idat_239_232;
+  reg [7:0] output_rsci_idat_231_224;
+  reg [7:0] output_rsci_idat_223_216;
+  reg [7:0] output_rsci_idat_215_208;
+  reg [7:0] output_rsci_idat_207_200;
+  reg [7:0] output_rsci_idat_199_192;
+  reg [7:0] output_rsci_idat_191_184;
+  reg [7:0] output_rsci_idat_183_176;
+  reg [7:0] output_rsci_idat_175_168;
+  reg [7:0] output_rsci_idat_167_160;
+  reg [7:0] output_rsci_idat_159_152;
+  reg [7:0] output_rsci_idat_151_144;
+  reg [7:0] output_rsci_idat_143_136;
+  reg [7:0] output_rsci_idat_135_128;
+  reg [7:0] output_rsci_idat_127_120;
+  reg [7:0] output_rsci_idat_119_112;
+  reg [7:0] output_rsci_idat_111_104;
+  reg [7:0] output_rsci_idat_103_96;
+  reg [7:0] output_rsci_idat_95_88;
+  reg [7:0] output_rsci_idat_87_80;
+  reg [7:0] output_rsci_idat_79_72;
+  reg [7:0] output_rsci_idat_71_64;
+  reg [7:0] output_rsci_idat_63_56;
+  reg [7:0] output_rsci_idat_55_48;
+  reg [7:0] output_rsci_idat_47_40;
+  reg [7:0] output_rsci_idat_39_32;
+  reg [7:0] output_rsci_idat_31_24;
+  reg [7:0] output_rsci_idat_23_16;
+  reg [7:0] output_rsci_idat_15_8;
+  reg [7:0] output_rsci_idat_7_0;
+  wire [1:0] fsm_output;
+  wire ac_fixed_8_1_false_AC_TRN_AC_WRAP_bit_fill_1_and_cse;
+  reg reg_output_rsc_triosy_obj_ld_core_psct_cse;
+  wire [7:0] REDUCE_LOOP_1_rshift_itm;
+  wire [7:0] REDUCE_LOOP_2_rshift_itm;
+  wire [7:0] REDUCE_LOOP_3_rshift_itm;
+  wire [7:0] REDUCE_LOOP_4_rshift_itm;
+  wire [7:0] REDUCE_LOOP_5_rshift_itm;
+  wire [7:0] REDUCE_LOOP_6_rshift_itm;
+  wire [7:0] REDUCE_LOOP_7_rshift_itm;
+  wire [7:0] REDUCE_LOOP_8_rshift_itm;
+  wire [7:0] REDUCE_LOOP_9_rshift_itm;
+  wire [7:0] REDUCE_LOOP_10_rshift_itm;
+  wire [7:0] REDUCE_LOOP_11_rshift_itm;
+  wire [7:0] REDUCE_LOOP_12_rshift_itm;
+  wire [7:0] REDUCE_LOOP_13_rshift_itm;
+  wire [7:0] REDUCE_LOOP_14_rshift_itm;
+  wire [7:0] REDUCE_LOOP_15_rshift_itm;
+  wire [7:0] REDUCE_LOOP_16_rshift_itm;
+  wire [7:0] REDUCE_LOOP_17_rshift_itm;
+  wire [7:0] REDUCE_LOOP_18_rshift_itm;
+  wire [7:0] REDUCE_LOOP_19_rshift_itm;
+  wire [7:0] REDUCE_LOOP_20_rshift_itm;
+  wire [7:0] REDUCE_LOOP_21_rshift_itm;
+  wire [7:0] REDUCE_LOOP_22_rshift_itm;
+  wire [7:0] REDUCE_LOOP_23_rshift_itm;
+  wire [7:0] REDUCE_LOOP_24_rshift_itm;
+  wire [7:0] REDUCE_LOOP_25_rshift_itm;
+  wire [7:0] REDUCE_LOOP_26_rshift_itm;
+  wire [7:0] REDUCE_LOOP_27_rshift_itm;
+  wire [7:0] REDUCE_LOOP_28_rshift_itm;
+  wire [7:0] REDUCE_LOOP_29_rshift_itm;
+  wire [7:0] REDUCE_LOOP_30_rshift_itm;
+  wire [7:0] REDUCE_LOOP_31_rshift_itm;
+  wire [7:0] REDUCE_LOOP_32_rshift_itm;
+  wire [7:0] REDUCE_LOOP_33_rshift_itm;
+  wire [7:0] REDUCE_LOOP_34_rshift_itm;
+  wire [7:0] REDUCE_LOOP_35_rshift_itm;
+  wire [7:0] REDUCE_LOOP_36_rshift_itm;
+  wire [7:0] REDUCE_LOOP_37_rshift_itm;
+  wire [7:0] REDUCE_LOOP_38_rshift_itm;
+  wire [7:0] REDUCE_LOOP_39_rshift_itm;
+  wire [7:0] REDUCE_LOOP_40_rshift_itm;
+  wire [7:0] REDUCE_LOOP_41_rshift_itm;
+  wire [7:0] REDUCE_LOOP_42_rshift_itm;
+  wire [7:0] REDUCE_LOOP_43_rshift_itm;
+  wire [7:0] REDUCE_LOOP_44_rshift_itm;
+  wire [7:0] REDUCE_LOOP_45_rshift_itm;
+  wire [7:0] REDUCE_LOOP_46_rshift_itm;
+  wire [7:0] REDUCE_LOOP_47_rshift_itm;
+  wire [7:0] REDUCE_LOOP_48_rshift_itm;
+  wire [27:0] or_3_psp_sva_1;
+  wire [15:0] or_4_atp_sva_1;
+  wire [27:0] or_2_psp_sva_1;
+  wire [27:0] or_1_psp_sva_1;
+  wire [27:0] or_psp_sva_1;
+  wire [3:0] REDUCE_LOOP_48_asn_2;
+  wire [29:0] ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_1;
+  wire [4:0] ROM_1i5_1o5_4c72dd4f6b8d8bbf79a484d3d6a6237e2e_1;
+  wire [27:0] ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_1;
+
+  wire[3:0] else_else_and_nl;
+  wire[3:0] else_else_acc_nl;
+  wire[4:0] nl_else_else_acc_nl;
+  wire[0:0] else_if_not_nl;
+  wire[5:0] else_acc_nl;
+  wire[6:0] nl_else_acc_nl;
+  wire[4:0] if_acc_nl;
+  wire[5:0] nl_if_acc_nl;
+
+  // Interconnect Declarations for Component Instantiations 
+  wire [21:0] nl_REDUCE_LOOP_1_rshift_rg_a;
+  assign nl_REDUCE_LOOP_1_rshift_rg_a = input_rsci_idat_mxwt[21:0];
+  wire [21:0] nl_REDUCE_LOOP_2_rshift_rg_a;
+  assign nl_REDUCE_LOOP_2_rshift_rg_a = input_rsci_idat_mxwt[43:22];
+  wire [21:0] nl_REDUCE_LOOP_3_rshift_rg_a;
+  assign nl_REDUCE_LOOP_3_rshift_rg_a = input_rsci_idat_mxwt[65:44];
+  wire [21:0] nl_REDUCE_LOOP_4_rshift_rg_a;
+  assign nl_REDUCE_LOOP_4_rshift_rg_a = input_rsci_idat_mxwt[87:66];
+  wire [21:0] nl_REDUCE_LOOP_5_rshift_rg_a;
+  assign nl_REDUCE_LOOP_5_rshift_rg_a = input_rsci_idat_mxwt[109:88];
+  wire [21:0] nl_REDUCE_LOOP_6_rshift_rg_a;
+  assign nl_REDUCE_LOOP_6_rshift_rg_a = input_rsci_idat_mxwt[131:110];
+  wire [21:0] nl_REDUCE_LOOP_7_rshift_rg_a;
+  assign nl_REDUCE_LOOP_7_rshift_rg_a = input_rsci_idat_mxwt[153:132];
+  wire [21:0] nl_REDUCE_LOOP_8_rshift_rg_a;
+  assign nl_REDUCE_LOOP_8_rshift_rg_a = input_rsci_idat_mxwt[175:154];
+  wire [21:0] nl_REDUCE_LOOP_9_rshift_rg_a;
+  assign nl_REDUCE_LOOP_9_rshift_rg_a = input_rsci_idat_mxwt[197:176];
+  wire [21:0] nl_REDUCE_LOOP_10_rshift_rg_a;
+  assign nl_REDUCE_LOOP_10_rshift_rg_a = input_rsci_idat_mxwt[219:198];
+  wire [21:0] nl_REDUCE_LOOP_11_rshift_rg_a;
+  assign nl_REDUCE_LOOP_11_rshift_rg_a = input_rsci_idat_mxwt[241:220];
+  wire [21:0] nl_REDUCE_LOOP_12_rshift_rg_a;
+  assign nl_REDUCE_LOOP_12_rshift_rg_a = input_rsci_idat_mxwt[263:242];
+  wire [21:0] nl_REDUCE_LOOP_13_rshift_rg_a;
+  assign nl_REDUCE_LOOP_13_rshift_rg_a = input_rsci_idat_mxwt[285:264];
+  wire [21:0] nl_REDUCE_LOOP_14_rshift_rg_a;
+  assign nl_REDUCE_LOOP_14_rshift_rg_a = input_rsci_idat_mxwt[307:286];
+  wire [21:0] nl_REDUCE_LOOP_15_rshift_rg_a;
+  assign nl_REDUCE_LOOP_15_rshift_rg_a = input_rsci_idat_mxwt[329:308];
+  wire [21:0] nl_REDUCE_LOOP_16_rshift_rg_a;
+  assign nl_REDUCE_LOOP_16_rshift_rg_a = input_rsci_idat_mxwt[351:330];
+  wire [21:0] nl_REDUCE_LOOP_17_rshift_rg_a;
+  assign nl_REDUCE_LOOP_17_rshift_rg_a = input_rsci_idat_mxwt[373:352];
+  wire [21:0] nl_REDUCE_LOOP_18_rshift_rg_a;
+  assign nl_REDUCE_LOOP_18_rshift_rg_a = input_rsci_idat_mxwt[395:374];
+  wire [21:0] nl_REDUCE_LOOP_19_rshift_rg_a;
+  assign nl_REDUCE_LOOP_19_rshift_rg_a = input_rsci_idat_mxwt[417:396];
+  wire [21:0] nl_REDUCE_LOOP_20_rshift_rg_a;
+  assign nl_REDUCE_LOOP_20_rshift_rg_a = input_rsci_idat_mxwt[439:418];
+  wire [21:0] nl_REDUCE_LOOP_21_rshift_rg_a;
+  assign nl_REDUCE_LOOP_21_rshift_rg_a = input_rsci_idat_mxwt[461:440];
+  wire [21:0] nl_REDUCE_LOOP_22_rshift_rg_a;
+  assign nl_REDUCE_LOOP_22_rshift_rg_a = input_rsci_idat_mxwt[483:462];
+  wire [21:0] nl_REDUCE_LOOP_23_rshift_rg_a;
+  assign nl_REDUCE_LOOP_23_rshift_rg_a = input_rsci_idat_mxwt[505:484];
+  wire [21:0] nl_REDUCE_LOOP_24_rshift_rg_a;
+  assign nl_REDUCE_LOOP_24_rshift_rg_a = input_rsci_idat_mxwt[527:506];
+  wire [21:0] nl_REDUCE_LOOP_25_rshift_rg_a;
+  assign nl_REDUCE_LOOP_25_rshift_rg_a = input_rsci_idat_mxwt[549:528];
+  wire [21:0] nl_REDUCE_LOOP_26_rshift_rg_a;
+  assign nl_REDUCE_LOOP_26_rshift_rg_a = input_rsci_idat_mxwt[571:550];
+  wire [21:0] nl_REDUCE_LOOP_27_rshift_rg_a;
+  assign nl_REDUCE_LOOP_27_rshift_rg_a = input_rsci_idat_mxwt[593:572];
+  wire [21:0] nl_REDUCE_LOOP_28_rshift_rg_a;
+  assign nl_REDUCE_LOOP_28_rshift_rg_a = input_rsci_idat_mxwt[615:594];
+  wire [21:0] nl_REDUCE_LOOP_29_rshift_rg_a;
+  assign nl_REDUCE_LOOP_29_rshift_rg_a = input_rsci_idat_mxwt[637:616];
+  wire [21:0] nl_REDUCE_LOOP_30_rshift_rg_a;
+  assign nl_REDUCE_LOOP_30_rshift_rg_a = input_rsci_idat_mxwt[659:638];
+  wire [21:0] nl_REDUCE_LOOP_31_rshift_rg_a;
+  assign nl_REDUCE_LOOP_31_rshift_rg_a = input_rsci_idat_mxwt[681:660];
+  wire [21:0] nl_REDUCE_LOOP_32_rshift_rg_a;
+  assign nl_REDUCE_LOOP_32_rshift_rg_a = input_rsci_idat_mxwt[703:682];
+  wire [21:0] nl_REDUCE_LOOP_33_rshift_rg_a;
+  assign nl_REDUCE_LOOP_33_rshift_rg_a = input_rsci_idat_mxwt[725:704];
+  wire [21:0] nl_REDUCE_LOOP_34_rshift_rg_a;
+  assign nl_REDUCE_LOOP_34_rshift_rg_a = input_rsci_idat_mxwt[747:726];
+  wire [21:0] nl_REDUCE_LOOP_35_rshift_rg_a;
+  assign nl_REDUCE_LOOP_35_rshift_rg_a = input_rsci_idat_mxwt[769:748];
+  wire [21:0] nl_REDUCE_LOOP_36_rshift_rg_a;
+  assign nl_REDUCE_LOOP_36_rshift_rg_a = input_rsci_idat_mxwt[791:770];
+  wire [21:0] nl_REDUCE_LOOP_37_rshift_rg_a;
+  assign nl_REDUCE_LOOP_37_rshift_rg_a = input_rsci_idat_mxwt[813:792];
+  wire [21:0] nl_REDUCE_LOOP_38_rshift_rg_a;
+  assign nl_REDUCE_LOOP_38_rshift_rg_a = input_rsci_idat_mxwt[835:814];
+  wire [21:0] nl_REDUCE_LOOP_39_rshift_rg_a;
+  assign nl_REDUCE_LOOP_39_rshift_rg_a = input_rsci_idat_mxwt[857:836];
+  wire [21:0] nl_REDUCE_LOOP_40_rshift_rg_a;
+  assign nl_REDUCE_LOOP_40_rshift_rg_a = input_rsci_idat_mxwt[879:858];
+  wire [21:0] nl_REDUCE_LOOP_41_rshift_rg_a;
+  assign nl_REDUCE_LOOP_41_rshift_rg_a = input_rsci_idat_mxwt[901:880];
+  wire [21:0] nl_REDUCE_LOOP_42_rshift_rg_a;
+  assign nl_REDUCE_LOOP_42_rshift_rg_a = input_rsci_idat_mxwt[923:902];
+  wire [21:0] nl_REDUCE_LOOP_43_rshift_rg_a;
+  assign nl_REDUCE_LOOP_43_rshift_rg_a = input_rsci_idat_mxwt[945:924];
+  wire [21:0] nl_REDUCE_LOOP_44_rshift_rg_a;
+  assign nl_REDUCE_LOOP_44_rshift_rg_a = input_rsci_idat_mxwt[967:946];
+  wire [21:0] nl_REDUCE_LOOP_45_rshift_rg_a;
+  assign nl_REDUCE_LOOP_45_rshift_rg_a = input_rsci_idat_mxwt[989:968];
+  wire [21:0] nl_REDUCE_LOOP_46_rshift_rg_a;
+  assign nl_REDUCE_LOOP_46_rshift_rg_a = input_rsci_idat_mxwt[1011:990];
+  wire [21:0] nl_REDUCE_LOOP_47_rshift_rg_a;
+  assign nl_REDUCE_LOOP_47_rshift_rg_a = input_rsci_idat_mxwt[1033:1012];
+  wire [21:0] nl_REDUCE_LOOP_48_rshift_rg_a;
+  assign nl_REDUCE_LOOP_48_rshift_rg_a = input_rsci_idat_mxwt[1055:1034];
+  wire [11:0] nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_1;
+  assign nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_1 = or_3_psp_sva_1[27:16];
+  wire [13:0] nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_3;
+  assign nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_3 = or_4_atp_sva_1[13:0];
+  wire [10:0] nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_4;
+  assign nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_4 = or_3_psp_sva_1[26:16];
+  wire [7:0] nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_5;
+  assign nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_5 = or_3_psp_sva_1[23:16];
+  wire [13:0] nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_6;
+  assign nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_6 = or_4_atp_sva_1[15:2];
+  wire [5:0] nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_7;
+  assign nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_7 = or_3_psp_sva_1[21:16];
+  wire [3:0] nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_8;
+  assign nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_8 = or_3_psp_sva_1[19:16];
+  wire [1:0] nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_9;
+  assign nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_9 = or_3_psp_sva_1[17:16];
+  wire [9:0] nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_10;
+  assign nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_10 = or_4_atp_sva_1[9:0];
+  wire [4:0] nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_11;
+  assign nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_11 = or_4_atp_sva_1[4:0];
+  wire [4:0] nl_U_ROM_1i5_1o5_4c72dd4f6b8d8bbf79a484d3d6a6237e2e_rg_I_1;
+  assign nl_U_ROM_1i5_1o5_4c72dd4f6b8d8bbf79a484d3d6a6237e2e_rg_I_1 = ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_1[29:25];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_1;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_1 = input_rsci_idat_mxwt[1011:990];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_2;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_2 = input_rsci_idat_mxwt[1033:1012];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_3;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_3 = input_rsci_idat_mxwt[1055:1034];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_4;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_4 = input_rsci_idat_mxwt[109:88];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_5;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_5 = input_rsci_idat_mxwt[131:110];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_6;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_6 = input_rsci_idat_mxwt[153:132];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_7;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_7 = input_rsci_idat_mxwt[175:154];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_8;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_8 = input_rsci_idat_mxwt[197:176];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_9;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_9 = input_rsci_idat_mxwt[21:0];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_10;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_10 = input_rsci_idat_mxwt[219:198];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_11;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_11 = input_rsci_idat_mxwt[241:220];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_12;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_12 = input_rsci_idat_mxwt[263:242];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_13;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_13 = input_rsci_idat_mxwt[285:264];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_14;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_14 = input_rsci_idat_mxwt[307:286];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_15;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_15 = input_rsci_idat_mxwt[329:308];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_16;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_16 = input_rsci_idat_mxwt[351:330];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_17;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_17 = input_rsci_idat_mxwt[373:352];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_18;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_18 = input_rsci_idat_mxwt[395:374];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_19;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_19 = input_rsci_idat_mxwt[417:396];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_20;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_20 = input_rsci_idat_mxwt[43:22];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_21;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_21 = input_rsci_idat_mxwt[439:418];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_22;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_22 = input_rsci_idat_mxwt[461:440];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_23;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_23 = input_rsci_idat_mxwt[483:462];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_24;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_24 = input_rsci_idat_mxwt[505:484];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_25;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_25 = input_rsci_idat_mxwt[527:506];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_26;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_26 = input_rsci_idat_mxwt[549:528];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_27;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_27 = input_rsci_idat_mxwt[571:550];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_28;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_28 = input_rsci_idat_mxwt[593:572];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_29;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_29 = input_rsci_idat_mxwt[615:594];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_30;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_30 = input_rsci_idat_mxwt[637:616];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_31;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_31 = input_rsci_idat_mxwt[65:44];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_32;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_32 = input_rsci_idat_mxwt[659:638];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_33;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_33 = input_rsci_idat_mxwt[681:660];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_34;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_34 = input_rsci_idat_mxwt[703:682];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_35;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_35 = input_rsci_idat_mxwt[725:704];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_36;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_36 = input_rsci_idat_mxwt[747:726];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_37;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_37 = input_rsci_idat_mxwt[769:748];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_38;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_38 = input_rsci_idat_mxwt[791:770];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_39;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_39 = input_rsci_idat_mxwt[813:792];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_40;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_40 = input_rsci_idat_mxwt[835:814];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_41;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_41 = input_rsci_idat_mxwt[857:836];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_42;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_42 = input_rsci_idat_mxwt[87:66];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_43;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_43 = input_rsci_idat_mxwt[879:858];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_44;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_44 = input_rsci_idat_mxwt[901:880];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_45;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_45 = input_rsci_idat_mxwt[923:902];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_46;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_46 = input_rsci_idat_mxwt[945:924];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_47;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_47 = input_rsci_idat_mxwt[967:946];
+  wire [21:0] nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_48;
+  assign nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_48 = input_rsci_idat_mxwt[989:968];
+  wire [0:0] nl_converter_core_input_rsci_inst_input_rsci_oswt;
+  assign nl_converter_core_input_rsci_inst_input_rsci_oswt = fsm_output[1];
+  wire [383:0] nl_converter_core_output_rsci_inst_output_rsci_idat;
+  assign nl_converter_core_output_rsci_inst_output_rsci_idat = {output_rsci_idat_383_376
+      , output_rsci_idat_375_368 , output_rsci_idat_367_360 , output_rsci_idat_359_352
+      , output_rsci_idat_351_344 , output_rsci_idat_343_336 , output_rsci_idat_335_328
+      , output_rsci_idat_327_320 , output_rsci_idat_319_312 , output_rsci_idat_311_304
+      , output_rsci_idat_303_296 , output_rsci_idat_295_288 , output_rsci_idat_287_280
+      , output_rsci_idat_279_272 , output_rsci_idat_271_264 , output_rsci_idat_263_256
+      , output_rsci_idat_255_248 , output_rsci_idat_247_240 , output_rsci_idat_239_232
+      , output_rsci_idat_231_224 , output_rsci_idat_223_216 , output_rsci_idat_215_208
+      , output_rsci_idat_207_200 , output_rsci_idat_199_192 , output_rsci_idat_191_184
+      , output_rsci_idat_183_176 , output_rsci_idat_175_168 , output_rsci_idat_167_160
+      , output_rsci_idat_159_152 , output_rsci_idat_151_144 , output_rsci_idat_143_136
+      , output_rsci_idat_135_128 , output_rsci_idat_127_120 , output_rsci_idat_119_112
+      , output_rsci_idat_111_104 , output_rsci_idat_103_96 , output_rsci_idat_95_88
+      , output_rsci_idat_87_80 , output_rsci_idat_79_72 , output_rsci_idat_71_64
+      , output_rsci_idat_63_56 , output_rsci_idat_55_48 , output_rsci_idat_47_40
+      , output_rsci_idat_39_32 , output_rsci_idat_31_24 , output_rsci_idat_23_16
+      , output_rsci_idat_15_8 , output_rsci_idat_7_0};
+  wire [0:0] nl_converter_core_input_rsc_triosy_obj_inst_input_rsc_triosy_obj_iswt0;
+  assign nl_converter_core_input_rsc_triosy_obj_inst_input_rsc_triosy_obj_iswt0 =
+      fsm_output[1];
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_1_rshift_rg (
+      .a(nl_REDUCE_LOOP_1_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_1_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_2_rshift_rg (
+      .a(nl_REDUCE_LOOP_2_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_2_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_3_rshift_rg (
+      .a(nl_REDUCE_LOOP_3_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_3_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_4_rshift_rg (
+      .a(nl_REDUCE_LOOP_4_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_4_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_5_rshift_rg (
+      .a(nl_REDUCE_LOOP_5_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_5_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_6_rshift_rg (
+      .a(nl_REDUCE_LOOP_6_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_6_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_7_rshift_rg (
+      .a(nl_REDUCE_LOOP_7_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_7_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_8_rshift_rg (
+      .a(nl_REDUCE_LOOP_8_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_8_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_9_rshift_rg (
+      .a(nl_REDUCE_LOOP_9_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_9_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_10_rshift_rg (
+      .a(nl_REDUCE_LOOP_10_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_10_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_11_rshift_rg (
+      .a(nl_REDUCE_LOOP_11_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_11_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_12_rshift_rg (
+      .a(nl_REDUCE_LOOP_12_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_12_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_13_rshift_rg (
+      .a(nl_REDUCE_LOOP_13_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_13_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_14_rshift_rg (
+      .a(nl_REDUCE_LOOP_14_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_14_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_15_rshift_rg (
+      .a(nl_REDUCE_LOOP_15_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_15_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_16_rshift_rg (
+      .a(nl_REDUCE_LOOP_16_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_16_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_17_rshift_rg (
+      .a(nl_REDUCE_LOOP_17_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_17_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_18_rshift_rg (
+      .a(nl_REDUCE_LOOP_18_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_18_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_19_rshift_rg (
+      .a(nl_REDUCE_LOOP_19_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_19_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_20_rshift_rg (
+      .a(nl_REDUCE_LOOP_20_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_20_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_21_rshift_rg (
+      .a(nl_REDUCE_LOOP_21_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_21_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_22_rshift_rg (
+      .a(nl_REDUCE_LOOP_22_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_22_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_23_rshift_rg (
+      .a(nl_REDUCE_LOOP_23_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_23_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_24_rshift_rg (
+      .a(nl_REDUCE_LOOP_24_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_24_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_25_rshift_rg (
+      .a(nl_REDUCE_LOOP_25_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_25_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_26_rshift_rg (
+      .a(nl_REDUCE_LOOP_26_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_26_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_27_rshift_rg (
+      .a(nl_REDUCE_LOOP_27_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_27_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_28_rshift_rg (
+      .a(nl_REDUCE_LOOP_28_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_28_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_29_rshift_rg (
+      .a(nl_REDUCE_LOOP_29_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_29_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_30_rshift_rg (
+      .a(nl_REDUCE_LOOP_30_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_30_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_31_rshift_rg (
+      .a(nl_REDUCE_LOOP_31_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_31_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_32_rshift_rg (
+      .a(nl_REDUCE_LOOP_32_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_32_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_33_rshift_rg (
+      .a(nl_REDUCE_LOOP_33_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_33_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_34_rshift_rg (
+      .a(nl_REDUCE_LOOP_34_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_34_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_35_rshift_rg (
+      .a(nl_REDUCE_LOOP_35_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_35_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_36_rshift_rg (
+      .a(nl_REDUCE_LOOP_36_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_36_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_37_rshift_rg (
+      .a(nl_REDUCE_LOOP_37_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_37_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_38_rshift_rg (
+      .a(nl_REDUCE_LOOP_38_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_38_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_39_rshift_rg (
+      .a(nl_REDUCE_LOOP_39_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_39_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_40_rshift_rg (
+      .a(nl_REDUCE_LOOP_40_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_40_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_41_rshift_rg (
+      .a(nl_REDUCE_LOOP_41_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_41_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_42_rshift_rg (
+      .a(nl_REDUCE_LOOP_42_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_42_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_43_rshift_rg (
+      .a(nl_REDUCE_LOOP_43_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_43_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_44_rshift_rg (
+      .a(nl_REDUCE_LOOP_44_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_44_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_45_rshift_rg (
+      .a(nl_REDUCE_LOOP_45_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_45_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_46_rshift_rg (
+      .a(nl_REDUCE_LOOP_46_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_46_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_47_rshift_rg (
+      .a(nl_REDUCE_LOOP_47_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_47_rshift_itm)
+    );
+  mgc_shift_r_v5 #(.width_a(32'sd22),
+  .signd_a(32'sd0),
+  .width_s(32'sd4),
+  .width_z(32'sd8)) REDUCE_LOOP_48_rshift_rg (
+      .a(nl_REDUCE_LOOP_48_rshift_rg_a[21:0]),
+      .s(REDUCE_LOOP_48_asn_2),
+      .z(REDUCE_LOOP_48_rshift_itm)
+    );
+  ACC_11i16_1o30_d342556a359f23f521bf9605a686f82f1e1  U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg
+      (
+      .I_1(nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_1[11:0]),
+      .I_2(or_4_atp_sva_1),
+      .I_3(nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_3[13:0]),
+      .I_4(nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_4[10:0]),
+      .I_5(nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_5[7:0]),
+      .I_6(nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_6[13:0]),
+      .I_7(nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_7[5:0]),
+      .I_8(nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_8[3:0]),
+      .I_9(nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_9[1:0]),
+      .I_10(nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_10[9:0]),
+      .I_11(nl_U_ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_rg_I_11[4:0]),
+      .O_1(ACC_11i16_1o30_ea07b6b36d791f99515b0bc835b3a57115b_1)
+    );
+  ROM_1i5_1o5_9b0145e8009ee9dec38f1b38bd1a9ee5b0  U_ROM_1i5_1o5_4c72dd4f6b8d8bbf79a484d3d6a6237e2e_rg
+      (
+      .I_1(nl_U_ROM_1i5_1o5_4c72dd4f6b8d8bbf79a484d3d6a6237e2e_rg_I_1[4:0]),
+      .O_1(ROM_1i5_1o5_4c72dd4f6b8d8bbf79a484d3d6a6237e2e_1)
+    );
+  ACC_48i22_1o28_8f2ce58d1f6aab115bca62d958d78cd9162  U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg
+      (
+      .I_1(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_1[21:0]),
+      .I_2(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_2[21:0]),
+      .I_3(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_3[21:0]),
+      .I_4(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_4[21:0]),
+      .I_5(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_5[21:0]),
+      .I_6(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_6[21:0]),
+      .I_7(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_7[21:0]),
+      .I_8(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_8[21:0]),
+      .I_9(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_9[21:0]),
+      .I_10(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_10[21:0]),
+      .I_11(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_11[21:0]),
+      .I_12(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_12[21:0]),
+      .I_13(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_13[21:0]),
+      .I_14(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_14[21:0]),
+      .I_15(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_15[21:0]),
+      .I_16(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_16[21:0]),
+      .I_17(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_17[21:0]),
+      .I_18(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_18[21:0]),
+      .I_19(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_19[21:0]),
+      .I_20(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_20[21:0]),
+      .I_21(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_21[21:0]),
+      .I_22(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_22[21:0]),
+      .I_23(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_23[21:0]),
+      .I_24(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_24[21:0]),
+      .I_25(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_25[21:0]),
+      .I_26(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_26[21:0]),
+      .I_27(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_27[21:0]),
+      .I_28(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_28[21:0]),
+      .I_29(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_29[21:0]),
+      .I_30(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_30[21:0]),
+      .I_31(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_31[21:0]),
+      .I_32(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_32[21:0]),
+      .I_33(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_33[21:0]),
+      .I_34(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_34[21:0]),
+      .I_35(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_35[21:0]),
+      .I_36(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_36[21:0]),
+      .I_37(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_37[21:0]),
+      .I_38(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_38[21:0]),
+      .I_39(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_39[21:0]),
+      .I_40(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_40[21:0]),
+      .I_41(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_41[21:0]),
+      .I_42(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_42[21:0]),
+      .I_43(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_43[21:0]),
+      .I_44(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_44[21:0]),
+      .I_45(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_45[21:0]),
+      .I_46(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_46[21:0]),
+      .I_47(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_47[21:0]),
+      .I_48(nl_U_ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_rg_I_48[21:0]),
+      .O_1(ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_1)
+    );
+  converter_core_input_rsci converter_core_input_rsci_inst (
+      .clk(clk),
+      .rst(rst),
+      .input_rsc_dat(input_rsc_dat),
+      .input_rsc_vld(input_rsc_vld),
+      .input_rsc_rdy(input_rsc_rdy),
+      .core_wen(core_wen),
+      .input_rsci_oswt(nl_converter_core_input_rsci_inst_input_rsci_oswt[0:0]),
+      .input_rsci_wen_comp(input_rsci_wen_comp),
+      .input_rsci_idat_mxwt(input_rsci_idat_mxwt)
+    );
+  converter_core_output_rsci converter_core_output_rsci_inst (
+      .clk(clk),
+      .rst(rst),
+      .output_rsc_dat(output_rsc_dat),
+      .output_rsc_vld(output_rsc_vld),
+      .output_rsc_rdy(output_rsc_rdy),
+      .core_wen(core_wen),
+      .output_rsci_oswt(reg_output_rsc_triosy_obj_ld_core_psct_cse),
+      .output_rsci_wen_comp(output_rsci_wen_comp),
+      .output_rsci_idat(nl_converter_core_output_rsci_inst_output_rsci_idat[383:0])
+    );
+  converter_core_input_rsc_triosy_obj converter_core_input_rsc_triosy_obj_inst (
+      .input_rsc_triosy_lz(input_rsc_triosy_lz),
+      .core_wten(core_wten),
+      .input_rsc_triosy_obj_iswt0(nl_converter_core_input_rsc_triosy_obj_inst_input_rsc_triosy_obj_iswt0[0:0])
+    );
+  converter_core_output_rsc_triosy_obj converter_core_output_rsc_triosy_obj_inst
+      (
+      .output_rsc_triosy_lz(output_rsc_triosy_lz),
+      .core_wten(core_wten),
+      .output_rsc_triosy_obj_iswt0(reg_output_rsc_triosy_obj_ld_core_psct_cse)
+    );
+  converter_core_staller converter_core_staller_inst (
+      .clk(clk),
+      .rst(rst),
+      .core_wen(core_wen),
+      .core_wten(core_wten),
+      .input_rsci_wen_comp(input_rsci_wen_comp),
+      .output_rsci_wen_comp(output_rsci_wen_comp)
+    );
+  converter_core_core_fsm converter_core_core_fsm_inst (
+      .clk(clk),
+      .rst(rst),
+      .core_wen(core_wen),
+      .fsm_output(fsm_output)
+    );
+  assign ac_fixed_8_1_false_AC_TRN_AC_WRAP_bit_fill_1_and_cse = core_wen & (~ (fsm_output[0]));
+  assign or_3_psp_sva_1 = or_2_psp_sva_1 | ({8'b00000000 , (or_2_psp_sva_1[27:8])});
+  assign or_4_atp_sva_1 = (or_3_psp_sva_1[15:0]) | ({4'b0000 , (or_3_psp_sva_1[27:16])});
+  assign or_2_psp_sva_1 = or_1_psp_sva_1 | ({4'b0000 , (or_1_psp_sva_1[27:4])});
+  assign or_1_psp_sva_1 = or_psp_sva_1 | ({2'b00 , (or_psp_sva_1[27:2])});
+  assign or_psp_sva_1 = ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_1 | ({1'b0
+      , (ACC_48i22_1o28_6c73a006a90f66642582f9b3318c776fdd_1[27:1])});
+  assign nl_else_else_acc_nl = (ROM_1i5_1o5_4c72dd4f6b8d8bbf79a484d3d6a6237e2e_1[3:0])
+      + 4'b1001;
+  assign else_else_acc_nl = nl_else_else_acc_nl[3:0];
+  assign nl_else_acc_nl = conv_u2s_5_6(ROM_1i5_1o5_4c72dd4f6b8d8bbf79a484d3d6a6237e2e_1)
+      + 6'b111001;
+  assign else_acc_nl = nl_else_acc_nl[5:0];
+  assign else_if_not_nl = ~ (readslicef_6_1_5(else_acc_nl));
+  assign else_else_and_nl = MUX_v_4_2_2(4'b0000, else_else_acc_nl, else_if_not_nl);
+  assign nl_if_acc_nl = ({1'b1 , (~ (ROM_1i5_1o5_4c72dd4f6b8d8bbf79a484d3d6a6237e2e_1[4:1]))})
+      + 5'b01011;
+  assign if_acc_nl = nl_if_acc_nl[4:0];
+  assign REDUCE_LOOP_48_asn_2 = MUX_v_4_2_2(else_else_and_nl, 4'b1110, readslicef_5_1_4(if_acc_nl));
+  always @(posedge clk) begin
+    if ( rst ) begin
+      output_rsci_idat_7_0 <= 8'b00000000;
+      output_rsci_idat_15_8 <= 8'b00000000;
+      output_rsci_idat_23_16 <= 8'b00000000;
+      output_rsci_idat_31_24 <= 8'b00000000;
+      output_rsci_idat_39_32 <= 8'b00000000;
+      output_rsci_idat_47_40 <= 8'b00000000;
+      output_rsci_idat_55_48 <= 8'b00000000;
+      output_rsci_idat_63_56 <= 8'b00000000;
+      output_rsci_idat_71_64 <= 8'b00000000;
+      output_rsci_idat_79_72 <= 8'b00000000;
+      output_rsci_idat_87_80 <= 8'b00000000;
+      output_rsci_idat_95_88 <= 8'b00000000;
+      output_rsci_idat_103_96 <= 8'b00000000;
+      output_rsci_idat_111_104 <= 8'b00000000;
+      output_rsci_idat_119_112 <= 8'b00000000;
+      output_rsci_idat_127_120 <= 8'b00000000;
+      output_rsci_idat_135_128 <= 8'b00000000;
+      output_rsci_idat_143_136 <= 8'b00000000;
+      output_rsci_idat_151_144 <= 8'b00000000;
+      output_rsci_idat_159_152 <= 8'b00000000;
+      output_rsci_idat_167_160 <= 8'b00000000;
+      output_rsci_idat_175_168 <= 8'b00000000;
+      output_rsci_idat_183_176 <= 8'b00000000;
+      output_rsci_idat_191_184 <= 8'b00000000;
+      output_rsci_idat_199_192 <= 8'b00000000;
+      output_rsci_idat_207_200 <= 8'b00000000;
+      output_rsci_idat_215_208 <= 8'b00000000;
+      output_rsci_idat_223_216 <= 8'b00000000;
+      output_rsci_idat_231_224 <= 8'b00000000;
+      output_rsci_idat_239_232 <= 8'b00000000;
+      output_rsci_idat_247_240 <= 8'b00000000;
+      output_rsci_idat_255_248 <= 8'b00000000;
+      output_rsci_idat_263_256 <= 8'b00000000;
+      output_rsci_idat_271_264 <= 8'b00000000;
+      output_rsci_idat_279_272 <= 8'b00000000;
+      output_rsci_idat_287_280 <= 8'b00000000;
+      output_rsci_idat_295_288 <= 8'b00000000;
+      output_rsci_idat_303_296 <= 8'b00000000;
+      output_rsci_idat_311_304 <= 8'b00000000;
+      output_rsci_idat_319_312 <= 8'b00000000;
+      output_rsci_idat_327_320 <= 8'b00000000;
+      output_rsci_idat_335_328 <= 8'b00000000;
+      output_rsci_idat_343_336 <= 8'b00000000;
+      output_rsci_idat_351_344 <= 8'b00000000;
+      output_rsci_idat_359_352 <= 8'b00000000;
+      output_rsci_idat_367_360 <= 8'b00000000;
+      output_rsci_idat_375_368 <= 8'b00000000;
+      output_rsci_idat_383_376 <= 8'b00000000;
+    end
+    else if ( ac_fixed_8_1_false_AC_TRN_AC_WRAP_bit_fill_1_and_cse ) begin
+      output_rsci_idat_7_0 <= REDUCE_LOOP_1_rshift_itm;
+      output_rsci_idat_15_8 <= REDUCE_LOOP_2_rshift_itm;
+      output_rsci_idat_23_16 <= REDUCE_LOOP_3_rshift_itm;
+      output_rsci_idat_31_24 <= REDUCE_LOOP_4_rshift_itm;
+      output_rsci_idat_39_32 <= REDUCE_LOOP_5_rshift_itm;
+      output_rsci_idat_47_40 <= REDUCE_LOOP_6_rshift_itm;
+      output_rsci_idat_55_48 <= REDUCE_LOOP_7_rshift_itm;
+      output_rsci_idat_63_56 <= REDUCE_LOOP_8_rshift_itm;
+      output_rsci_idat_71_64 <= REDUCE_LOOP_9_rshift_itm;
+      output_rsci_idat_79_72 <= REDUCE_LOOP_10_rshift_itm;
+      output_rsci_idat_87_80 <= REDUCE_LOOP_11_rshift_itm;
+      output_rsci_idat_95_88 <= REDUCE_LOOP_12_rshift_itm;
+      output_rsci_idat_103_96 <= REDUCE_LOOP_13_rshift_itm;
+      output_rsci_idat_111_104 <= REDUCE_LOOP_14_rshift_itm;
+      output_rsci_idat_119_112 <= REDUCE_LOOP_15_rshift_itm;
+      output_rsci_idat_127_120 <= REDUCE_LOOP_16_rshift_itm;
+      output_rsci_idat_135_128 <= REDUCE_LOOP_17_rshift_itm;
+      output_rsci_idat_143_136 <= REDUCE_LOOP_18_rshift_itm;
+      output_rsci_idat_151_144 <= REDUCE_LOOP_19_rshift_itm;
+      output_rsci_idat_159_152 <= REDUCE_LOOP_20_rshift_itm;
+      output_rsci_idat_167_160 <= REDUCE_LOOP_21_rshift_itm;
+      output_rsci_idat_175_168 <= REDUCE_LOOP_22_rshift_itm;
+      output_rsci_idat_183_176 <= REDUCE_LOOP_23_rshift_itm;
+      output_rsci_idat_191_184 <= REDUCE_LOOP_24_rshift_itm;
+      output_rsci_idat_199_192 <= REDUCE_LOOP_25_rshift_itm;
+      output_rsci_idat_207_200 <= REDUCE_LOOP_26_rshift_itm;
+      output_rsci_idat_215_208 <= REDUCE_LOOP_27_rshift_itm;
+      output_rsci_idat_223_216 <= REDUCE_LOOP_28_rshift_itm;
+      output_rsci_idat_231_224 <= REDUCE_LOOP_29_rshift_itm;
+      output_rsci_idat_239_232 <= REDUCE_LOOP_30_rshift_itm;
+      output_rsci_idat_247_240 <= REDUCE_LOOP_31_rshift_itm;
+      output_rsci_idat_255_248 <= REDUCE_LOOP_32_rshift_itm;
+      output_rsci_idat_263_256 <= REDUCE_LOOP_33_rshift_itm;
+      output_rsci_idat_271_264 <= REDUCE_LOOP_34_rshift_itm;
+      output_rsci_idat_279_272 <= REDUCE_LOOP_35_rshift_itm;
+      output_rsci_idat_287_280 <= REDUCE_LOOP_36_rshift_itm;
+      output_rsci_idat_295_288 <= REDUCE_LOOP_37_rshift_itm;
+      output_rsci_idat_303_296 <= REDUCE_LOOP_38_rshift_itm;
+      output_rsci_idat_311_304 <= REDUCE_LOOP_39_rshift_itm;
+      output_rsci_idat_319_312 <= REDUCE_LOOP_40_rshift_itm;
+      output_rsci_idat_327_320 <= REDUCE_LOOP_41_rshift_itm;
+      output_rsci_idat_335_328 <= REDUCE_LOOP_42_rshift_itm;
+      output_rsci_idat_343_336 <= REDUCE_LOOP_43_rshift_itm;
+      output_rsci_idat_351_344 <= REDUCE_LOOP_44_rshift_itm;
+      output_rsci_idat_359_352 <= REDUCE_LOOP_45_rshift_itm;
+      output_rsci_idat_367_360 <= REDUCE_LOOP_46_rshift_itm;
+      output_rsci_idat_375_368 <= REDUCE_LOOP_47_rshift_itm;
+      output_rsci_idat_383_376 <= REDUCE_LOOP_48_rshift_itm;
+    end
+  end
+  always @(posedge clk) begin
+    if ( rst ) begin
+      reg_output_rsc_triosy_obj_ld_core_psct_cse <= 1'b0;
+    end
+    else if ( core_wen ) begin
+      reg_output_rsc_triosy_obj_ld_core_psct_cse <= fsm_output[1];
+    end
+  end
+
+  function automatic [3:0] MUX_v_4_2_2;
+    input [3:0] input_0;
+    input [3:0] input_1;
+    input [0:0] sel;
+    reg [3:0] result;
+  begin
+    case (sel)
+      1'b0 : begin
+        result = input_0;
+      end
+      default : begin
+        result = input_1;
+      end
+    endcase
+    MUX_v_4_2_2 = result;
+  end
+  endfunction
+
+
+  function automatic [0:0] readslicef_5_1_4;
+    input [4:0] vector;
+    reg [4:0] tmp;
+  begin
+    tmp = vector >> 4;
+    readslicef_5_1_4 = tmp[0:0];
+  end
+  endfunction
+
+
+  function automatic [0:0] readslicef_6_1_5;
+    input [5:0] vector;
+    reg [5:0] tmp;
+  begin
+    tmp = vector >> 5;
+    readslicef_6_1_5 = tmp[0:0];
+  end
+  endfunction
+
+
+  function automatic [5:0] conv_u2s_5_6 ;
+    input [4:0]  vector ;
+  begin
+    conv_u2s_5_6 =  {1'b0, vector};
+  end
+  endfunction
+
+endmodule
+
+// ------------------------------------------------------------------
+//  Design Unit:    converter
+// ------------------------------------------------------------------
+
+
+module converter (
+  clk, rst, input_rsc_dat, input_rsc_vld, input_rsc_rdy, input_rsc_triosy_lz, output_rsc_dat,
+      output_rsc_vld, output_rsc_rdy, output_rsc_triosy_lz
+);
+  input clk;
+  input rst;
+  input [1055:0] input_rsc_dat;
+  input input_rsc_vld;
+  output input_rsc_rdy;
+  output input_rsc_triosy_lz;
+  output [383:0] output_rsc_dat;
+  output output_rsc_vld;
+  input output_rsc_rdy;
+  output output_rsc_triosy_lz;
+
+
+
+  // Interconnect Declarations for Component Instantiations 
+  converter_core converter_core_inst (
+      .clk(clk),
+      .rst(rst),
+      .input_rsc_dat(input_rsc_dat),
+      .input_rsc_vld(input_rsc_vld),
+      .input_rsc_rdy(input_rsc_rdy),
+      .input_rsc_triosy_lz(input_rsc_triosy_lz),
+      .output_rsc_dat(output_rsc_dat),
+      .output_rsc_vld(output_rsc_vld),
+      .output_rsc_rdy(output_rsc_rdy),
+      .output_rsc_triosy_lz(output_rsc_triosy_lz)
+    );
+endmodule
+
+
+

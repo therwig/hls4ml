@@ -41,8 +41,8 @@ solution options set Flows/DesignCompiler/OutNetlistFormat verilog
 solution options set /Input/CppStandard c++11
 #solution options set /Input/TargetPlatform x86_64
 
-solution options set Cache/UserCacheHome "catapul_104c_cache"
-#solution options set Cache/UserCacheHome "catapul_105beta_cache"
+set CATAPULT_VERSION  [string map { / - } [string map { . - } [application get /SYSTEM/RELEASE_VERSION]]]
+solution options set Cache/UserCacheHome "catapult_cache_$CATAPULT_VERSION"
 solution options set Cache/DefaultCacheHomeEnabled false
 
 flow package require /SCVerify
@@ -205,25 +205,25 @@ if {$opt(hsynth)} {
 
     # Top-Module I/O
 
-    directive set /econ_4x4_d10/input_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
+    directive set /econ_4x4_d10/input_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
     directive set /econ_4x4_d10/input_1:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/layer5_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
+    directive set /econ_4x4_d10/layer5_out:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_wait
     directive set /econ_4x4_d10/layer5_out:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/const_size_in_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
-    directive set /econ_4x4_d10/const_size_out_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_vld
+    directive set /econ_4x4_d10/const_size_in_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_wait
+    directive set /econ_4x4_d10/const_size_out_1:rsc -MAP_TO_MODULE ccs_ioport.ccs_out_wait
 
-    directive set /econ_4x4_d10/w2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
+    directive set /econ_4x4_d10/w2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
     directive set /econ_4x4_d10/w2:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/b2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
+    directive set /econ_4x4_d10/b2:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
     directive set /econ_4x4_d10/b2:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/w4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
+    directive set /econ_4x4_d10/w4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
     directive set /econ_4x4_d10/w4:rsc -PACKING_MODE sidebyside
 
-    directive set /econ_4x4_d10/b4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_vld
+    directive set /econ_4x4_d10/b4:rsc -MAP_TO_MODULE ccs_ioport.ccs_in_wait
     directive set /econ_4x4_d10/b4:rsc -PACKING_MODE sidebyside
 
     # Arrays
@@ -260,6 +260,8 @@ if {$opt(hsynth)} {
     directive set /econ_4x4_d10/core/MultLoop -UNROLL yes
     directive set /econ_4x4_d10/core/Result -UNROLL yes
     directive set /econ_4x4_d10/core/nnet::relu<layer4_t,result_t,relu_config5>:for -UNROLL yes
+
+    directive set /econ_4x4_d10/core/main -PIPELINE_INIT_INTERVAL 1
 
     #directive set /econ_4x4_d10 -CLUSTER multadd
 
