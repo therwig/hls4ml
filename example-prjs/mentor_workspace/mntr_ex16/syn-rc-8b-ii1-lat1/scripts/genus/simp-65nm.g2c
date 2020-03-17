@@ -44,4 +44,4 @@ set_db / .library { tcbn65lp_220a/tcbn65lpwc.lib \
 #set_db / .cap_table_file <file>
 #set_db / .qrc_tech_file <file>
 
-source common.tcl
+source scripts/genus/common.tcl
