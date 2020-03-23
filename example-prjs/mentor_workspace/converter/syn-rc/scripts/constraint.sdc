@@ -9,7 +9,7 @@ set_driving_cell -no_design_rule -library NangateOpenCellLibrary -lib_cell BUF_X
 create_clock -name clk -period 25.0 -waveform { 0.0 12.5 } [get_ports {clk}]
 set_clock_uncertainty 0.0 [get_clocks {clk}]
 
-create_clock -name virtual_io_clk -period 25.0
+create_clock -name virtual_io_clk -period 20.0
 ## IO TIMING CONSTRAINTS
 set_input_delay -clock [get_clocks {clk}] 0.0 [get_ports {rst}]
 set_input_delay -clock [get_clocks {clk}] 0.0 [get_ports {input_rsc_dat[*]}]

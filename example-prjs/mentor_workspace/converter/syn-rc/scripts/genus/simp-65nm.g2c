@@ -2,7 +2,7 @@
 ## Preset global variables and attributes
 ##############################################################################
 
-set DESIGN econ_4x4_d10
+set DESIGN converter
 set SYN_EFF high
 set MAP_EFF high
 #set SYN_EFF medium
@@ -44,4 +44,4 @@ set_db / .library { tcbn65lp_220a/tcbn65lpwc.lib \
 #set_db / .cap_table_file <file>
 #set_db / .qrc_tech_file <file>
 
-source common.tcl
+source scripts/genus/common.tcl
